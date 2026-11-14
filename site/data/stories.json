@@ -493,9 +493,24 @@
       ]
      },
      {
+      "check": true,
+      "h": "Second check: NASA HLS (Landsat 8/9 and Sentinel-2)",
+      "p": "NASA's Harmonized Landsat Sentinel-2 product adds Landsat passes, so we checked all 39 HLS overpasses from 20 June to 12 November. Clear Landsat views give 22.2 km² on 30 August and 23.9 km² on 15 September (radar 28.0 km² four days later), in line with the Sentinel-2 check. On 1 October everything was under cloud. But on 9 October and 2 November, four days before the radar dips of 13 October and 6 November, Landsat saw about 90% of the reservoir free of cloud, and 90% and 96% of the 15 September water surface was still water. The radar meanwhile fell by about 30%. So the autumn dips are mostly a radar effect (most likely wind or rain roughening the water), with at most a small real retreat in early October.",
+      "src": [
+       [
+        "NASA HLS v2.0, Landsat 8/9 (HLSL30), LP DAAC",
+        "https://doi.org/10.5067/HLS/HLSL30.002"
+       ],
+       [
+        "NASA HLS v2.0, Sentinel-2 (HLSS30), LP DAAC",
+        "https://doi.org/10.5067/HLS/HLSS30.002"
+       ]
+      ]
+     },
+     {
       "h": "How sure are we",
       "conf": true,
-      "p": "High that the reservoir grew during summer 2026: optical images confirm it. Medium for the exact areas, which are 8 to 31% above optical. The autumn dips are most likely wind. The water mask uses the same fixed threshold as Nurek (−11.9 dB; a local Otsu threshold around the reservoir gives −11.3 dB) and cuts thin links to dark slopes. We measure water area, not water level. NISAR data used here are provisional."
+      "p": "High that the reservoir grew during summer 2026: optical images confirm it. Medium for the exact areas, which are 8 to 31% above optical. The autumn dips are mostly a radar effect: Landsat four days before two of them still shows 90 to 96% of the September water. The water mask uses the same fixed threshold as Nurek (−11.9 dB; a local Otsu threshold around the reservoir gives −11.3 dB) and cuts thin links to dark slopes. We measure water area, not water level. NISAR data used here are provisional."
      }
     ],
     "ru": [
@@ -537,9 +552,24 @@
       ]
      },
      {
+      "check": true,
+      "h": "Вторая проверка: NASA HLS (Landsat 8/9 и Sentinel-2)",
+      "p": "Продукт NASA Harmonized Landsat Sentinel-2 добавляет пролёты Landsat, поэтому мы проверили все 39 пролётов HLS с 20 июня по 12 ноября. Безоблачные снимки Landsat дают 22.2 км² 30 августа и 23.9 км² 15 сентября (радар через четыре дня 28.0 км²), это совпадает с проверкой по Sentinel-2. 1 октября всё было закрыто облаками. Но 9 октября и 2 ноября, за четыре дня до радарных провалов 13 октября и 6 ноября, Landsat видел около 90% водохранилища без облаков, и 90% и 96% водной поверхности 15 сентября всё ещё были водой. Радар в те же дни упал примерно на 30%. Значит, осенние провалы — в основном эффект радара (скорее всего, рябь от ветра или дождя на воде), а реальное отступание воды в начале октября было в лучшем случае небольшим.",
+      "src": [
+       [
+        "NASA HLS v2.0, Landsat 8/9 (HLSL30), LP DAAC",
+        "https://doi.org/10.5067/HLS/HLSL30.002"
+       ],
+       [
+        "NASA HLS v2.0, Sentinel-2 (HLSS30), LP DAAC",
+        "https://doi.org/10.5067/HLS/HLSS30.002"
+       ]
+      ]
+     },
+     {
       "h": "Насколько мы уверены",
       "conf": true,
-      "p": "Высоко в том, что водохранилище выросло летом 2026: это подтверждают оптические снимки. Средне для точных площадей, они на 8–31% выше оптических. Осенние провалы, скорее всего, вызваны ветром. Маска воды использует тот же фиксированный порог, что у Нурека (−11.9 дБ; локальный порог Оцу вокруг водохранилища даёт −11.3 дБ), и отрезает тонкие перемычки к тёмным склонам. Мы измеряем площадь воды, а не уровень. Данные NISAR здесь предварительные (provisional)."
+      "p": "Высоко в том, что водохранилище выросло летом 2026: это подтверждают оптические снимки. Средне для точных площадей, они на 8–31% выше оптических. Осенние провалы — в основном эффект радара: Landsat за четыре дня до двух из них всё ещё видит 90–96% сентябрьской воды. Маска воды использует тот же фиксированный порог, что у Нурека (−11.9 дБ; локальный порог Оцу вокруг водохранилища даёт −11.3 дБ), и отрезает тонкие перемычки к тёмным склонам. Мы измеряем площадь воды, а не уровень. Данные NISAR здесь предварительные (provisional)."
      }
     ]
    },
@@ -594,7 +624,7 @@
      },
      {
       "h": "Why we probably miss it (hypotheses)",
-      "p": "The optical check below shows the main reasons: the flow channel is only 20 to 40 m wide, one or two radar pixels, and the villages sit among orchards where coherence is low on every date, so a change does not stand out. Steep valley walls may also hide parts of the upper gullies in radar shadow or layover; we have not checked that in detail."
+      "p": "The optical check below shows the main reasons: the flow channel is mostly 30 to 40 m wide, two radar pixels or less, and the villages sit among orchards where coherence is low on every date, so a change does not stand out. Steep valley walls may also hide parts of the upper gullies in radar shadow or layover; we have not checked that in detail."
      },
      {
       "h": "Why we show it",
@@ -603,7 +633,7 @@
      {
       "check": true,
       "h": "Independent check: where the mudflow went",
-      "p": "Comparing clear Sentinel-2 images from 16 and 26 July (layer 'Optical change'), we found fresh bare ground where vegetation disappeared: a 2.6 ha fan where a gully leaves the mountain at Barrushon, and a channel about 2 km long but only 20 to 40 m wide crossing the orchards east of Derushon. On these traces radar coherence dipped in the pair spanning the event (Barrushon fan 0.49 to 0.38, channel 0.63 to 0.48), but only by 0.1 to 0.15, half of what our test requires and of what Ayni showed. The channel is only one or two radar pixels wide, and the orchards keep coherence low all season, so the change does not stand out.",
+      "p": "Comparing clear Sentinel-2 images from 16 and 26 July (layer 'Optical change'), we found fresh bare ground where vegetation disappeared: a 2.6 ha fan where a gully leaves the mountain at Barrushon, and a chain of patches about 1.8 km long crossing the orchards east of Derushon, mostly 30 to 40 m wide and up to about 80 m near the river. A harvest is unlikely to explain this: across about 1,000 ha of green fields and orchards away from the gullies, only 1% of the land lost as much greenness in the same ten days, and only as scattered single pixels. On these traces radar coherence dipped in the pair spanning the event (Barrushon fan 0.49 to 0.38, channel 0.63 to 0.48), but only by 0.1 to 0.15, half of what our test requires and of what Ayni showed. Most of the channel is two radar pixels wide or less, and the orchards keep coherence low all season, so the change does not stand out.",
       "src": [
        [
         "Sentinel-2 L2A (AWS Open Data)",
@@ -613,7 +643,7 @@
      },
      {
       "h": "How sure are we",
-      "p": "High that this event is not visible with our method and these products. Medium that the optical traces are the 20 July mudflow: their shapes follow gullies and they appeared between 16 and 26 July, but harvest or construction can also remove vegetation. NISAR data used here are provisional.",
+      "p": "High that this event is not visible with our method and these products. Medium that the optical traces are the 20 July mudflow: their shapes follow gullies and they appeared between 16 and 26 July, and fields elsewhere in the valley stayed green in those days; without ground photos we still cannot rule out construction or a local harvest. NISAR data used here are provisional.",
       "conf": true
      }
     ],
@@ -638,7 +668,7 @@
      },
      {
       "h": "Почему радар, вероятно, не видит (гипотезы)",
-      "p": "Оптическая проверка ниже показывает главные причины: русло селя шириной всего 20–40 м, это один-два радарных пикселя, а сёла стоят среди садов, где когерентность низкая на всех датах, поэтому изменение не выделяется. Крутые склоны долины могут ещё и прятать часть верхних оврагов в радарной тени или наложении; это мы подробно не проверяли."
+      "p": "Оптическая проверка ниже показывает главные причины: русло селя в основном шириной 30–40 м, это не больше двух радарных пикселей, а сёла стоят среди садов, где когерентность низкая на всех датах, поэтому изменение не выделяется. Крутые склоны долины могут ещё и прятать часть верхних оврагов в радарной тени или наложении; это мы подробно не проверяли."
      },
      {
       "h": "Зачем мы это показываем",
@@ -647,7 +677,7 @@
      {
       "check": true,
       "h": "Независимая проверка: куда сошёл сель",
-      "p": "Сравнив безоблачные снимки Sentinel-2 за 16 и 26 июля (слой «Оптические изменения»), мы нашли свежий голый грунт там, где исчезла растительность: конус выноса 2.6 га у выхода оврага из горы в Баррушоне и русло длиной около 2 км, но шириной всего 20–40 м, через сады восточнее Дерушона. На этих следах когерентность радара в паре через событие снизилась (конус в Баррушоне с 0.49 до 0.38, русло с 0.63 до 0.48), но лишь на 0.1–0.15: это вдвое меньше порога нашего теста и того, что было в Айни. Русло шириной всего один-два радарных пикселя, а сады держат когерентность низкой весь сезон, поэтому изменение не выделяется.",
+      "p": "Сравнив безоблачные снимки Sentinel-2 за 16 и 26 июля (слой «Оптические изменения»), мы нашли свежий голый грунт там, где исчезла растительность: конус выноса 2.6 га у выхода оврага из горы в Баррушоне и цепочку пятен длиной около 1.8 км через сады восточнее Дерушона, в основном шириной 30–40 м и до 80 м у реки. Уборкой урожая это объяснить трудно: на примерно 1000 га зелёных полей и садов вдали от оврагов за те же десять дней так же сильно потеряли зелень только 1% площади, и то отдельными пикселями. На этих следах когерентность радара в паре через событие снизилась (конус в Баррушоне с 0.49 до 0.38, русло с 0.63 до 0.48), но лишь на 0.1–0.15: это вдвое меньше порога нашего теста и того, что было в Айни. Русло в основном не шире двух радарных пикселей, а сады держат когерентность низкой весь сезон, поэтому изменение не выделяется.",
       "src": [
        [
         "Sentinel-2 L2A (AWS Open Data)",
@@ -657,7 +687,7 @@
      },
      {
       "h": "Насколько мы уверены",
-      "p": "Высоко в том, что это событие не видно нашим методом и в этих продуктах. Средне в том, что найденные на оптике следы — это сель 20 июля: их форма повторяет овраги и они появились между 16 и 26 июля, но растительность может исчезнуть и из-за уборки урожая или строительства. Данные NISAR здесь предварительные (provisional).",
+      "p": "Высоко в том, что это событие не видно нашим методом и в этих продуктах. Средне в том, что найденные на оптике следы — это сель 20 июля: их форма повторяет овраги и они появились между 16 и 26 июля, а поля в других частях долины в эти дни остались зелёными; без фото с места мы всё же не можем исключить стройку или уборку на отдельных участках. Данные NISAR здесь предварительные (provisional).",
       "conf": true
      }
     ]
@@ -745,6 +775,10 @@
     "https://registry.opendata.aws/sentinel-2-l2a-cogs/"
    ],
    [
+    "Second optical check: NASA Harmonized Landsat Sentinel-2 (HLS) v2.0, LP DAAC",
+    "https://doi.org/10.5067/HLS/HLSL30.002"
+   ],
+   [
     "Rain and wind: ERA5 reanalysis (Copernicus Climate Change Service) via the Open-Meteo archive API (CC BY 4.0)",
     "https://open-meteo.com/en/docs/historical-weather-api"
    ],
@@ -769,6 +803,10 @@
    [
     "Оптическая проверка: Copernicus Sentinel-2 L2A (contains modified Copernicus Sentinel data 2026), AWS Open Data",
     "https://registry.opendata.aws/sentinel-2-l2a-cogs/"
+   ],
+   [
+    "Вторая оптическая проверка: NASA Harmonized Landsat Sentinel-2 (HLS) v2.0, LP DAAC",
+    "https://doi.org/10.5067/HLS/HLSL30.002"
    ],
    [
     "Осадки и ветер: реанализ ERA5 (Copernicus Climate Change Service) через архив Open-Meteo (CC BY 4.0)",

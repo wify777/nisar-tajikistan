@@ -37,7 +37,10 @@
     dhh: { time: "dates", file: function (k) { return "dhh_" + k; }, legend: ["linear-gradient(90deg,#053061,rgba(247,247,247,.15),#67001f)", "-6", "+6", "dB"] },
     coh: { time: "pairs", file: function (k) { return "coh_" + k; }, legend: ["linear-gradient(90deg,#000004,#b73779,#fcfdbf)", "0", "1", ""] },
     cohchange: { time: null, file: function (k, s) { return "cohchange_" + s.eventPair; }, legend: ["linear-gradient(90deg,#67001f,rgba(247,247,247,.15),#053061)", "-0.6", "+0.6", ""] },
-    water: { time: "dates", file: function (k) { return "water_" + k; }, legend: ["linear-gradient(90deg,rgba(40,140,255,0.2),rgb(40,140,255))", "", "", ""] }
+    water: { time: "dates", file: function (k) { return "water_" + k; }, legend: ["linear-gradient(90deg,rgba(40,140,255,0.2),rgb(40,140,255))", "", "", ""] },
+    s2change: { time: null, file: function () { return "s2change"; }, legend: ["linear-gradient(90deg,#ff28c8,#ff28c8)", "", "", ""],
+      corners: function (st) { return st.s2change && st.s2change.corners; },
+      label: function (st) { return st.s2change.before + " → " + st.s2change.after + " · Sentinel-2"; } }
   };
   Object.assign(UI.en, {
     navStories: "Stories", navExplore: "Explore", navMethod: "Method", navData: "Data",
@@ -71,11 +74,11 @@
     repo: "Открытый код и метод на GitHub →", showZone: "Зона изменений", explore: "Открыть на карте",
     u1: "Выберите место: карточка выше, точка на карте или вкладка", u2: "Двигайте ползунок дат и переключайте радарные слои", u3: "Читайте вердикт и проверки под картой", u4: "Бесплатно, без регистрации, работает на телефоне"
   });
-  UI.en.L.water = "Water detected by radar"; UI.ru.L.water = "Вода по данным радара";
+  UI.en.L.water = "Water detected by radar"; UI.en.L.s2change = "Optical change 16 → 26 Jul (Sentinel-2)"; UI.ru.L.s2change = "Оптические изменения 16 → 26 июля (Sentinel-2)"; UI.ru.L.water = "Вода по данным радара";
   UI.en.chartWater = "Water area detected by radar (km²)"; UI.ru.chartWater = "Площадь воды по радару (км²)";
   UI.en.water = "water area"; UI.ru.water = "площадь воды";
   var state = { lang: "en", data: null, story: null, meta: null, series: null, layer: "cohchange", idx: 0, opacity: 0.85, zone: true };
-  var map, chart, ASSET_V = "6";
+  var map, chart, ASSET_V = "8";
   var $ = function (id) { return document.getElementById(id); };
   function t(k) { return UI[state.lang][k]; }
   function fmtDate(d) { return d.slice(0, 4) + "-" + d.slice(4, 6) + "-" + d.slice(6, 8); }
@@ -113,7 +116,7 @@
     state.data.stories.forEach(function (s) {
       var b = el("button", "scard tone-" + (s.tone || "stable")); b.type = "button";
       b.classList.toggle("on", !!state.story && state.story.id === s.id);
-      var img = el("img"); img.src = "img/" + s.id + ".jpg"; img.alt = ""; img.loading = "lazy"; img.width = 600; img.height = 450; b.appendChild(img);
+      var img = el("img"); img.src = "img/cards/" + s.id + ".jpg"; img.alt = ""; img.loading = "lazy"; img.width = 600; img.height = 450; b.appendChild(img);
       var body = el("div", "scard-body");
       body.appendChild(el("span", "verdict", s.verdict ? s.verdict[state.lang] : ""));
       body.appendChild(el("h3", null, s.title[state.lang]));
@@ -173,7 +176,7 @@
     updateMapLayers();
   }
   function updateMapLayers() {
-    var src = map.getSource("radar"), url = imgUrl(), c = state.meta.corners;
+    var Lc = LAYERS[state.layer], src = map.getSource("radar"), url = imgUrl(), c = (Lc.corners && Lc.corners(state.story)) || state.meta.corners;
     if (src) src.updateImage({ url: url, coordinates: c });
     else {
       map.addSource("radar", { type: "image", url: url, coordinates: c });
@@ -190,8 +193,8 @@
     var L = LAYERS[state.layer], keys = timeKeys(), sl = $("time-slider");
     sl.disabled = !L.time; sl.max = Math.max(0, keys.length - 1); sl.value = state.idx;
     $("time-label").textContent = L.time === "pairs" ? t("pair") : t("date");
-    var label = !L.time ? fmtPair(state.story.eventPair) : (L.time === "pairs" ? fmtPair(keys[state.idx]) : fmtDate(keys[state.idx]));
-    var isEvent = !!state.story.eventPair && (L.time === "pairs" ? keys[state.idx] === state.story.eventPair : !L.time);
+    var label = L.label ? L.label(state.story) : !L.time ? fmtPair(state.story.eventPair) : (L.time === "pairs" ? fmtPair(keys[state.idx]) : fmtDate(keys[state.idx]));
+    var isEvent = !L.label && !!state.story.eventPair && (L.time === "pairs" ? keys[state.idx] === state.story.eventPair : !L.time);
     $("time-value").textContent = label + (isEvent ? "  · " + t("event") : "");
     var lg = L.legend;
     $("legend").innerHTML = "<strong>" + UI[state.lang].L[state.layer] + "</strong><div class=\"bar\" style=\"background:" + lg[0] + "\"></div><div class=\"ends\"><span>" + lg[1] + " " + (lg[3] ? t("legendDb") : "") + "</span><span>" + lg[2] + " " + (lg[3] ? t("legendDb") : "") + "</span></div>";

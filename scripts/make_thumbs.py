@@ -1,5 +1,5 @@
 """Story thumbnails: a NISAR layer composited over the Sentinel-2 cloudless basemap (EOX tiles).
-Writes site/img/<story>.jpg. Usage: python scripts/make_thumbs.py"""
+Writes site/img/<story>.jpg (1200 px) and site/img/cards/<story>.jpg (600 px). Usage: python scripts/make_thumbs.py"""
 import io, json, math, os, requests, numpy as np
 from PIL import Image
 
@@ -44,4 +44,6 @@ for sid, layer in STORIES.items():
     if os.path.exists(zp):
         out = Image.alpha_composite(out, Image.open(zp).convert("RGBA").resize((OUT_W, H), Image.NEAREST))
     out.convert("RGB").save(f"site/img/{sid}.jpg", quality=82, optimize=True, progressive=True)
+    os.makedirs("site/img/cards", exist_ok=True)   # 600 px copy for the story cards
+    out.convert("RGB").resize((600, round(600 * H / OUT_W)), Image.LANCZOS).save(f"site/img/cards/{sid}.jpg", quality=78, optimize=True, progressive=True)
     print(sid, out.size, z)

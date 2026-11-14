@@ -30,3 +30,5 @@ datapack/
 *.zip
 ANALYSIS_TASKS_2.md
 nisar_tj_datapack/
+site/_shot*.html
+demo/

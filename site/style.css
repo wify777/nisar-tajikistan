@@ -134,6 +134,8 @@ section { margin-top: 64px; }
 .finding p { margin: 0 0 6px; }
 .finding.conf { grid-column: 1 / -1; background: var(--warm-soft); border-radius: 10px; padding: 14px 16px; margin-top: 12px; }
 .finding.conf h3 { color: var(--warm); }
+.finding.check { grid-column: 1 / -1; background: var(--accent-soft); border-radius: 10px; padding: 14px 16px; margin-top: 12px; }
+.finding.check h3::before { content: "✓ "; }
 .finding .src { font-size: 13px; color: var(--muted); }
 .finding a { overflow-wrap: anywhere; }
 

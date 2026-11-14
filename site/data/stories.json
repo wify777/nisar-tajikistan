@@ -51,6 +51,17 @@
       "p": "Heavy rain mobilised soil and stones on the steep slopes and small gullies that drain into Dargh and Kazdon. Moving material scrambles the radar phase, so coherence collapses. The lasting brightness increase suggests a rougher surface with fresh debris, not only wet soil, which would dry within days."
      },
      {
+      "check": true,
+      "h": "Independent checks",
+      "p": "Robustness: we re-ran the test with 27 combinations of threshold, smoothing and circle size; the pair spanning the mudflow ranked first in all 27. The same circle placed at 20 random spots elsewhere in the window gives 1 to 83 ha (mean 31 ha) for this pair: some change happened across the area, but the slopes above the villages stand out most. Rain: in the ERA5 reanalysis the mudflow pair had 23 mm of rain, while pairs with 25 mm and 39 mm show only 0.1 and 2.5 ha. Reanalysis cells are about 25 km wide and miss local cloudbursts, so the rain check supports the result but does not prove it.",
+      "src": [
+       [
+        "Open-Meteo archive (ERA5)",
+        "https://open-meteo.com/en/docs/historical-weather-api"
+       ]
+      ]
+     },
+     {
       "h": "How sure are we",
       "p": "Moderate to high for 'the surface above the villages changed between 9 and 21 July'. We cannot separate erosion from deposition precisely, and on 10 m optical images (Sentinel-2) the change is hardly visible. NISAR data used here are provisional.",
       "conf": true
@@ -86,6 +97,17 @@
      {
       "h": "Почему (наша гипотеза)",
       "p": "Сильный дождь сдвинул грунт и камни на крутых склонах и в мелких оврагах, стекающих к Даргу и Каздону. Перемещённый материал разрушает фазу радара, и когерентность падает. Долговременный рост яркости говорит о более шероховатой поверхности со свежими наносами, а не только о влажной почве, которая высохла бы за несколько дней."
+     },
+     {
+      "check": true,
+      "h": "Независимые проверки",
+      "p": "Устойчивость: мы повторили проверку с 27 сочетаниями порога, сглаживания и размера круга; пара через сель оказалась первой во всех 27. Тот же круг в 20 случайных местах окна даёт для этой пары от 1 до 83 га (в среднем 31 га): изменения были по всей округе, но склоны над сёлами выделяются сильнее всего. Дождь: по реанализу ERA5 в паре с селем выпало 23 мм, а в парах с 25 и 39 мм изменилось лишь 0.1 и 2.5 га. Ячейки реанализа около 25 км и не видят местных ливней, поэтому проверка по дождю поддерживает вывод, но не доказывает его.",
+      "src": [
+       [
+        "Open-Meteo archive (ERA5)",
+        "https://open-meteo.com/en/docs/historical-weather-api"
+       ]
+      ]
      },
      {
       "h": "Насколько мы уверены",
@@ -184,12 +206,27 @@
      },
      {
       "h": "What we do not see, and why",
-      "p": "No change was detected on the dam surface between passes. That does not prove the dam or the slopes are stable: slow movement of a few centimetres per year is too small to stand out in single 12-day pairs and needs a longer time series of radar phase. The ups and downs of the water area are mostly wind on the lake, not real level changes."
+      "p": "No change was detected on the dam surface between passes. That does not prove the dam or the slopes are stable: slow movement of a few centimetres per year is too small to stand out in single 12-day pairs and needs a longer time series of radar phase. We think the ups and downs of the water area are mostly caused by wind on the lake rather than real level changes."
      },
      {
       "h": "Why NISAR helps here",
       "p": "Clouds and long shadows often hide the Pamir from optical satellites. NISAR images the dam and the lake every 12 days in any weather, so a growing record can show slow trends and sudden changes over the coming years.",
       "conf": false
+     },
+     {
+      "check": true,
+      "h": "Independent checks",
+      "p": "Dam: four nearby slopes facing the same direction have a mean coherence of 0.43 to 0.63 over the same 8 pairs, the dam 0.67 to 0.73 (depending on the area measured), so its stability is not only an effect of orientation. Lake: on 5 Sentinel-2 dates close to radar passes the optical lake area is 26.1 to 29.2 km², radar gives 23.7 to 27.9 km². The lowest radar area (2 July) came with the strongest reanalysis wind of these dates, which fits the wind hypothesis, but all winds were below 1 m/s and there are only 5 dates, so it is not proof.",
+      "src": [
+       [
+        "Sentinel-2 L2A (AWS Open Data)",
+        "https://registry.opendata.aws/sentinel-2-l2a-cogs/"
+       ],
+       [
+        "Open-Meteo archive (ERA5)",
+        "https://open-meteo.com/en/docs/historical-weather-api"
+       ]
+      ]
      },
      {
       "h": "How sure are we",
@@ -218,11 +255,26 @@
      },
      {
       "h": "Чего мы не видим и почему",
-      "p": "На поверхности завала между пролётами изменений не обнаружено. Это не доказывает, что завал или склоны стабильны: медленное движение в несколько сантиметров в год слишком мало для отдельных 12-дневных пар и требует длинного ряда фазы радара. Колебания площади воды в основном вызваны ветром на озере, а не реальными изменениями уровня."
+      "p": "На поверхности завала между пролётами изменений не обнаружено. Это не доказывает, что завал или склоны стабильны: медленное движение в несколько сантиметров в год слишком мало для отдельных 12-дневных пар и требует длинного ряда фазы радара. Мы считаем, что колебания площади воды в основном вызваны ветром на озере, а не реальными изменениями уровня."
      },
      {
       "h": "Чем здесь помогает NISAR",
       "p": "Облака и длинные тени часто скрывают Памир от оптических спутников. NISAR снимает завал и озеро каждые 12 дней в любую погоду, поэтому накопленный ряд в ближайшие годы сможет показать и медленные тренды, и резкие изменения."
+     },
+     {
+      "check": true,
+      "h": "Независимые проверки",
+      "p": "Завал: четыре соседних склона с той же экспозицией имеют среднюю когерентность 0.43–0.63 по тем же 8 парам, завал — 0.67–0.73 (в зависимости от размера участка), то есть его устойчивость объясняется не только ориентацией. Озеро: на 5 датах Sentinel-2 рядом с пролётами радара оптическая площадь 26.1–29.2 км², радарная 23.7–27.9 км². Самая маленькая площадь на радаре (2 июля) совпала с самым сильным ветром по реанализу среди этих дат, что согласуется с гипотезой о ветре, но все скорости меньше 1 м/с и дат всего 5, так что это не доказательство.",
+      "src": [
+       [
+        "Sentinel-2 L2A (AWS Open Data)",
+        "https://registry.opendata.aws/sentinel-2-l2a-cogs/"
+       ],
+       [
+        "Open-Meteo archive (ERA5)",
+        "https://open-meteo.com/en/docs/historical-weather-api"
+       ]
+      ]
      },
      {
       "h": "Насколько мы уверены",
@@ -295,8 +347,19 @@
       "p": "Summer inflow from snow and glacier melt raises the water level, so the reservoir spreads over its gentle upper shores; from autumn the level can fall again. This matches the usual filling pattern of mountain reservoirs, but we have not yet confirmed Nurek's operating schedule with an official source."
      },
      {
+      "check": true,
+      "h": "Independent check: optical images",
+      "p": "On 5 cloud-free Sentinel-2 images from 29 June to 28 August, the same water body (water index MNDWI) grew from 23.5 to 29.3 km². Radar shows the same rise, from 24.8 to 31.6 km², but its areas are 5 to 13% larger than the optical ones. We have not yet found the reason for this offset.",
+      "src": [
+       [
+        "Sentinel-2 L2A (AWS Open Data)",
+        "https://registry.opendata.aws/sentinel-2-l2a-cogs/"
+       ]
+      ]
+     },
+     {
       "h": "How sure are we",
-      "p": "Medium. Wind can roughen the water and make it brighter, so some water may be missed on windy days. The threshold method and the 18 x 18 km window mean the numbers describe changes in this section, not the full reservoir. NISAR data used here are provisional.",
+      "p": "High for the summer rise, which optical Sentinel-2 images confirm; medium for the exact areas, which are 5 to 13% above the optical ones. Wind can roughen the water and make it brighter, so some water may be missed on windy days. The numbers describe an 18 x 18 km section, not the full reservoir. NISAR data used here are provisional.",
       "conf": true
      }
     ],
@@ -314,8 +377,19 @@
       "p": "Летний приток от таяния снега и ледников поднимает уровень, и вода разливается по пологим верхним берегам; с осени уровень может снижаться. Это совпадает с обычным режимом наполнения горных водохранилищ, но режим работы Нурека мы ещё не подтвердили официальным источником."
      },
      {
+      "check": true,
+      "h": "Независимая проверка: оптические снимки",
+      "p": "На 5 безоблачных снимках Sentinel-2 с 29 июня по 28 августа тот же водоём (водный индекс MNDWI) вырос с 23.5 до 29.3 км². Радар показывает такой же рост, с 24.8 до 31.6 км², но его площади на 5–13% больше оптических. Причину этого сдвига мы пока не нашли.",
+      "src": [
+       [
+        "Sentinel-2 L2A (AWS Open Data)",
+        "https://registry.opendata.aws/sentinel-2-l2a-cogs/"
+       ]
+      ]
+     },
+     {
       "h": "Насколько мы уверены",
-      "p": "Средне. Ветер делает воду шероховатой и светлее, поэтому в ветреные дни часть воды может не попасть в маску. Метод порога и окно 18 × 18 км означают, что числа описывают изменения на этом участке, а не во всём водохранилище. Данные NISAR здесь предварительные (provisional).",
+      "p": "Высоко для летнего роста, его подтверждают оптические снимки Sentinel-2; средне для точных площадей, они на 5–13% выше оптических. Ветер делает воду шероховатой и светлее, поэтому в ветреные дни часть воды может не попасть в маску. Числа описывают участок 18 × 18 км, а не всё водохранилище. Данные NISAR здесь предварительные (provisional).",
       "conf": true
      }
     ]
@@ -491,6 +565,10 @@
     "https://registry.opendata.aws/sentinel-2-l2a-cogs/"
    ],
    [
+    "Rain and wind: ERA5 reanalysis (Copernicus Climate Change Service) via the Open-Meteo archive API (CC BY 4.0)",
+    "https://open-meteo.com/en/docs/historical-weather-api"
+   ],
+   [
     "Data processing: Python (h5py, numpy, pyproj, rasterio). Web: MapLibre GL JS, Chart.js",
     ""
    ],
@@ -511,6 +589,10 @@
    [
     "Оптическая проверка: Copernicus Sentinel-2 L2A (contains modified Copernicus Sentinel data 2026), AWS Open Data",
     "https://registry.opendata.aws/sentinel-2-l2a-cogs/"
+   ],
+   [
+    "Осадки и ветер: реанализ ERA5 (Copernicus Climate Change Service) через архив Open-Meteo (CC BY 4.0)",
+    "https://open-meteo.com/en/docs/historical-weather-api"
    ],
    [
     "Обработка данных: Python (h5py, numpy, pyproj, rasterio). Сайт: MapLibre GL JS, Chart.js",

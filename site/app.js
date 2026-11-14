@@ -73,7 +73,7 @@
   UI.en.chartWater = "Water area detected by radar (km²)"; UI.ru.chartWater = "Площадь воды по радару (км²)";
   UI.en.water = "water area"; UI.ru.water = "площадь воды";
   var state = { lang: "en", data: null, story: null, meta: null, series: null, layer: "cohchange", idx: 0, opacity: 0.85, zone: true };
-  var map, chart, ASSET_V = "4";
+  var map, chart, ASSET_V = "5";
   var $ = function (id) { return document.getElementById(id); };
   function t(k) { return UI[state.lang][k]; }
   function fmtDate(d) { return d.slice(0, 4) + "-" + d.slice(4, 6) + "-" + d.slice(6, 8); }
@@ -136,7 +136,7 @@
     $("detail-stat-label").textContent = s.statLabel ? s.statLabel[state.lang] : "";
     var f = $("findings"); f.innerHTML = "";
     s.findings[state.lang].forEach(function (b) {
-      var box = el("div", "finding" + (b.conf ? " conf" : ""));
+      var box = el("div", "finding" + (b.conf ? " conf" : "") + (b.check ? " check" : ""));
       box.appendChild(el("h3", null, b.h)); box.appendChild(el("p", null, b.p));
       if (b.src) {
         var ps = el("p", "src", t("sources") + ": ");

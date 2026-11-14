@@ -24,3 +24,8 @@ team-guide-sars.html
 /index.html
 scripts/analyze.py
 scripts/compare_regions.py
+
+# data pack and internal task notes
+datapack/
+*.zip
+ANALYSIS_TASKS_2.md

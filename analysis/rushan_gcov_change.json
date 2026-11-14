@@ -1,0 +1,27 @@
+{
+ "name": "rushan",
+ "before": "20260714",
+ "after": "20260726",
+ "dHH": {
+  "mean": -0.25,
+  "p5": -4.1,
+  "p95": 3.47,
+  "frac_gt3": 0.0727,
+  "frac_lt_m3": 0.1064
+ },
+ "dHV": {
+  "mean": 0.12,
+  "p5": -3.46,
+  "p95": 3.64,
+  "frac_gt3": 0.0854,
+  "frac_lt_m3": 0.0719
+ },
+ "near_Barrushon": {
+  "dHH_mean": -0.04,
+  "dHV_mean": 0.21
+ },
+ "near_Dehrushon": {
+  "dHH_mean": 0.06,
+  "dHV_mean": 0.17
+ }
+}

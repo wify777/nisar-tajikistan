@@ -1,0 +1,26 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+.env.*
+*token*
+*.h5
+*.npy
+raw/
+.DS_Store
+cache/
+.sessions/
+.claude/
+
+# internal team notes (not part of the public project)
+BRIEF_FOR_TEAMMATE.md
+FRIEND_TASKS.md
+HOTSPOTS_RESEARCH.md
+PLAN.md
+PLAN_SARS.md
+TEAM_GUIDE_SARS.md
+RESEARCH_SITES.md
+team-guide-sars.html
+/index.html
+scripts/analyze.py
+scripts/compare_regions.py

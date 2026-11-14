@@ -1,0 +1,304 @@
+{
+ "Nurek reservoir": {
+  "granules": 35,
+  "best": [
+   {
+    "track": "084",
+    "dir": "A",
+    "frame": "021",
+    "pol": "DHDH",
+    "dates": 12,
+    "first": "20260620",
+    "last": "20261111"
+   },
+   {
+    "track": "012",
+    "dir": "A",
+    "frame": "021",
+    "pol": "DHDH",
+    "dates": 11,
+    "first": "20260627",
+    "last": "20261106"
+   },
+   {
+    "track": "092",
+    "dir": "D",
+    "frame": "069",
+    "pol": "DHDH",
+    "dates": 6,
+    "first": "20260702",
+    "last": "20261030"
+   }
+  ]
+ },
+ "Rogun / Vakhsh upper": {
+  "granules": 55,
+  "best": [
+   {
+    "track": "084",
+    "dir": "A",
+    "frame": "021",
+    "pol": "DHDH",
+    "dates": 16,
+    "first": "20251128",
+    "last": "20261111"
+   },
+   {
+    "track": "012",
+    "dir": "A",
+    "frame": "021",
+    "pol": "DHDH",
+    "dates": 11,
+    "first": "20260627",
+    "last": "20261106"
+   },
+   {
+    "track": "092",
+    "dir": "D",
+    "frame": "069",
+    "pol": "DHDH",
+    "dates": 11,
+    "first": "20260620",
+    "last": "20261030"
+   }
+  ]
+ },
+ "Kayrakkum reservoir": {
+  "granules": 22,
+  "best": [
+   {
+    "track": "084",
+    "dir": "A",
+    "frame": "022",
+    "pol": "DHDH",
+    "dates": 11,
+    "first": "20260620",
+    "last": "20261030"
+   },
+   {
+    "track": "020",
+    "dir": "D",
+    "frame": "068",
+    "pol": "DHDH",
+    "dates": 10,
+    "first": "20260627",
+    "last": "20261025"
+   },
+   {
+    "track": "020",
+    "dir": "D",
+    "frame": "068",
+    "pol": "SHSH",
+    "dates": 1,
+    "first": "20260907",
+    "last": "20260907"
+   }
+  ]
+ },
+ "Lake Sarez": {
+  "granules": 56,
+  "best": [
+   {
+    "track": "084",
+    "dir": "A",
+    "frame": "021",
+    "pol": "DHDH",
+    "dates": 16,
+    "first": "20251128",
+    "last": "20261111"
+   },
+   {
+    "track": "156",
+    "dir": "A",
+    "frame": "021",
+    "pol": "DHDH",
+    "dates": 11,
+    "first": "20260625",
+    "last": "20261104"
+   },
+   {
+    "track": "164",
+    "dir": "D",
+    "frame": "069",
+    "pol": "DHDH",
+    "dates": 10,
+    "first": "20260625",
+    "last": "20261023"
+   }
+  ]
+ },
+ "Lake Karakul": {
+  "granules": 33,
+  "best": [
+   {
+    "track": "156",
+    "dir": "A",
+    "frame": "021",
+    "pol": "DHDH",
+    "dates": 11,
+    "first": "20260625",
+    "last": "20261104"
+   },
+   {
+    "track": "055",
+    "dir": "A",
+    "frame": "021",
+    "pol": "DHDH",
+    "dates": 11,
+    "first": "20260618",
+    "last": "20261028"
+   },
+   {
+    "track": "164",
+    "dir": "D",
+    "frame": "069",
+    "pol": "DHDH",
+    "dates": 10,
+    "first": "20260625",
+    "last": "20261023"
+   }
+  ]
+ },
+ "Vakhsh valley fields": {
+  "granules": 13,
+  "best": [
+   {
+    "track": "012",
+    "dir": "A",
+    "frame": "021",
+    "pol": "DHDH",
+    "dates": 11,
+    "first": "20260627",
+    "last": "20261106"
+   },
+   {
+    "track": "020",
+    "dir": "D",
+    "frame": "069",
+    "pol": "DHDH",
+    "dates": 2,
+    "first": "20260721",
+    "last": "20261025"
+   }
+  ]
+ },
+ "Hissar valley fields": {
+  "granules": 17,
+  "best": [
+   {
+    "track": "012",
+    "dir": "A",
+    "frame": "021",
+    "pol": "DHDH",
+    "dates": 11,
+    "first": "20260627",
+    "last": "20261106"
+   },
+   {
+    "track": "121",
+    "dir": "D",
+    "frame": "069",
+    "pol": "DHDH",
+    "dates": 4,
+    "first": "20260704",
+    "last": "20261008"
+   },
+   {
+    "track": "020",
+    "dir": "D",
+    "frame": "069",
+    "pol": "DHDH",
+    "dates": 2,
+    "first": "20260721",
+    "last": "20261025"
+   }
+  ]
+ },
+ "Fedchenko glacier": {
+  "granules": 60,
+  "best": [
+   {
+    "track": "084",
+    "dir": "A",
+    "frame": "021",
+    "pol": "DHDH",
+    "dates": 16,
+    "first": "20251128",
+    "last": "20261111"
+   },
+   {
+    "track": "156",
+    "dir": "A",
+    "frame": "021",
+    "pol": "DHDH",
+    "dates": 11,
+    "first": "20260625",
+    "last": "20261104"
+   },
+   {
+    "track": "092",
+    "dir": "D",
+    "frame": "069",
+    "pol": "DHDH",
+    "dates": 11,
+    "first": "20260620",
+    "last": "20261030"
+   }
+  ]
+ },
+ "Dushanbe": {
+  "granules": 13,
+  "best": [
+   {
+    "track": "012",
+    "dir": "A",
+    "frame": "021",
+    "pol": "DHDH",
+    "dates": 11,
+    "first": "20260627",
+    "last": "20261106"
+   },
+   {
+    "track": "020",
+    "dir": "D",
+    "frame": "069",
+    "pol": "DHDH",
+    "dates": 2,
+    "first": "20260721",
+    "last": "20261025"
+   }
+  ]
+ },
+ "Khujand": {
+  "granules": 32,
+  "best": [
+   {
+    "track": "084",
+    "dir": "A",
+    "frame": "022",
+    "pol": "DHDH",
+    "dates": 11,
+    "first": "20260620",
+    "last": "20261030"
+   },
+   {
+    "track": "012",
+    "dir": "A",
+    "frame": "022",
+    "pol": "DHDH",
+    "dates": 10,
+    "first": "20260627",
+    "last": "20261025"
+   },
+   {
+    "track": "020",
+    "dir": "D",
+    "frame": "068",
+    "pol": "DHDH",
+    "dates": 10,
+    "first": "20260627",
+    "last": "20261025"
+   }
+  ]
+ }
+}

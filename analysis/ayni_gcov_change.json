@@ -1,0 +1,27 @@
+{
+ "name": "ayni",
+ "before": "20260709",
+ "after": "20260721",
+ "dHH": {
+  "mean": -0.2,
+  "p5": -3.31,
+  "p95": 3.0,
+  "frac_gt3": 0.05,
+  "frac_lt_m3": 0.0673
+ },
+ "dHV": {
+  "mean": -0.37,
+  "p5": -3.6,
+  "p95": 3.0,
+  "frac_gt3": 0.0498,
+  "frac_lt_m3": 0.0894
+ },
+ "near_Dargh": {
+  "dHH_mean": 0.38,
+  "dHV_mean": 0.09
+ },
+ "near_Kazdon": {
+  "dHH_mean": 0.52,
+  "dHV_mean": 0.15
+ }
+}

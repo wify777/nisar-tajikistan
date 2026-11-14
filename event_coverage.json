@@ -1,0 +1,495 @@
+[
+ {
+  "id": "ayni",
+  "name": "Ayni: Dargh & Kazdon mudflow",
+  "lon": 68.9814,
+  "lat": 39.3474,
+  "event": "2026-07-11",
+  "products": {
+   "GCOV": [
+    {
+     "track": "012A",
+     "n": 11,
+     "first": "2026-06-27",
+     "last": "2026-11-06",
+     "maturity": "PV",
+     "before": "2026-07-09",
+     "after": "2026-07-21",
+     "gap_before_days": 2,
+     "gap_after_days": 10
+    },
+    {
+     "track": "020D",
+     "n": 2,
+     "first": "2026-07-21",
+     "last": "2026-10-25",
+     "maturity": "PV",
+     "before": null,
+     "after": "2026-07-21",
+     "gap_before_days": null,
+     "gap_after_days": 10
+    }
+   ],
+   "GUNW": [
+    {
+     "track": "012A",
+     "n": 8,
+     "first": "2026-06-27",
+     "last": "2026-10-01",
+     "maturity": "P",
+     "before": "2026-07-09",
+     "after": "2026-07-21",
+     "gap_before_days": 2,
+     "gap_after_days": 10
+    }
+   ]
+  }
+ },
+ {
+  "id": "panjakent",
+  "name": "Panjakent: Rashnai Poyon mudflow",
+  "lon": 67.8004,
+  "lat": 39.2326,
+  "event": "2026-07-11",
+  "products": {
+   "GCOV": [
+    {
+     "track": "012A",
+     "n": 11,
+     "first": "2026-06-27",
+     "last": "2026-11-06",
+     "maturity": "PV",
+     "before": "2026-07-09",
+     "after": "2026-07-21",
+     "gap_before_days": 2,
+     "gap_after_days": 10
+    },
+    {
+     "track": "113A",
+     "n": 10,
+     "first": "2026-06-22",
+     "last": "2026-11-01",
+     "maturity": "PV",
+     "before": "2026-07-04",
+     "after": "2026-07-16",
+     "gap_before_days": 7,
+     "gap_after_days": 5
+    },
+    {
+     "track": "121D",
+     "n": 9,
+     "first": "2026-06-22",
+     "last": "2026-10-20",
+     "maturity": "P",
+     "before": "2026-07-04",
+     "after": "2026-07-16",
+     "gap_before_days": 7,
+     "gap_after_days": 5
+    },
+    {
+     "track": "020D",
+     "n": 2,
+     "first": "2026-07-21",
+     "last": "2026-10-25",
+     "maturity": "PV",
+     "before": null,
+     "after": "2026-07-21",
+     "gap_before_days": null,
+     "gap_after_days": 10
+    }
+   ],
+   "GUNW": [
+    {
+     "track": "113A",
+     "n": 8,
+     "first": "2026-06-22",
+     "last": "2026-10-08",
+     "maturity": "P",
+     "before": "2026-07-04",
+     "after": "2026-07-16",
+     "gap_before_days": 7,
+     "gap_after_days": 5
+    },
+    {
+     "track": "121D",
+     "n": 8,
+     "first": "2026-06-22",
+     "last": "2026-10-08",
+     "maturity": "P",
+     "before": "2026-07-04",
+     "after": "2026-07-16",
+     "gap_before_days": 7,
+     "gap_after_days": 5
+    },
+    {
+     "track": "012A",
+     "n": 8,
+     "first": "2026-06-27",
+     "last": "2026-10-01",
+     "maturity": "P",
+     "before": "2026-07-09",
+     "after": "2026-07-21",
+     "gap_before_days": 2,
+     "gap_after_days": 10
+    }
+   ]
+  }
+ },
+ {
+  "id": "rushan",
+  "name": "Rushan: Barrushon & Dehrushon",
+  "lon": 71.4809,
+  "lat": 37.9504,
+  "event": "2026-07-20",
+  "products": {
+   "GCOV": [
+    {
+     "track": "084A",
+     "n": 16,
+     "first": "2025-11-28",
+     "last": "2026-11-11",
+     "maturity": "BPV",
+     "before": "2026-07-14",
+     "after": "2026-07-26",
+     "gap_before_days": 6,
+     "gap_after_days": 6
+    },
+    {
+     "track": "164D",
+     "n": 12,
+     "first": "2025-11-21",
+     "last": "2026-10-23",
+     "maturity": "BPV",
+     "before": "2026-07-19",
+     "after": "2026-08-12",
+     "gap_before_days": 1,
+     "gap_after_days": 23
+    },
+    {
+     "track": "092D",
+     "n": 11,
+     "first": "2026-06-20",
+     "last": "2026-10-30",
+     "maturity": "PV",
+     "before": "2026-07-14",
+     "after": "2026-07-26",
+     "gap_before_days": 6,
+     "gap_after_days": 6
+    }
+   ],
+   "GUNW": [
+    {
+     "track": "084A",
+     "n": 12,
+     "first": "2025-11-28",
+     "last": "2026-10-06",
+     "maturity": "BP",
+     "before": "2026-07-14",
+     "after": "2026-07-26",
+     "gap_before_days": 6,
+     "gap_after_days": 6
+    },
+    {
+     "track": "092D",
+     "n": 9,
+     "first": "2026-06-20",
+     "last": "2026-10-06",
+     "maturity": "P",
+     "before": "2026-07-14",
+     "after": "2026-07-26",
+     "gap_before_days": 6,
+     "gap_after_days": 6
+    },
+    {
+     "track": "164D",
+     "n": 8,
+     "first": "2026-06-25",
+     "last": "2026-09-29",
+     "maturity": "P",
+     "before": "2026-07-19",
+     "after": "2026-08-12",
+     "gap_before_days": 1,
+     "gap_after_days": 23
+    }
+   ]
+  }
+ },
+ {
+  "id": "vanj",
+  "name": "Vanj: Vravz mudflow (infrastructure)",
+  "lon": 71.277,
+  "lat": 38.3229,
+  "event": "2026-07-19",
+  "products": {
+   "GCOV": [
+    {
+     "track": "084A",
+     "n": 16,
+     "first": "2025-11-28",
+     "last": "2026-11-11",
+     "maturity": "BPV",
+     "before": "2026-07-14",
+     "after": "2026-07-26",
+     "gap_before_days": 5,
+     "gap_after_days": 7
+    },
+    {
+     "track": "092D",
+     "n": 11,
+     "first": "2026-06-20",
+     "last": "2026-10-30",
+     "maturity": "PV",
+     "before": "2026-07-14",
+     "after": "2026-07-26",
+     "gap_before_days": 5,
+     "gap_after_days": 7
+    }
+   ],
+   "GUNW": [
+    {
+     "track": "084A",
+     "n": 12,
+     "first": "2025-11-28",
+     "last": "2026-10-06",
+     "maturity": "BP",
+     "before": "2026-07-14",
+     "after": "2026-07-26",
+     "gap_before_days": 5,
+     "gap_after_days": 7
+    },
+    {
+     "track": "092D",
+     "n": 9,
+     "first": "2026-06-20",
+     "last": "2026-10-06",
+     "maturity": "P",
+     "before": "2026-07-14",
+     "after": "2026-07-26",
+     "gap_before_days": 5,
+     "gap_after_days": 7
+    }
+   ]
+  }
+ },
+ {
+  "id": "kulob",
+  "name": "Kulob city flood (May)",
+  "lon": 69.7739,
+  "lat": 37.9081,
+  "event": "2026-05-01",
+  "products": {
+   "GCOV": [
+    {
+     "track": "012A",
+     "n": 16,
+     "first": "2025-11-23",
+     "last": "2026-11-06",
+     "maturity": "BPV",
+     "before": "2026-01-10",
+     "after": "2026-06-27",
+     "gap_before_days": 111,
+     "gap_after_days": 57
+    },
+    {
+     "track": "084A",
+     "n": 12,
+     "first": "2026-06-20",
+     "last": "2026-11-11",
+     "maturity": "PV",
+     "before": null,
+     "after": "2026-06-20",
+     "gap_before_days": null,
+     "gap_after_days": 50
+    },
+    {
+     "track": "092D",
+     "n": 11,
+     "first": "2026-06-20",
+     "last": "2026-10-30",
+     "maturity": "PV",
+     "before": null,
+     "after": "2026-06-20",
+     "gap_before_days": null,
+     "gap_after_days": 50
+    },
+    {
+     "track": "020D",
+     "n": 2,
+     "first": "2026-07-21",
+     "last": "2026-10-25",
+     "maturity": "PV",
+     "before": null,
+     "after": "2026-07-21",
+     "gap_before_days": null,
+     "gap_after_days": 81
+    }
+   ],
+   "GUNW": [
+    {
+     "track": "012A",
+     "n": 12,
+     "first": "2025-11-23",
+     "last": "2026-10-01",
+     "maturity": "BP",
+     "before": "2025-12-29",
+     "after": "2026-06-27",
+     "gap_before_days": 123,
+     "gap_after_days": 57
+    },
+    {
+     "track": "084A",
+     "n": 9,
+     "first": "2026-06-20",
+     "last": "2026-10-06",
+     "maturity": "P",
+     "before": null,
+     "after": "2026-06-20",
+     "gap_before_days": null,
+     "gap_after_days": 50
+    },
+    {
+     "track": "092D",
+     "n": 9,
+     "first": "2026-06-20",
+     "last": "2026-10-06",
+     "maturity": "P",
+     "before": null,
+     "after": "2026-06-20",
+     "gap_before_days": null,
+     "gap_after_days": 50
+    }
+   ]
+  }
+ },
+ {
+  "id": "usoi",
+  "name": "Usoi dam / Lake Sarez",
+  "lon": 72.5894,
+  "lat": 38.2676,
+  "event": null,
+  "products": {
+   "GCOV": [
+    {
+     "track": "084A",
+     "n": 16,
+     "first": "2025-11-28",
+     "last": "2026-11-11",
+     "maturity": "BPV"
+    },
+    {
+     "track": "156A",
+     "n": 11,
+     "first": "2026-06-25",
+     "last": "2026-11-04",
+     "maturity": "PV"
+    },
+    {
+     "track": "092D",
+     "n": 11,
+     "first": "2026-06-20",
+     "last": "2026-10-30",
+     "maturity": "PV"
+    },
+    {
+     "track": "164D",
+     "n": 10,
+     "first": "2026-06-25",
+     "last": "2026-10-23",
+     "maturity": "PV"
+    }
+   ],
+   "GUNW": [
+    {
+     "track": "084A",
+     "n": 12,
+     "first": "2025-11-28",
+     "last": "2026-10-06",
+     "maturity": "BP"
+    },
+    {
+     "track": "092D",
+     "n": 9,
+     "first": "2026-06-20",
+     "last": "2026-10-06",
+     "maturity": "P"
+    },
+    {
+     "track": "156A",
+     "n": 8,
+     "first": "2026-06-25",
+     "last": "2026-09-29",
+     "maturity": "P"
+    },
+    {
+     "track": "164D",
+     "n": 8,
+     "first": "2026-06-25",
+     "last": "2026-09-29",
+     "maturity": "P"
+    }
+   ]
+  }
+ },
+ {
+  "id": "rogun",
+  "name": "Rogun dam & reservoir",
+  "lon": 69.7716,
+  "lat": 38.682,
+  "event": null,
+  "products": {
+   "GCOV": [
+    {
+     "track": "084A",
+     "n": 16,
+     "first": "2025-11-28",
+     "last": "2026-11-11",
+     "maturity": "BPV"
+    },
+    {
+     "track": "012A",
+     "n": 11,
+     "first": "2026-06-27",
+     "last": "2026-11-06",
+     "maturity": "PV"
+    },
+    {
+     "track": "092D",
+     "n": 11,
+     "first": "2026-06-20",
+     "last": "2026-10-30",
+     "maturity": "PV"
+    },
+    {
+     "track": "020D",
+     "n": 2,
+     "first": "2026-07-21",
+     "last": "2026-10-25",
+     "maturity": "PV"
+    }
+   ],
+   "GUNW": [
+    {
+     "track": "084A",
+     "n": 12,
+     "first": "2025-11-28",
+     "last": "2026-10-06",
+     "maturity": "BP"
+    },
+    {
+     "track": "092D",
+     "n": 9,
+     "first": "2026-06-20",
+     "last": "2026-10-06",
+     "maturity": "P"
+    },
+    {
+     "track": "012A",
+     "n": 8,
+     "first": "2026-06-27",
+     "last": "2026-10-01",
+     "maturity": "P"
+    }
+   ]
+  }
+ }
+]

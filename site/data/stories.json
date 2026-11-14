@@ -1,0 +1,432 @@
+{
+ "stories": [
+  {
+   "id": "ayni",
+   "ready": true,
+   "center": [
+    68.978,
+    39.349
+   ],
+   "zoom": 13.3,
+   "eventPair": "20260709_20260721",
+   "eventDate": "2026-07-11",
+   "title": {
+    "en": "Ayni: the 11 July mudflow",
+    "ru": "Айни: сель 11 июля"
+   },
+   "meta": {
+    "en": "Dargh and Kazdon villages, Shamtuch, Sughd region. NISAR track 012 ascending, 11 images from 27 June to 6 November 2026.",
+    "ru": "Сёла Дарг и Каздон, Шамтуч, Согдийская область. Орбита NISAR 012 (восходящая), 11 снимков с 27 июня по 6 ноября 2026."
+   },
+   "findings": {
+    "en": [
+     {
+      "h": "What happened",
+      "p": "On 11 July 2026 at about 15:40, after intense rain, a mudflow hit Dargh and Kazdon. Preliminary reports list 46 damaged homes in Dargh and 19 in Kazdon, 29 ha of farmland and 31 km of irrigation channels; the Red Cross later counted 67 damaged homes, 3 destroyed.",
+      "src": [
+       [
+        "Asia-Plus, 16 Jul 2026",
+        "https://asiaplus.news/en/2026/07/16/mudflows-in-ayni-and-panjakent-caused-damage-worth-more-than-1-2-million/"
+       ],
+       [
+        "IFRC DREF MDRTJ038",
+        "https://go-api.ifrc.org/api/DownloadFile/95402/MDRTJ038do"
+       ],
+       [
+        "Sentinel Asia",
+        "https://sentinel-asia.org/EO/2026/article20260711TJ.html"
+       ]
+      ]
+     },
+     {
+      "h": "What the radar shows",
+      "p": "Between the 9 July and 21 July passes, about 75 ha on the slopes and gullies directly above the two villages lost coherence: from 0.89 in the pair before the event to 0.44 across the event, then back to 0.88 to 0.98 in every later pair. In the same zone HH brightness rose by 1.4 dB and stayed higher for the following months, while the surrounding reference area did not change."
+     },
+     {
+      "h": "Is it real or noise?",
+      "p": "We repeated the same test for every pair of images. Within 2.5 km of the villages, the pair that spans 11 July shows 126 ha of strong coherence loss; the other seven pairs show between 0 and 26 ha. The change is concentrated where the damage was reported and only in the time window of the event."
+     },
+     {
+      "h": "Why (our hypothesis)",
+      "p": "Heavy rain mobilised soil and stones on the steep slopes and small gullies that drain into Dargh and Kazdon. Moving material scrambles the radar phase, so coherence collapses. The lasting brightness increase suggests a rougher surface with fresh debris, not only wet soil, which would dry within days."
+     },
+     {
+      "h": "How sure are we",
+      "p": "Moderate to high for 'the surface above the villages changed between 9 and 21 July'. We cannot separate erosion from deposition precisely, and on 10 m optical images (Sentinel-2) the change is hardly visible. NISAR data used here are provisional.",
+      "conf": true
+     }
+    ],
+    "ru": [
+     {
+      "h": "Что произошло",
+      "p": "11 июля 2026 около 15:40, после сильного дождя, сель обрушился на Дарг и Каздон. По предварительным данным повреждено 46 домов в Дарге и 19 в Каздоне, 29 га земли и 31 км оросительных каналов; позже Красный Крест насчитал 67 повреждённых домов, 3 разрушены.",
+      "src": [
+       [
+        "Asia-Plus, 16.07.2026",
+        "https://asiaplus.news/en/2026/07/16/mudflows-in-ayni-and-panjakent-caused-damage-worth-more-than-1-2-million/"
+       ],
+       [
+        "IFRC DREF MDRTJ038",
+        "https://go-api.ifrc.org/api/DownloadFile/95402/MDRTJ038do"
+       ],
+       [
+        "Sentinel Asia",
+        "https://sentinel-asia.org/EO/2026/article20260711TJ.html"
+       ]
+      ]
+     },
+     {
+      "h": "Что показывает радар",
+      "p": "Между снимками 9 и 21 июля около 75 га склонов и оврагов прямо над двумя сёлами потеряли когерентность: 0.89 в паре до события, 0.44 в паре через событие и снова 0.88–0.98 во всех следующих парах. В той же зоне яркость HH выросла на 1.4 дБ и осталась выше в следующие месяцы, а в контрольной зоне вокруг не изменилась."
+     },
+     {
+      "h": "Это сигнал или шум?",
+      "p": "Мы повторили одинаковую проверку для каждой пары снимков. В радиусе 2.5 км от сёл пара, охватывающая 11 июля, даёт 126 га сильной потери когерентности, остальные семь пар — от 0 до 26 га. Изменение сосредоточено там, где сообщалось об ущербе, и только во временном окне события."
+     },
+     {
+      "h": "Почему (наша гипотеза)",
+      "p": "Сильный дождь сдвинул грунт и камни на крутых склонах и в мелких оврагах, стекающих к Даргу и Каздону. Перемещённый материал разрушает фазу радара, и когерентность падает. Долговременный рост яркости говорит о более шероховатой поверхности со свежими наносами, а не только о влажной почве, которая высохла бы за несколько дней."
+     },
+     {
+      "h": "Насколько мы уверены",
+      "p": "От средней до высокой для вывода «поверхность над сёлами изменилась между 9 и 21 июля». Точно разделить размыв и отложение мы не можем, а на оптических снимках 10 м (Sentinel-2) изменение почти не видно. Данные NISAR здесь предварительные (provisional).",
+      "conf": true
+     }
+    ]
+   },
+   "layers": [
+    "cohchange",
+    "coh",
+    "dhh",
+    "hh",
+    "hv"
+   ],
+   "pairTest": true
+  },
+  {
+   "id": "sarez",
+   "ready": true,
+   "water": true,
+   "layers": [
+    "water",
+    "hh",
+    "coh"
+   ],
+   "defaultLayer": "water",
+   "center": [
+    72.63,
+    38.25
+   ],
+   "zoom": 11.3,
+   "labels": {
+    "en": {
+     "zone": "Usoi dam",
+     "ref": "surroundings (3 km)"
+    },
+    "ru": {
+     "zone": "Усойский завал",
+     "ref": "окрестности (3 км)"
+    }
+   },
+   "title": {
+    "en": "Lake Sarez and the Usoi dam",
+    "ru": "Сарез и Усойский завал"
+   },
+   "meta": {
+    "en": "Bartang valley, Pamir. NISAR track 084 ascending, 11 usable images from 2 July to 11 November 2026 (one pass with no data in this window was excluded).",
+    "ru": "Долина Бартанга, Памир. Орбита NISAR 084 (восходящая), 11 пригодных снимков с 2 июля по 11 ноября 2026 (один пролёт без данных в этом окне исключён)."
+   },
+   "findings": {
+    "en": [
+     {
+      "h": "Why this place matters",
+      "p": "The Usoi dam was created in the winter of 1911, when an enormous earthquake-triggered rock slide blocked the Bartang River valley and formed Lake Sarez. The US Geological Survey modelled the floods that could follow if a new landslide into the lake overtopped the dam.",
+      "src": [
+       [
+        "USGS WRI 03-4004",
+        "https://pubs.usgs.gov/wri/wri03-4004/"
+       ],
+       [
+        "UN/IDNDR risk assessment mission (ReliefWeb)",
+        "https://reliefweb.int/report/tajikistan/unidndr-interagency-risk-assessment-mission-lake-sarez"
+       ]
+      ]
+     },
+     {
+      "h": "What the radar shows",
+      "p": "The visible western part of the lake covered between 23.7 and 28.0 km2 on all dates, with no trend. Coherence on the Usoi dam stayed between 0.69 and 0.82 in all 8 image pairs, always higher than the surroundings (0.62 to 0.72)."
+     },
+     {
+      "h": "What we do not see, and why",
+      "p": "No change was detected on the dam surface between passes. That does not prove the dam or the slopes are stable: slow movement of a few centimetres per year is too small to stand out in single 12-day pairs and needs a longer time series of radar phase. The ups and downs of the water area are mostly wind on the lake, not real level changes."
+     },
+     {
+      "h": "Why NISAR helps here",
+      "p": "Clouds and long shadows often hide the Pamir from optical satellites. NISAR images the dam and the lake every 12 days in any weather, so a growing record can show slow trends and sudden changes over the coming years.",
+      "conf": false
+     },
+     {
+      "h": "How sure are we",
+      "p": "High that nothing large changed on the dam surface between July and November 2026; low for anything slower or smaller. Part of the lake lies near the radar swath edge and was excluded. NISAR data used here are provisional.",
+      "conf": true
+     }
+    ],
+    "ru": [
+     {
+      "h": "Почему это место важно",
+      "p": "Усойский завал возник зимой 1911 года, когда огромный обвал, вызванный землетрясением, перекрыл долину реки Бартанг и образовал Сарезское озеро. Геологическая служба США (USGS) моделировала паводки, которые могут возникнуть, если новый оползень в озеро вызовет перелив через завал.",
+      "src": [
+       [
+        "USGS WRI 03-4004",
+        "https://pubs.usgs.gov/wri/wri03-4004/"
+       ],
+       [
+        "Миссия ООН по оценке риска (ReliefWeb)",
+        "https://reliefweb.int/report/tajikistan/unidndr-interagency-risk-assessment-mission-lake-sarez"
+       ]
+      ]
+     },
+     {
+      "h": "Что показывает радар",
+      "p": "Видимая западная часть озера на всех датах занимала от 23.7 до 28.0 км², без тренда. Когерентность на Усойском завале во всех 8 парах снимков держалась от 0.69 до 0.82, всегда выше, чем в окрестностях (0.62–0.72)."
+     },
+     {
+      "h": "Чего мы не видим и почему",
+      "p": "На поверхности завала между пролётами изменений не обнаружено. Это не доказывает, что завал или склоны стабильны: медленное движение в несколько сантиметров в год слишком мало для отдельных 12-дневных пар и требует длинного ряда фазы радара. Колебания площади воды в основном вызваны ветром на озере, а не реальными изменениями уровня."
+     },
+     {
+      "h": "Чем здесь помогает NISAR",
+      "p": "Облака и длинные тени часто скрывают Памир от оптических спутников. NISAR снимает завал и озеро каждые 12 дней в любую погоду, поэтому накопленный ряд в ближайшие годы сможет показать и медленные тренды, и резкие изменения."
+     },
+     {
+      "h": "Насколько мы уверены",
+      "p": "Высоко в том, что на поверхности завала с июля по ноябрь 2026 не было крупных изменений; низко для чего-то более медленного или мелкого. Часть озера у края полосы съёмки исключена. Данные NISAR здесь предварительные (provisional).",
+      "conf": true
+     }
+    ]
+   }
+  },
+  {
+   "id": "nurek",
+   "ready": true,
+   "water": true,
+   "layers": [
+    "water",
+    "hh"
+   ],
+   "defaultLayer": "water",
+   "center": [
+    69.42,
+    38.43
+   ],
+   "zoom": 11.2,
+   "title": {
+    "en": "Nurek reservoir: water through the season",
+    "ru": "Нурекское водохранилище: вода по сезону"
+   },
+   "meta": {
+    "en": "Vakhsh river, central Tajikistan. NISAR track 012 ascending, 11 images from 27 June to 6 November 2026. The analysis covers an 18 x 18 km section of the reservoir.",
+    "ru": "Река Вахш, центральный Таджикистан. Орбита NISAR 012 (восходящая), 11 снимков с 27 июня по 6 ноября 2026. Анализ охватывает участок водохранилища 18 × 18 км."
+   },
+   "findings": {
+    "en": [
+     {
+      "h": "What we measure",
+      "p": "Calm water reflects the radar pulse away and looks dark. For every date we mark the dark, connected water body and measure its area. Radar sees the reservoir on every pass, including cloudy days."
+     },
+     {
+      "h": "What the radar shows",
+      "p": "In this section the water area grew from 24.8 km2 on 27 June to 31.6 km2 on 26 August, stayed between 30 and 32 km2 until late October and was 29.2 km2 on 6 November. In June the upper reach shows shallow banks and channels that are under water by August."
+     },
+     {
+      "h": "Why (our hypothesis)",
+      "p": "Summer inflow from snow and glacier melt raises the water level, so the reservoir spreads over its gentle upper shores; from autumn the level can fall again. This matches the usual filling pattern of mountain reservoirs, but we have not yet confirmed Nurek's operating schedule with an official source."
+     },
+     {
+      "h": "How sure are we",
+      "p": "Medium. Wind can roughen the water and make it brighter, so some water may be missed on windy days. The threshold method and the 18 x 18 km window mean the numbers describe changes in this section, not the full reservoir. NISAR data used here are provisional.",
+      "conf": true
+     }
+    ],
+    "ru": [
+     {
+      "h": "Что мы измеряем",
+      "p": "Спокойная вода отражает импульс радара в сторону и выглядит тёмной. Для каждой даты мы выделяем тёмный связный водоём и считаем его площадь. Радар видит водохранилище при каждом пролёте, в том числе в облачные дни."
+     },
+     {
+      "h": "Что показывает радар",
+      "p": "На этом участке площадь воды выросла с 24.8 км² 27 июня до 31.6 км² 26 августа, держалась на уровне 30–32 км² до конца октября и составила 29.2 км² 6 ноября. В июне в верхней части видны отмели и протоки, которые к августу уходят под воду."
+     },
+     {
+      "h": "Почему (наша гипотеза)",
+      "p": "Летний приток от таяния снега и ледников поднимает уровень, и вода разливается по пологим верхним берегам; с осени уровень может снижаться. Это совпадает с обычным режимом наполнения горных водохранилищ, но режим работы Нурека мы ещё не подтвердили официальным источником."
+     },
+     {
+      "h": "Насколько мы уверены",
+      "p": "Средне. Ветер делает воду шероховатой и светлее, поэтому в ветреные дни часть воды может не попасть в маску. Метод порога и окно 18 × 18 км означают, что числа описывают изменения на этом участке, а не во всём водохранилище. Данные NISAR здесь предварительные (provisional).",
+      "conf": true
+     }
+    ]
+   }
+  },
+  {
+   "id": "rushan",
+   "ready": true,
+   "pairTest": true,
+   "layers": [
+    "cohchange",
+    "coh",
+    "dhh",
+    "hh"
+   ],
+   "defaultLayer": "cohchange",
+   "eventPair": "20260714_20260726",
+   "eventDate": "2026-07-20",
+   "center": [
+    71.46,
+    37.94
+   ],
+   "zoom": 12.6,
+   "title": {
+    "en": "Rushan: a mudflow the radar missed",
+    "ru": "Рушан: сель, который радар не увидел"
+   },
+   "meta": {
+    "en": "Barrushon and Dehrushon villages, Rushan district, GBAO. Checked on two NISAR orbits: 084 ascending and 092 descending (shown here), 12-day image pairs from June to September 2026.",
+    "ru": "Сёла Баррушон и Дерушон, Рушанский район, ГБАО. Проверено по двум орбитам NISAR: 084 (восходящая) и 092 (нисходящая, показана здесь), 12-дневные пары снимков с июня по сентябрь 2026."
+   },
+   "findings": {
+    "en": [
+     {
+      "h": "What happened",
+      "p": "On 20 July 2026 a mudflow hit Barrushon and Dehrushon: 40 homes were damaged, 10 of them destroyed, with no injuries reported.",
+      "src": [
+       [
+        "Asia-Plus, 22 Jul 2026",
+        "https://asiaplus.news/en/2026/07/22/a-mudflow-in-rushan-destroyed-10-houses-and-damaged-30-more/"
+       ],
+       [
+        "Avesta, 22 Jul 2026",
+        "https://en.avesta.tj/2026/07/22/ten-residential-buildings-were-completely-destroyed-after-a-mudslide-in-the-rushansky-district/"
+       ]
+      ]
+     },
+     {
+      "h": "What the radar shows",
+      "p": "Almost nothing. On both orbits, the image pair across the event (14 to 26 July) shows at most 0.8 ha of strong coherence loss within 3 km of the villages, less than other pairs in the same season. Brightness near the villages also barely changed."
+     },
+     {
+      "h": "Why we probably miss it (hypotheses)",
+      "p": "Mudflow channels here may be narrower than a few 20 m pixels. The villages sit among orchards, where coherence is low on every date, so a change does not stand out. Steep valley walls cause radar shadow and layover. We also do not yet know the exact path of the flow, so it may have run down a side gully we did not inspect closely."
+     },
+     {
+      "h": "Why we show it",
+      "p": "Knowing where radar fails is as important as showing where it works. A monitoring service for Tajikistan should say clearly which places and event types it can and cannot see."
+     },
+     {
+      "h": "How sure are we",
+      "p": "High that this event is not visible with our method and these products; this does not mean nothing happened on the ground. NISAR data used here are provisional.",
+      "conf": true
+     }
+    ],
+    "ru": [
+     {
+      "h": "Что произошло",
+      "p": "20 июля 2026 сель обрушился на Баррушон и Дерушон: повреждено 40 домов, из них 10 разрушены, пострадавших нет.",
+      "src": [
+       [
+        "Asia-Plus, 22.07.2026",
+        "https://asiaplus.news/en/2026/07/22/a-mudflow-in-rushan-destroyed-10-houses-and-damaged-30-more/"
+       ],
+       [
+        "Avesta, 22.07.2026",
+        "https://en.avesta.tj/2026/07/22/ten-residential-buildings-were-completely-destroyed-after-a-mudslide-in-the-rushansky-district/"
+       ]
+      ]
+     },
+     {
+      "h": "Что показывает радар",
+      "p": "Почти ничего. На обеих орбитах пара снимков через событие (14→26 июля) даёт не больше 0.8 га сильной потери когерентности в радиусе 3 км от сёл, меньше, чем другие пары того же сезона. Яркость возле сёл тоже почти не изменилась."
+     },
+     {
+      "h": "Почему радар, вероятно, не видит (гипотезы)",
+      "p": "Русла селей здесь могут быть уже нескольких пикселей по 20 м. Сёла стоят среди садов, где когерентность низкая на всех датах, поэтому изменение не выделяется. Крутые склоны долины дают радарные тени и наложения. Точный путь селя мы пока не знаем, поэтому он мог пройти по боковому оврагу, который мы не рассмотрели подробно."
+     },
+     {
+      "h": "Зачем мы это показываем",
+      "p": "Знать, где радар не справляется, так же важно, как показывать, где он работает. Служба мониторинга для Таджикистана должна ясно говорить, какие места и типы событий она видит, а какие нет."
+     },
+     {
+      "h": "Насколько мы уверены",
+      "p": "Высоко в том, что это событие не видно нашим методом и в этих продуктах; это не значит, что на земле ничего не произошло. Данные NISAR здесь предварительные (provisional).",
+      "conf": true
+     }
+    ]
+   }
+  }
+ ],
+ "limits": {
+  "en": [
+   "NISAR products used here are provisional: calibration is still being refined by NASA and ISRO.",
+   "The public record over Tajikistan starts in June 2026 (some tracks from November 2025), with a pass about every 12 days. It shows seasonal and event changes, not multi-year trends.",
+   "A 12-day gap means we see the state before and after an event, not the event itself.",
+   "Steep mountains cause radar shadow and layover; some slopes are not visible from a given orbit direction.",
+   "Coherence also drops with snow, rain and vegetation growth, so every change is checked against the other dates and the reported events.",
+   "Images are smoothed with a small 3x3 window for display; numbers in the text use the original pixels."
+  ],
+  "ru": [
+   "Продукты NISAR здесь предварительные (provisional): NASA и ISRO ещё уточняют калибровку.",
+   "Публичный ряд над Таджикистаном начинается в июне 2026 (по некоторым орбитам с ноября 2025), снимки примерно раз в 12 дней. Видны сезонные изменения и события, но не многолетние тренды.",
+   "Промежуток 12 дней означает, что мы видим состояние до и после события, а не сам момент.",
+   "Крутые горы дают радарные тени и наложения: часть склонов не видна с данного направления орбиты.",
+   "Когерентность падает и от снега, дождя и роста растений, поэтому каждое изменение сверяется с другими датами и с задокументированными событиями.",
+   "Для показа изображения сглажены окном 3×3; числа в тексте посчитаны по исходным пикселям."
+  ]
+ },
+ "credits": {
+  "en": [
+   [
+    "NISAR L2 GCOV and GUNW products (provisional), NASA/JPL and ISRO, distributed by ASF DAAC",
+    "https://nisar-docs.asf.alaska.edu/"
+   ],
+   [
+    "Basemap: Sentinel-2 cloudless 2023 by EOX IT Services GmbH (contains modified Copernicus Sentinel data 2023)",
+    "https://s2maps.eu"
+   ],
+   [
+    "Optical check: Copernicus Sentinel-2 L2A (contains modified Copernicus Sentinel data 2026), via AWS Open Data",
+    "https://registry.opendata.aws/sentinel-2-l2a-cogs/"
+   ],
+   [
+    "Data processing: Python (h5py, numpy, pyproj, rasterio). Web: MapLibre GL JS, Chart.js",
+    ""
+   ],
+   [
+    "AI use: we used AI assistants (Claude and others) to help search sources, write processing code and draft texts. All numbers on this page are computed from the NISAR data by the scripts in our open repository, and every source is linked so it can be checked.",
+    ""
+   ]
+  ],
+  "ru": [
+   [
+    "Продукты NISAR L2 GCOV и GUNW (provisional), NASA/JPL и ISRO, распространяет ASF DAAC",
+    "https://nisar-docs.asf.alaska.edu/"
+   ],
+   [
+    "Подложка: Sentinel-2 cloudless 2023, EOX IT Services GmbH (contains modified Copernicus Sentinel data 2023)",
+    "https://s2maps.eu"
+   ],
+   [
+    "Оптическая проверка: Copernicus Sentinel-2 L2A (contains modified Copernicus Sentinel data 2026), AWS Open Data",
+    "https://registry.opendata.aws/sentinel-2-l2a-cogs/"
+   ],
+   [
+    "Обработка данных: Python (h5py, numpy, pyproj, rasterio). Сайт: MapLibre GL JS, Chart.js",
+    ""
+   ],
+   [
+    "Использование ИИ: ИИ-ассистенты (Claude и другие) помогали искать источники, писать код обработки и черновики текстов. Все числа на странице посчитаны по данным NISAR скриптами из нашего открытого репозитория, у каждого источника есть ссылка для проверки.",
+    ""
+   ]
+  ]
+ }
+}

@@ -43,37 +43,39 @@
     navStories: "Stories", navExplore: "Explore", navMethod: "Method", navData: "Data",
     kicker: "NASA Space Apps 2026 · Dancing with the SARs · Dushanbe",
     f1: "days between passes", f2: "L-band wavelength, sees through cloud", f3: "pixels, every number reproducible",
-    ctaStories: "See the four stories", ctaMethod: "How we checked",
+    ctaStories: "See the five stories", ctaMethod: "How we checked",
     heroCap: "Ayni, radar pair 9 → 21 July 2026 compared with the pair before. Red: the ground stopped matching between passes (coherence loss). Blue: it matched better than before. Yellow: the change zone on the slopes above Dargh and Kazdon, where a mudflow hit on 11 July.",
-    storiesTitle: "Four places, four honest answers",
+    storiesTitle: "Five places, five honest answers",
     storiesText: "Each story says what happened, what the radar shows, how we tested it and how sure we are, including the event the radar missed.",
     methodTitle: "How we turn radar into answers", methodText: "No black box: four steps, all in our open code.",
     m1t: "Read only what we need", m1: "NISAR files are 1.4 to 7 GB. We read small windows around each place straight from NASA's archive, every date on the same orbit.",
     m2t: "Compare every pair of dates", m2: "Brightness shows roughness and water; coherence shows whether the ground stayed the same between two passes 12 days apart.",
     m3t: "Test against all other dates", m3: "A change only counts if it stands out against the median of all other pairs, so we do not fool ourselves with one lucky image.",
     m4t: "Check with reality", m4: "We compare with news and Red Cross reports and with optical Sentinel-2 images, and we say how sure we are.",
-    repo: "Open code and method on GitHub →", showZone: "Change zone", explore: "Open on the map"
+    repo: "Open code and method on GitHub →", showZone: "Change zone", explore: "Open on the map",
+    u1: "Pick a place: a card above, a pin on the map or a tab", u2: "Move the date slider and switch radar layers", u3: "Read the verdict and the checks under the map", u4: "Free, no sign-up, works on a phone"
   });
   Object.assign(UI.ru, {
     navStories: "Истории", navExplore: "Карта", navMethod: "Метод", navData: "Данные",
     kicker: "NASA Space Apps 2026 · Dancing with the SARs · Душанбе",
     f1: "дней между пролётами", f2: "длина волны L-диапазона, видит сквозь облака", f3: "пиксели, каждое число можно проверить",
-    ctaStories: "Четыре истории", ctaMethod: "Как мы проверяли",
+    ctaStories: "Пять историй", ctaMethod: "Как мы проверяли",
     heroCap: "Айни, пара снимков 9 → 21 июля 2026 в сравнении с парой до неё. Красное: земля перестала совпадать между пролётами (потеря когерентности). Синее: совпадает лучше, чем раньше. Жёлтое: зона изменений на склонах над Даргом и Каздоном, куда 11 июля сошёл сель.",
-    storiesTitle: "Четыре места, четыре честных ответа",
+    storiesTitle: "Пять мест, пять честных ответов",
     storiesText: "В каждой истории: что произошло, что показывает радар, как мы это проверили и насколько уверены. Включая событие, которое радар не увидел.",
     methodTitle: "Как мы превращаем радар в ответы", methodText: "Без чёрного ящика: четыре шага, всё в открытом коде.",
     m1t: "Читаем только нужное", m1: "Файлы NISAR весят от 1.4 до 7 ГБ. Мы читаем небольшие окна вокруг каждого места прямо из архива NASA, все даты на одной орбите.",
     m2t: "Сравниваем каждую пару дат", m2: "Яркость показывает шероховатость и воду; когерентность показывает, осталась ли земля той же между двумя пролётами с разницей 12 дней.",
     m3t: "Проверяем против всех остальных дат", m3: "Изменение засчитывается, только если оно выделяется на фоне медианы всех остальных пар. Так мы не обманываем себя одним удачным снимком.",
     m4t: "Сверяем с реальностью", m4: "Сравниваем с новостями и отчётами Красного Креста и с оптическими снимками Sentinel-2 и говорим, насколько уверены.",
-    repo: "Открытый код и метод на GitHub →", showZone: "Зона изменений", explore: "Открыть на карте"
+    repo: "Открытый код и метод на GitHub →", showZone: "Зона изменений", explore: "Открыть на карте",
+    u1: "Выберите место: карточка выше, точка на карте или вкладка", u2: "Двигайте ползунок дат и переключайте радарные слои", u3: "Читайте вердикт и проверки под картой", u4: "Бесплатно, без регистрации, работает на телефоне"
   });
   UI.en.L.water = "Water detected by radar"; UI.ru.L.water = "Вода по данным радара";
   UI.en.chartWater = "Water area detected by radar (km²)"; UI.ru.chartWater = "Площадь воды по радару (км²)";
   UI.en.water = "water area"; UI.ru.water = "площадь воды";
   var state = { lang: "en", data: null, story: null, meta: null, series: null, layer: "cohchange", idx: 0, opacity: 0.85, zone: true };
-  var map, chart, ASSET_V = "5";
+  var map, chart, ASSET_V = "6";
   var $ = function (id) { return document.getElementById(id); };
   function t(k) { return UI[state.lang][k]; }
   function fmtDate(d) { return d.slice(0, 4) + "-" + d.slice(4, 6) + "-" + d.slice(6, 8); }
@@ -155,6 +157,7 @@
   function timeKeys() { var L = LAYERS[state.layer]; return L.time ? state.series[L.time] : []; }
   function defaultIdx() {
     var keys = timeKeys(), s = state.story;
+    if (s.defaultDate && keys.indexOf(s.defaultDate) >= 0) return keys.indexOf(s.defaultDate);
     if (!s.eventPair) return Math.max(0, keys.length - 1);
     if (LAYERS[state.layer].time === "pairs") { var i = keys.indexOf(s.eventPair); return i < 0 ? 0 : i; }
     if (LAYERS[state.layer].time === "dates") { var after = s.eventPair.split("_")[1], j = keys.indexOf(after); return j < 0 ? 0 : j; }

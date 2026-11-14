@@ -5,7 +5,7 @@ from PIL import Image
 
 TILE = "https://tiles.maps.eox.at/wmts/1.0.0/s2cloudless-2023_3857/default/g/{z}/{y}/{x}.jpg"
 STORIES = {"ayni": "cohchange_20260709_20260721.png", "sarez": "water_20260831.png",
-           "nurek": "water_20260826.png", "rushan": "cohchange_20260714_20260726.png"}
+           "nurek": "water_20260826.png", "rushan": "cohchange_20260714_20260726.png", "rogun": "water_20260919.png"}
 OUT_W = 1200
 
 def merc(lon, lat, z):

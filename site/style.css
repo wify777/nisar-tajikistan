@@ -67,7 +67,7 @@ section { margin-top: 64px; }
 .hero-fig figcaption { color: var(--muted); font-size: 13px; margin-top: 10px; line-height: 1.45; }
 
 /* story cards */
-.story-cards { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+.story-cards { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 14px; }
 .scard { display: flex; flex-direction: column; text-align: left; padding: 0; overflow: hidden; cursor: pointer; color: var(--ink);
          background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); box-shadow: var(--shadow); font: inherit;
          transition: transform .15s ease, border-color .15s ease; }
@@ -85,6 +85,12 @@ section { margin-top: 64px; }
 .tone-detected { --tone: var(--t-detected); } .tone-stable { --tone: var(--t-stable); }
 .tone-seasonal { --tone: var(--t-seasonal); } .tone-missed { --tone: var(--t-missed); }
 .scard .scard-stat { color: var(--tone, var(--ink)); }
+
+/* how to use */
+.howto { list-style: none; margin: 0 0 14px; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 22px; align-items: center; font-size: 14px; color: var(--muted); }
+.howto li { display: flex; align-items: center; gap: 8px; }
+.howto b { display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: var(--accent-soft); color: var(--accent); font: 700 12px var(--f-body); flex: none; }
+.howto-note { margin-left: auto; font-weight: 600; color: var(--accent); }
 
 /* explorer */
 .explore-sec { scroll-margin-top: 64px; }
@@ -166,6 +172,8 @@ section { margin-top: 64px; }
 /* responsive */
 @media (max-width: 1100px) {
   .story-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .story-cards .scard:last-child:nth-child(odd) { grid-column: 1 / -1; flex-direction: row; }
+  .story-cards .scard:last-child:nth-child(odd) img { width: 45%; height: auto; min-height: 200px; }
   .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 960px) {
@@ -182,6 +190,7 @@ section { margin-top: 64px; }
   .story-cards, .steps { grid-template-columns: 1fr; }
   .scard { flex-direction: row; }
   .scard img { width: 36%; height: auto; min-height: 150px; align-self: stretch; }
+  .story-cards .scard:last-child:nth-child(odd) img { width: 36%; min-height: 150px; }
   .facts strong { font-size: 20px; }
   .brand-sub { display: none; }
   .detail { padding: 16px; }

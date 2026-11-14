@@ -411,6 +411,141 @@
    "places": []
   },
   {
+   "id": "rogun",
+   "ready": true,
+   "water": true,
+   "layers": [
+    "water",
+    "hh"
+   ],
+   "defaultLayer": "water",
+   "center": [
+    69.855,
+    38.775
+   ],
+   "zoom": 10.3,
+   "tone": "seasonal",
+   "kind": {
+    "en": "New reservoir · 2026",
+    "ru": "Новое водохранилище · 2026"
+   },
+   "verdict": {
+    "en": "Reservoir filling",
+    "ru": "Наполнение"
+   },
+   "stat": "+12 km²",
+   "statLabel": {
+    "en": "of open water from 27 June to 19 September in a 26 × 26 km window, mostly in the upper reaches.",
+    "ru": "открытой воды с 27 июня по 19 сентября в окне 26 × 26 км, в основном в верхней части."
+   },
+   "places": [
+    [
+     "Rogun dam",
+     69.7716,
+     38.682
+    ]
+   ],
+   "title": {
+    "en": "Rogun: a new reservoir fills up",
+    "ru": "Рогун: новое водохранилище наполняется"
+   },
+   "meta": {
+    "en": "Vakhsh river, upstream of Nurek. NISAR track 012 ascending (the same orbit as Nurek), 11 images from 27 June to 6 November 2026. The analysis covers a 26 × 26 km window around the reservoir.",
+    "ru": "Река Вахш, выше Нурека. Орбита NISAR 012 (восходящая, та же, что у Нурека), 11 снимков с 27 июня по 6 ноября 2026. Анализ охватывает окно 26 × 26 км вокруг водохранилища."
+   },
+   "findings": {
+    "en": [
+     {
+      "h": "Why this place matters",
+      "p": "Rogun is a hydropower dam under construction on the Vakhsh River, upstream of Nurek. It is planned to be 335 m high with 3,780 MW of capacity. In August 2026 the dam was reported raised to 1,155 m above sea level, which allows the reservoir to rise by about 40 m, to 1,140 m.",
+      "src": [
+       [
+        "AIIB: Rogun Hydropower Development Project",
+        "https://www.aiib.org/en/projects/details/2024/approved/Tajikistan-Rogun-Hydropower-Development-Project-Phase-1.html"
+       ],
+       [
+        "Water Power Magazine, 25 Aug 2026",
+        "https://www.waterpowermagazine.com/news/rogun-dam-reaches-1155m-elevation-as-construction-advances/"
+       ],
+       [
+        "Trend, 29 Aug 2026",
+        "https://www.trend.az/casia/tajikistan/4218733.html"
+       ]
+      ]
+     },
+     {
+      "h": "What the radar shows",
+      "p": "In our window the open water grew from 16.0 km² on 27 June to 28.0 km² on 19 September (+12 km²). Water spread into the upper reaches and side valleys, where the 2023 basemap under the radar layer still shows a narrow river. In October and November the area moved between 19 and 27 km²."
+     },
+     {
+      "h": "Why (our hypothesis)",
+      "p": "The summer rise fits the reported raising of the reservoir toward 1,140 m. On the low autumn dates the water itself looked brighter than usual, a typical sign of wind roughening the surface, and the optical image of 22 October still shows about 24 km² of water. So the autumn ups and downs on radar are most likely wind, not real changes in the reservoir."
+     },
+     {
+      "check": true,
+      "h": "Independent check: optical images",
+      "p": "On 7 cloud-free Sentinel-2 dates, the reservoir in the same window (water index MNDWI) grew from 13.3 km² on 29 June to 23.8 km² on 7 September (+10.4 km²); radar shows +9.7 km² between the same dates. Radar areas are 8 to 31% larger than optical ones, as at Nurek but more. On 22 October the optical image still shows 23.6 km², so the low radar values in October and November are most likely not a real drop in water. Sentinel-2's own cloud mask labels some clear water as thin cirrus, so we do not use that class.",
+      "src": [
+       [
+        "Sentinel-2 L2A (AWS Open Data)",
+        "https://registry.opendata.aws/sentinel-2-l2a-cogs/"
+       ]
+      ]
+     },
+     {
+      "h": "How sure are we",
+      "conf": true,
+      "p": "High that the reservoir grew during summer 2026: optical images confirm it. Medium for the exact areas, which are 8 to 31% above optical. The autumn dips are most likely wind. The water mask uses the same fixed threshold as Nurek (−11.9 dB; a local Otsu threshold around the reservoir gives −11.3 dB) and cuts thin links to dark slopes. We measure water area, not water level. NISAR data used here are provisional."
+     }
+    ],
+    "ru": [
+     {
+      "h": "Почему это место важно",
+      "p": "Рогунская ГЭС строится на реке Вахш выше Нурека. По проекту высота плотины 335 м, мощность 3780 МВт. В августе 2026 сообщалось, что плотину подняли до отметки 1155 м над уровнем моря, и это позволяет поднять водохранилище ещё примерно на 40 м, до 1140 м.",
+      "src": [
+       [
+        "AIIB: Rogun Hydropower Development Project",
+        "https://www.aiib.org/en/projects/details/2024/approved/Tajikistan-Rogun-Hydropower-Development-Project-Phase-1.html"
+       ],
+       [
+        "Water Power Magazine, 25 Aug 2026",
+        "https://www.waterpowermagazine.com/news/rogun-dam-reaches-1155m-elevation-as-construction-advances/"
+       ],
+       [
+        "Trend, 29 Aug 2026",
+        "https://www.trend.az/casia/tajikistan/4218733.html"
+       ]
+      ]
+     },
+     {
+      "h": "Что показывает радар",
+      "p": "В нашем окне открытая вода выросла с 16.0 км² 27 июня до 28.0 км² 19 сентября (+12 км²). Вода разлилась в верхнюю часть и боковые долины, где на подложке 2023 года под радарным слоем ещё видна узкая река. В октябре и ноябре площадь менялась от 19 до 27 км²."
+     },
+     {
+      "h": "Почему (наша гипотеза)",
+      "p": "Летний рост согласуется с сообщениями о подъёме водохранилища к отметке 1140 м. В дни с низкой площадью осенью сама вода выглядела ярче обычного, это типичный признак ряби от ветра, а оптический снимок 22 октября всё ещё показывает около 24 км² воды. Поэтому осенние колебания на радаре, скорее всего, вызваны ветром, а не реальными изменениями водохранилища."
+     },
+     {
+      "check": true,
+      "h": "Независимая проверка: оптические снимки",
+      "p": "На 7 безоблачных датах Sentinel-2 водохранилище в том же окне (водный индекс MNDWI) выросло с 13.3 км² 29 июня до 23.8 км² 7 сентября (+10.4 км²); радар между теми же датами показывает +9.7 км². Радарные площади на 8–31% больше оптических, как у Нурека, но сильнее. 22 октября на оптике всё ещё 23.6 км², поэтому низкие радарные значения в октябре и ноябре, скорее всего, не означают реального уменьшения воды. Собственная маска облаков Sentinel-2 отмечает часть чистой воды как перистые облака, поэтому этот класс мы не используем.",
+      "src": [
+       [
+        "Sentinel-2 L2A (AWS Open Data)",
+        "https://registry.opendata.aws/sentinel-2-l2a-cogs/"
+       ]
+      ]
+     },
+     {
+      "h": "Насколько мы уверены",
+      "conf": true,
+      "p": "Высоко в том, что водохранилище выросло летом 2026: это подтверждают оптические снимки. Средне для точных площадей, они на 8–31% выше оптических. Осенние провалы, скорее всего, вызваны ветром. Маска воды использует тот же фиксированный порог, что у Нурека (−11.9 дБ; локальный порог Оцу вокруг водохранилища даёт −11.3 дБ), и отрезает тонкие перемычки к тёмным склонам. Мы измеряем площадь воды, а не уровень. Данные NISAR здесь предварительные (provisional)."
+     }
+    ]
+   },
+   "defaultDate": "20260919"
+  },
+  {
    "id": "rushan",
    "ready": true,
    "pairTest": true,

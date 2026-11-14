@@ -12,7 +12,7 @@ SEG = [
     ("img/site_top.png", 3.5, "NISAR Tajikistan turns raw NASA-ISRO NISAR radar files into a simple map anyone can read."),
     ("img/site_map_ayni.png", 5.5, "Ayni, July 2026: above two villages, radar coherence fell from 0.89 to 0.44, only across the mudflow."),
     ("frames/slide4.png", 4.0, "126 hectares changed in that image pair, versus 0 to 26 in every other pair."),
-    ("frames/slide5.png", 4.0, "Four places, four honest answers, including the mudflow the radar missed."),
+    ("frames/slide5.png", 4.0, "Five places, five honest answers, including the mudflow the radar missed."),
     ("frames/slide7.png", 5.5, "Next: a 'what changed' map after every 12-day NISAR pass. Open code, open data."),
 ]
 W, H, FPS = 1920, 1080, 30

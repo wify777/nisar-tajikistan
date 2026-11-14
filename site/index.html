@@ -6,13 +6,13 @@
 <title>NISAR Tajikistan</title>
 <meta name="description" content="How NASA-ISRO NISAR L-band radar sees surface change in Tajikistan: mudflows, lakes and slopes.">
 <meta property="og:title" content="NISAR Tajikistan">
-<meta property="og:description" content="Radar that sees through clouds: four places in Tajikistan, checked with NISAR satellite data.">
+<meta property="og:description" content="Radar that sees through clouds: five places in Tajikistan, checked with NISAR satellite data.">
 <meta property="og:image" content="img/ayni.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap">
 <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
-<link rel="stylesheet" href="style.css?v=5">
+<link rel="stylesheet" href="style.css?v=6">
 </head>
 <body>
 <header class="top">
@@ -47,7 +47,7 @@
         <li><strong>20 m</strong><span data-i18n="f3">pixels, every number reproducible</span></li>
       </ul>
       <div class="cta">
-        <a class="btn primary" href="#stories" data-i18n="ctaStories">See the four stories</a>
+        <a class="btn primary" href="#stories" data-i18n="ctaStories">See the five stories</a>
         <a class="btn" href="#method" data-i18n="ctaMethod">How we checked</a>
       </div>
     </div>
@@ -59,13 +59,19 @@
 
   <section class="stories-sec" id="stories">
     <div class="sec-head">
-      <h2 data-i18n="storiesTitle">Four places, four honest answers</h2>
+      <h2 data-i18n="storiesTitle">Five places, five honest answers</h2>
       <p data-i18n="storiesText">Each story says what happened, what the radar shows, how we tested it and how sure we are, including the event the radar missed.</p>
     </div>
     <div class="story-cards" id="story-cards"></div>
   </section>
 
   <section class="explore-sec" id="explore">
+    <ol class="howto" aria-label="How to use">
+      <li><b>1</b><span data-i18n="u1">Pick a place: a card above, a pin on the map or a tab</span></li>
+      <li><b>2</b><span data-i18n="u2">Move the date slider and switch radar layers</span></li>
+      <li><b>3</b><span data-i18n="u3">Read the verdict and the checks under the map</span></li>
+      <li class="howto-note" data-i18n="u4">Free, no sign-up, works on a phone</li>
+    </ol>
     <div class="explorer">
       <div class="map-wrap">
         <div id="map" role="region" aria-label="Map"></div>
@@ -157,6 +163,6 @@
 
 <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-<script src="app.js?v=5"></script>
+<script src="app.js?v=6"></script>
 </body>
 </html>

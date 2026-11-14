@@ -1,8 +1,0 @@
-{
- "look_direction": "Left",
- "pass": "Ascending",
- "incidence_deg": 39.1,
- "height_m": 4000.0,
- "azimuth_towards_satellite_deg": 74.1,
- "note": "Slopes facing towards the satellite (aspect near azimuth_towards_satellite) are compressed (foreshortening/layover if slope > incidence). Slopes facing away are darker, shadow if slope > 90 - incidence."
-}

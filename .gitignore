@@ -29,3 +29,4 @@ scripts/compare_regions.py
 datapack/
 *.zip
 ANALYSIS_TASKS_2.md
+nisar_tj_datapack/

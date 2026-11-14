@@ -101,7 +101,33 @@
     "hh",
     "hv"
    ],
-   "pairTest": true
+   "pairTest": true,
+   "tone": "detected",
+   "kind": {
+    "en": "Mudflow · 11 Jul 2026",
+    "ru": "Сель · 11 июля 2026"
+   },
+   "verdict": {
+    "en": "Detected",
+    "ru": "Обнаружен"
+   },
+   "stat": "126 ha",
+   "statLabel": {
+    "en": "of strong coherence loss near the villages in the image pair spanning the mudflow. The other seven pairs: 0–26 ha.",
+    "ru": "сильной потери когерентности у сёл в паре снимков, охватывающей сель. Остальные семь пар: 0–26 га."
+   },
+   "places": [
+    [
+     "Dargh",
+     68.9814,
+     39.3474
+    ],
+    [
+     "Kazdon",
+     68.975,
+     39.346
+    ]
+   ]
   },
   {
    "id": "sarez",
@@ -204,7 +230,33 @@
       "conf": true
      }
     ]
-   }
+   },
+   "tone": "stable",
+   "kind": {
+    "en": "Landslide dam · since 1911",
+    "ru": "Завальная плотина · с 1911 года"
+   },
+   "verdict": {
+    "en": "No change seen",
+    "ru": "Изменений нет"
+   },
+   "stat": "0.69–0.82",
+   "statLabel": {
+    "en": "coherence on the Usoi dam in every image pair, always above its surroundings (0.62–0.72).",
+    "ru": "когерентность на Усойском завале во всех парах снимков, всегда выше окрестностей (0.62–0.72)."
+   },
+   "places": [
+    [
+     "Usoi dam",
+     72.5894,
+     38.2676
+    ],
+    [
+     "Lake Sarez",
+     72.6652,
+     38.2291
+    ]
+   ]
   },
   {
    "id": "nurek",
@@ -267,7 +319,22 @@
       "conf": true
      }
     ]
-   }
+   },
+   "tone": "seasonal",
+   "kind": {
+    "en": "Reservoir · summer 2026",
+    "ru": "Водохранилище · лето 2026"
+   },
+   "verdict": {
+    "en": "Seasonal change",
+    "ru": "Сезонное изменение"
+   },
+   "stat": "+6.8 km²",
+   "statLabel": {
+    "en": "of open water between 27 June and 26 August in an 18 × 18 km section of the reservoir.",
+    "ru": "открытой воды с 27 июня по 26 августа на участке водохранилища 18 × 18 км."
+   },
+   "places": []
   },
   {
    "id": "rushan",
@@ -362,7 +429,33 @@
       "conf": true
      }
     ]
-   }
+   },
+   "tone": "missed",
+   "kind": {
+    "en": "Mudflow · 20 Jul 2026",
+    "ru": "Сель · 20 июля 2026"
+   },
+   "verdict": {
+    "en": "Not detected",
+    "ru": "Не обнаружен"
+   },
+   "stat": "≤ 0.8 ha",
+   "statLabel": {
+    "en": "of strong coherence loss near the villages on two different orbits. We show where radar fails, too.",
+    "ru": "сильной потери когерентности у сёл на двух разных орбитах. Мы показываем и то, где радар не справляется."
+   },
+   "places": [
+    [
+     "Barrushon",
+     71.4809,
+     37.9504
+    ],
+    [
+     "Derushon",
+     71.4315,
+     37.9259
+    ]
+   ]
   }
  ],
  "limits": {

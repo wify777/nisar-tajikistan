@@ -28,6 +28,8 @@ python3 -m venv .venv && .venv/bin/pip install numpy h5py fsspec aiohttp request
 # store your own Earthdata token (never commit it) in ~/.nasa/earthdata_token
 .venv/bin/python scripts/extract_series.py ayni 68.978 39.346 4 012 A 021 2005 2000
 .venv/bin/python scripts/make_story.py ayni --event-pair 20260709_20260721 --control-pair 20260627_20260709 --zone-radius-km 2.5 --zone-lon 68.978 --zone-lat 39.349
+.venv/bin/python scripts/alpha_diverging.py     # make 'no change' transparent in change layers
+.venv/bin/python scripts/make_thumbs.py         # story images over the Sentinel-2 cloudless basemap
 python3 -m http.server 8770 --directory site
 ```
 

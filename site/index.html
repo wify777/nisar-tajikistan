@@ -5,85 +5,151 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>NISAR Tajikistan</title>
 <meta name="description" content="How NASA-ISRO NISAR L-band radar sees surface change in Tajikistan: mudflows, lakes and slopes.">
+<meta property="og:title" content="NISAR Tajikistan">
+<meta property="og:description" content="Radar that sees through clouds: four places in Tajikistan, checked with NISAR satellite data.">
+<meta property="og:image" content="img/ayni.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap">
 <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=4">
 </head>
 <body>
 <header class="top">
-  <div class="brand">
-    <span class="brand-name" data-i18n="brand">NISAR Tajikistan</span>
-    <span class="brand-sub" data-i18n="brandSub">Radar views of a moving landscape</span>
-  </div>
-  <nav class="lang" aria-label="Language">
+  <a class="brand" href="#">
+    <span class="brand-mark" aria-hidden="true"></span>
+    <span class="brand-text">
+      <span class="brand-name" data-i18n="brand">NISAR Tajikistan</span>
+      <span class="brand-sub" data-i18n="brandSub">Radar views of a moving landscape</span>
+    </span>
+  </a>
+  <nav class="nav" aria-label="Sections">
+    <a href="#stories" data-i18n="navStories">Stories</a>
+    <a href="#explore" data-i18n="navExplore">Explore</a>
+    <a href="#method" data-i18n="navMethod">Method</a>
+    <a href="#data" data-i18n="navData">Data</a>
+  </nav>
+  <div class="lang" role="group" aria-label="Language">
     <button type="button" id="lang-en" class="on">EN</button>
     <button type="button" id="lang-ru">RU</button>
-  </nav>
+  </div>
 </header>
 
 <main>
-  <section class="intro">
-    <h1 data-i18n="introTitle">Seeing the ground move through clouds and darkness</h1>
-    <p data-i18n="introText">NISAR, the NASA-ISRO radar satellite, images Tajikistan about every 12 days, day or night, in any weather. We compare its images over time to show where the surface changed and explain what the change most likely means.</p>
+  <section class="hero">
+    <div class="hero-text">
+      <p class="kicker" data-i18n="kicker">NASA Space Apps 2026 · Dancing with the SARs · Dushanbe</p>
+      <h1 data-i18n="introTitle">Seeing the ground move through clouds and darkness</h1>
+      <p class="lede" data-i18n="introText">NISAR, the NASA-ISRO radar satellite, images Tajikistan about every 12 days, day or night, in any weather. We compare its images over time to show where the surface changed and explain what the change most likely means.</p>
+      <ul class="facts">
+        <li><strong>12</strong><span data-i18n="f1">days between passes</span></li>
+        <li><strong>24 cm</strong><span data-i18n="f2">L-band wavelength, sees through cloud</span></li>
+        <li><strong>20 m</strong><span data-i18n="f3">pixels, every number reproducible</span></li>
+      </ul>
+      <div class="cta">
+        <a class="btn primary" href="#stories" data-i18n="ctaStories">See the four stories</a>
+        <a class="btn" href="#method" data-i18n="ctaMethod">How we checked</a>
+      </div>
+    </div>
+    <figure class="hero-fig">
+      <img src="img/ayni.jpg" width="1200" height="1206" alt="Radar coherence loss in red and the detected change zone in yellow over a satellite view of the valley above Dargh and Kazdon">
+      <figcaption data-i18n="heroCap">Ayni, radar pair 9 → 21 July 2026 compared with the pair before. Red: the ground stopped matching between passes (coherence loss). Blue: it matched better than before. Yellow: the change zone on the slopes above Dargh and Kazdon, where a mudflow hit on 11 July.</figcaption>
+    </figure>
   </section>
 
-  <section class="explorer">
-    <div class="map-wrap">
-      <div id="map" role="region" aria-label="Map"></div>
-      <div class="legend" id="legend"></div>
+  <section class="stories-sec" id="stories">
+    <div class="sec-head">
+      <h2 data-i18n="storiesTitle">Four places, four honest answers</h2>
+      <p data-i18n="storiesText">Each story says what happened, what the radar shows, how we tested it and how sure we are, including the event the radar missed.</p>
     </div>
+    <div class="story-cards" id="story-cards"></div>
+  </section>
 
-    <aside class="panel" id="panel">
-      <div class="stories" id="story-tabs" role="tablist"></div>
-      <h2 id="story-title"></h2>
-      <p class="story-meta" id="story-meta"></p>
-
-      <div class="controls" id="controls">
-        <label class="ctl">
-          <span data-i18n="layer">Radar layer</span>
-          <select id="layer-select"></select>
-        </label>
-        <label class="ctl">
-          <span id="time-label" data-i18n="date">Date</span>
-          <input type="range" id="time-slider" min="0" max="0" value="0">
-          <output id="time-value"></output>
-        </label>
-        <label class="ctl">
-          <span data-i18n="opacity">Opacity</span>
-          <input type="range" id="opacity-slider" min="0" max="100" value="85">
-        </label>
-        <label class="ctl check">
-          <input type="checkbox" id="zone-toggle" checked>
-          <span data-i18n="showZone">Show detected change zone</span>
-        </label>
+  <section class="explore-sec" id="explore">
+    <div class="explorer">
+      <div class="map-wrap">
+        <div id="map" role="region" aria-label="Map"></div>
+        <div class="legend" id="legend"></div>
       </div>
 
-      <div class="chart-box"><canvas id="chart" height="210"></canvas></div>
-      <p class="chart-note" id="chart-note"></p>
-      <div class="chart-box small" id="chart2-box" hidden><canvas id="chart2"></canvas></div>
-      <p class="chart-note" id="chart2-note" hidden></p>
+      <aside class="panel" id="panel">
+        <div class="stories" id="story-tabs" role="tablist"></div>
+        <p class="panel-kicker" id="story-kind"></p>
+        <h2 id="story-title"></h2>
+        <p class="story-meta" id="story-meta"></p>
 
+        <div class="controls" id="controls">
+          <label class="ctl">
+            <span data-i18n="layer">Radar layer</span>
+            <select id="layer-select"></select>
+          </label>
+          <label class="ctl">
+            <span class="ctl-row"><span id="time-label" data-i18n="date">Date</span><output id="time-value"></output></span>
+            <input type="range" id="time-slider" min="0" max="0" value="0">
+          </label>
+          <div class="ctl-inline">
+            <label class="ctl grow">
+              <span data-i18n="opacity">Opacity</span>
+              <input type="range" id="opacity-slider" min="0" max="100" value="85">
+            </label>
+            <label class="ctl check">
+              <input type="checkbox" id="zone-toggle" checked>
+              <span data-i18n="showZone">Change zone</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="chart-box"><canvas id="chart"></canvas></div>
+        <p class="chart-note" id="chart-note"></p>
+        <div class="chart-box small" id="chart2-box" hidden><canvas id="chart2"></canvas></div>
+        <p class="chart-note" id="chart2-note" hidden></p>
+      </aside>
+    </div>
+
+    <div class="detail">
+      <div class="detail-head">
+        <span class="verdict" id="detail-verdict"></span>
+        <div class="detail-stat"><strong id="detail-stat"></strong><span id="detail-stat-label"></span></div>
+      </div>
       <div class="findings" id="findings"></div>
-    </aside>
+    </div>
+  </section>
+
+  <section class="method" id="method">
+    <div class="sec-head">
+      <h2 data-i18n="methodTitle">How we turn radar into answers</h2>
+      <p data-i18n="methodText">No black box: four steps, all in our open code.</p>
+    </div>
+    <ol class="steps">
+      <li><span class="step-n">1</span><h3 data-i18n="m1t">Read only what we need</h3><p data-i18n="m1">NISAR files are 1.4 to 7 GB. We read small windows around each place straight from NASA's archive, every date on the same orbit.</p></li>
+      <li><span class="step-n">2</span><h3 data-i18n="m2t">Compare every pair of dates</h3><p data-i18n="m2">Brightness shows roughness and water; coherence shows whether the ground stayed the same between two passes 12 days apart.</p></li>
+      <li><span class="step-n">3</span><h3 data-i18n="m3t">Test against all other dates</h3><p data-i18n="m3">A change only counts if it stands out against the median of all other pairs, so we do not fool ourselves with one lucky image.</p></li>
+      <li><span class="step-n">4</span><h3 data-i18n="m4t">Check with the ground truth</h3><p data-i18n="m4">We compare with news and Red Cross reports, optical Sentinel-2 images and terrain, and we say how sure we are.</p></li>
+    </ol>
   </section>
 
   <section class="explain">
     <h2 data-i18n="readTitle">How to read a radar image</h2>
     <div class="cards">
-      <div class="card"><h3 data-i18n="r1t">Dark = smooth or water</h3><p data-i18n="r1">Calm water and smooth ground reflect the radar pulse away from the satellite, like a mirror, so they look dark.</p></div>
-      <div class="card"><h3 data-i18n="r2t">Bright = rough or wet</h3><p data-i18n="r2">Rocks, debris, buildings and wet soil send more energy back, so they look bright. A jump in brightness can mean new debris or wetter ground.</p></div>
-      <div class="card"><h3 data-i18n="r3t">HH and HV</h3><p data-i18n="r3">HH is mostly the ground surface. HV appears when the signal bounces many times inside vegetation or rough material. Comparing them helps separate surface from volume changes.</p></div>
-      <div class="card"><h3 data-i18n="r4t">Coherence</h3><p data-i18n="r4">Coherence (0 to 1) shows how similar the ground stayed between two passes. If soil and stones are moved or washed away, coherence drops toward 0.</p></div>
+      <div class="card"><span class="swatch sw-dark" aria-hidden="true"></span><h3 data-i18n="r1t">Dark = smooth or water</h3><p data-i18n="r1">Calm water and smooth ground reflect the radar pulse away from the satellite, like a mirror, so they look dark.</p></div>
+      <div class="card"><span class="swatch sw-bright" aria-hidden="true"></span><h3 data-i18n="r2t">Bright = rough or wet</h3><p data-i18n="r2">Rocks, debris, buildings and wet soil send more energy back, so they look bright. A jump in brightness can mean new debris or wetter ground.</p></div>
+      <div class="card"><span class="swatch sw-pol" aria-hidden="true"></span><h3 data-i18n="r3t">HH and HV</h3><p data-i18n="r3">HH is mostly the ground surface. HV appears when the signal bounces many times inside vegetation or rough material. Comparing them helps separate surface from volume changes.</p></div>
+      <div class="card"><span class="swatch sw-coh" aria-hidden="true"></span><h3 data-i18n="r4t">Coherence</h3><p data-i18n="r4">Coherence (0 to 1) shows how similar the ground stayed between two passes. If soil and stones are moved or washed away, coherence drops toward 0.</p></div>
     </div>
   </section>
 
-  <section class="limits">
-    <h2 data-i18n="limTitle">What this data can and cannot tell</h2>
-    <ul id="limits-list"></ul>
-  </section>
-
-  <section class="credits">
-    <h2 data-i18n="credTitle">Data, tools and AI use</h2>
-    <ul id="credits-list"></ul>
+  <section class="limits" id="data">
+    <div class="two-col">
+      <div>
+        <h2 data-i18n="limTitle">What this data can and cannot tell</h2>
+        <ul id="limits-list"></ul>
+      </div>
+      <div>
+        <h2 data-i18n="credTitle">Data, tools and AI use</h2>
+        <ul id="credits-list"></ul>
+        <p class="repo"><a href="https://github.com/wify777/nisar-tajikistan" target="_blank" rel="noopener" data-i18n="repo">Open code and method on GitHub →</a></p>
+      </div>
+    </div>
   </section>
 </main>
 
@@ -91,6 +157,6 @@
 
 <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-<script src="app.js"></script>
+<script src="app.js?v=4"></script>
 </body>
 </html>

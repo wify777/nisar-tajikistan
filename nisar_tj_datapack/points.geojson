@@ -1,0 +1,109 @@
+{
+ "type": "FeatureCollection",
+ "features": [
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Dargh village"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     68.9814,
+     39.3474
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Kazdon village"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     68.975,
+     39.346
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Ayni change zone centre (r=2.5 km test circle)"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     68.978,
+     39.349
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Usoi dam"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     72.5894,
+     38.2676
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Lake Sarez seed point"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     72.6652,
+     38.2291
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Barrushon village"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     71.4809,
+     37.9504
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Derushon village"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     71.4315,
+     37.9259
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Nurek window centre (18x18 km)"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     69.42,
+     38.43
+    ]
+   }
+  }
+ ]
+}

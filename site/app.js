@@ -34,16 +34,46 @@
   var LAYERS = {
     hh: { time: "dates", file: function (k) { return "hh_" + k; }, legend: ["linear-gradient(90deg,#000,#fff)", "-25", "0", "dB"] },
     hv: { time: "dates", file: function (k) { return "hv_" + k; }, legend: ["linear-gradient(90deg,#000,#fff)", "-32", "-8", "dB"] },
-    dhh: { time: "dates", file: function (k) { return "dhh_" + k; }, legend: ["linear-gradient(90deg,#053061,#f7f7f7,#67001f)", "-6", "+6", "dB"] },
+    dhh: { time: "dates", file: function (k) { return "dhh_" + k; }, legend: ["linear-gradient(90deg,#053061,rgba(247,247,247,.15),#67001f)", "-6", "+6", "dB"] },
     coh: { time: "pairs", file: function (k) { return "coh_" + k; }, legend: ["linear-gradient(90deg,#000004,#b73779,#fcfdbf)", "0", "1", ""] },
-    cohchange: { time: null, file: function (k, s) { return "cohchange_" + s.eventPair; }, legend: ["linear-gradient(90deg,#67001f,#f7f7f7,#053061)", "-0.6", "+0.6", ""] },
+    cohchange: { time: null, file: function (k, s) { return "cohchange_" + s.eventPair; }, legend: ["linear-gradient(90deg,#67001f,rgba(247,247,247,.15),#053061)", "-0.6", "+0.6", ""] },
     water: { time: "dates", file: function (k) { return "water_" + k; }, legend: ["linear-gradient(90deg,rgba(40,140,255,0.2),rgb(40,140,255))", "", "", ""] }
   };
+  Object.assign(UI.en, {
+    navStories: "Stories", navExplore: "Explore", navMethod: "Method", navData: "Data",
+    kicker: "NASA Space Apps 2026 · Dancing with the SARs · Dushanbe",
+    f1: "days between passes", f2: "L-band wavelength, sees through cloud", f3: "pixels, every number reproducible",
+    ctaStories: "See the four stories", ctaMethod: "How we checked",
+    heroCap: "Ayni, radar pair 9 → 21 July 2026 compared with the pair before. Red: the ground stopped matching between passes (coherence loss). Blue: it matched better than before. Yellow: the change zone on the slopes above Dargh and Kazdon, where a mudflow hit on 11 July.",
+    storiesTitle: "Four places, four honest answers",
+    storiesText: "Each story says what happened, what the radar shows, how we tested it and how sure we are, including the event the radar missed.",
+    methodTitle: "How we turn radar into answers", methodText: "No black box: four steps, all in our open code.",
+    m1t: "Read only what we need", m1: "NISAR files are 1.4 to 7 GB. We read small windows around each place straight from NASA's archive, every date on the same orbit.",
+    m2t: "Compare every pair of dates", m2: "Brightness shows roughness and water; coherence shows whether the ground stayed the same between two passes 12 days apart.",
+    m3t: "Test against all other dates", m3: "A change only counts if it stands out against the median of all other pairs, so we do not fool ourselves with one lucky image.",
+    m4t: "Check with reality", m4: "We compare with news and Red Cross reports and with optical Sentinel-2 images, and we say how sure we are.",
+    repo: "Open code and method on GitHub →", showZone: "Change zone", explore: "Open on the map"
+  });
+  Object.assign(UI.ru, {
+    navStories: "Истории", navExplore: "Карта", navMethod: "Метод", navData: "Данные",
+    kicker: "NASA Space Apps 2026 · Dancing with the SARs · Душанбе",
+    f1: "дней между пролётами", f2: "длина волны L-диапазона, видит сквозь облака", f3: "пиксели, каждое число можно проверить",
+    ctaStories: "Четыре истории", ctaMethod: "Как мы проверяли",
+    heroCap: "Айни, пара снимков 9 → 21 июля 2026 в сравнении с парой до неё. Красное: земля перестала совпадать между пролётами (потеря когерентности). Синее: совпадает лучше, чем раньше. Жёлтое: зона изменений на склонах над Даргом и Каздоном, куда 11 июля сошёл сель.",
+    storiesTitle: "Четыре места, четыре честных ответа",
+    storiesText: "В каждой истории: что произошло, что показывает радар, как мы это проверили и насколько уверены. Включая событие, которое радар не увидел.",
+    methodTitle: "Как мы превращаем радар в ответы", methodText: "Без чёрного ящика: четыре шага, всё в открытом коде.",
+    m1t: "Читаем только нужное", m1: "Файлы NISAR весят от 1.4 до 7 ГБ. Мы читаем небольшие окна вокруг каждого места прямо из архива NASA, все даты на одной орбите.",
+    m2t: "Сравниваем каждую пару дат", m2: "Яркость показывает шероховатость и воду; когерентность показывает, осталась ли земля той же между двумя пролётами с разницей 12 дней.",
+    m3t: "Проверяем против всех остальных дат", m3: "Изменение засчитывается, только если оно выделяется на фоне медианы всех остальных пар. Так мы не обманываем себя одним удачным снимком.",
+    m4t: "Сверяем с реальностью", m4: "Сравниваем с новостями и отчётами Красного Креста и с оптическими снимками Sentinel-2 и говорим, насколько уверены.",
+    repo: "Открытый код и метод на GitHub →", showZone: "Зона изменений", explore: "Открыть на карте"
+  });
   UI.en.L.water = "Water detected by radar"; UI.ru.L.water = "Вода по данным радара";
   UI.en.chartWater = "Water area detected by radar (km²)"; UI.ru.chartWater = "Площадь воды по радару (км²)";
   UI.en.water = "water area"; UI.ru.water = "площадь воды";
   var state = { lang: "en", data: null, story: null, meta: null, series: null, layer: "cohchange", idx: 0, opacity: 0.85, zone: true };
-  var map, chart;
+  var map, chart, ASSET_V = "4";
   var $ = function (id) { return document.getElementById(id); };
   function t(k) { return UI[state.lang][k]; }
   function fmtDate(d) { return d.slice(0, 4) + "-" + d.slice(4, 6) + "-" + d.slice(6, 8); }
@@ -74,19 +104,46 @@
     });
   }
 
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+
+  function renderCards() {
+    var box = $("story-cards"); box.innerHTML = "";
+    state.data.stories.forEach(function (s) {
+      var b = el("button", "scard tone-" + (s.tone || "stable")); b.type = "button";
+      b.classList.toggle("on", !!state.story && state.story.id === s.id);
+      var img = el("img"); img.src = "img/" + s.id + ".jpg"; img.alt = ""; img.loading = "lazy"; img.width = 600; img.height = 450; b.appendChild(img);
+      var body = el("div", "scard-body");
+      body.appendChild(el("span", "verdict", s.verdict ? s.verdict[state.lang] : ""));
+      body.appendChild(el("h3", null, s.title[state.lang]));
+      body.appendChild(el("span", "scard-kind", s.kind ? s.kind[state.lang] : ""));
+      body.appendChild(el("span", "scard-stat", s.stat || ""));
+      body.appendChild(el("span", "scard-label", s.statLabel ? s.statLabel[state.lang] : ""));
+      b.appendChild(body);
+      b.setAttribute("aria-label", s.title[state.lang] + ". " + t("explore"));
+      b.addEventListener("click", function () { if (s.ready) { loadStory(s); $("explore").scrollIntoView({ behavior: "smooth" }); } });
+      box.appendChild(b);
+    });
+  }
+
   function renderStoryText() {
     var s = state.story;
     $("story-title").textContent = s.title[state.lang];
     $("story-meta").textContent = s.meta[state.lang];
+    $("story-kind").textContent = s.kind ? s.kind[state.lang] : "";
+    var d = document.querySelector(".detail"); d.className = "detail tone-" + (s.tone || "stable");
+    $("detail-verdict").textContent = s.verdict ? s.verdict[state.lang] : "";
+    $("detail-stat").textContent = s.stat || "";
+    $("detail-stat-label").textContent = s.statLabel ? s.statLabel[state.lang] : "";
     var f = $("findings"); f.innerHTML = "";
     s.findings[state.lang].forEach(function (b) {
-      var h = document.createElement("h3"); h.textContent = b.h; f.appendChild(h);
-      var p = document.createElement("p"); p.textContent = b.p; if (b.conf) p.className = "conf"; f.appendChild(p);
+      var box = el("div", "finding" + (b.conf ? " conf" : ""));
+      box.appendChild(el("h3", null, b.h)); box.appendChild(el("p", null, b.p));
       if (b.src) {
-        var ps = document.createElement("p"); ps.textContent = t("sources") + ": ";
-        b.src.forEach(function (x, i) { var a = document.createElement("a"); a.href = x[1]; a.target = "_blank"; a.rel = "noopener"; a.textContent = x[0]; ps.appendChild(a); if (i < b.src.length - 1) ps.appendChild(document.createTextNode(" · ")); });
-        f.appendChild(ps);
+        var ps = el("p", "src", t("sources") + ": ");
+        b.src.forEach(function (x, i) { var a = el("a", null, x[0]); a.href = x[1]; a.target = "_blank"; a.rel = "noopener"; ps.appendChild(a); if (i < b.src.length - 1) ps.appendChild(document.createTextNode(" · ")); });
+        box.appendChild(ps);
       }
+      f.appendChild(box);
     });
     var sel = $("layer-select"), cur = state.layer; sel.innerHTML = "";
     storyLayers().forEach(function (k) { var o = document.createElement("option"); o.value = k; o.textContent = UI[state.lang].L[k]; sel.appendChild(o); });
@@ -104,7 +161,7 @@
     return 0;
   }
 
-  function imgUrl() { var L = LAYERS[state.layer], keys = timeKeys(); return "data/" + state.story.id + "/layers/" + L.file(keys[state.idx], state.story) + ".png"; }
+  function imgUrl() { var L = LAYERS[state.layer], keys = timeKeys(); return "data/" + state.story.id + "/layers/" + L.file(keys[state.idx], state.story) + ".png?v=" + ASSET_V; }
 
   var mapReady = false, pendingMap = false;
   function updateRaster() {
@@ -119,7 +176,7 @@
       map.addSource("radar", { type: "image", url: url, coordinates: c });
       map.addLayer({ id: "radar", type: "raster", source: "radar", paint: { "raster-opacity": state.opacity, "raster-fade-duration": 0 } });
       if (state.meta.zone_pixels > 0) {
-        map.addSource("zone", { type: "image", url: "data/" + state.story.id + "/layers/zone.png", coordinates: c });
+        map.addSource("zone", { type: "image", url: "data/" + state.story.id + "/layers/zone.png?v=" + ASSET_V, coordinates: c });
         map.addLayer({ id: "zone", type: "raster", source: "zone", paint: { "raster-opacity": 0.9, "raster-fade-duration": 0 } });
       }
     }
@@ -140,7 +197,7 @@
 
   function updateChart() {
     var L = LAYERS[state.layer], s = state.series, ev = state.story.eventPair;
-    var css = getComputedStyle(document.documentElement), ink = css.getPropertyValue("--muted").trim(), line = css.getPropertyValue("--line").trim(), acc = css.getPropertyValue("--warn").trim();
+    var css = getComputedStyle(document.documentElement), ink = css.getPropertyValue("--muted").trim(), line = css.getPropertyValue("--line").trim(), acc = css.getPropertyValue("--warm").trim();
     var waterMode = !!state.water && (state.layer === "water" || state.layer === "hh" || state.layer === "hv" || state.layer === "dhh");
     var pairsMode = !waterMode && L.time !== "dates";
     var labels, datasets, sel;
@@ -175,7 +232,7 @@
     if (chart2) { chart2.destroy(); chart2 = null; }
     box.hidden = note.hidden = !pt;
     if (!pt || !window.Chart) return;
-    var css = getComputedStyle(document.documentElement), ink = css.getPropertyValue("--muted").trim(), line = css.getPropertyValue("--line").trim(), acc = css.getPropertyValue("--warn").trim();
+    var css = getComputedStyle(document.documentElement), ink = css.getPropertyValue("--muted").trim(), line = css.getPropertyValue("--line").trim(), acc = css.getPropertyValue("--warm").trim();
     chart2 = new Chart($("chart2"), { type: "bar",
       data: { labels: pt.pairs.map(fmtPair), datasets: [{ data: pt.near_ha, backgroundColor: pt.pairs.map(function (p) { return p === state.story.eventPair ? acc : ink; }) }] },
       options: { responsive: true, maintainAspectRatio: false, animation: false, plugins: { legend: { display: false } },
@@ -186,21 +243,31 @@
   }
   function loadStory(s) {
     state.story = s;
-    var j = function (f) { return fetch("data/" + s.id + "/" + f).then(function (r) { return r.json(); }); };
+    var j = function (f) { return fetch("data/" + s.id + "/" + f, { cache: "no-cache" }).then(function (r) { return r.json(); }); };
     Promise.all([j("meta.json"), j("series.json"), s.water ? j("water.json") : Promise.resolve(null), s.pairTest ? j("pair_test.json") : Promise.resolve(null)])
       .then(function (res) {
         state.meta = res[0]; state.series = res[1]; state.water = res[2]; state.pairTest = res[3];
         drawPairTest();
         state.layer = s.defaultLayer || storyLayers()[0];
         state.idx = defaultIdx();
-        renderTabs(); renderStoryText();
+        renderTabs(); renderCards(); renderStoryText();
         if (mapReady) {
+          placePlaces();
           map.flyTo({ center: s.center, zoom: s.zoom, duration: 800 });
           if (map.getLayer("zone")) { map.removeLayer("zone"); map.removeSource("zone"); }
           if (map.getLayer("radar")) { map.removeLayer("radar"); map.removeSource("radar"); }
         }
         updateRaster();
       });
+  }
+
+  var placeMarkers = [];
+  function placePlaces() {
+    placeMarkers.forEach(function (m) { m.remove(); }); placeMarkers = [];
+    (state.story.places || []).forEach(function (p) {
+      var e = el("div", "place", p[0]);
+      placeMarkers.push(new maplibregl.Marker({ element: e, anchor: "left", offset: [-4, 0] }).setLngLat([p[1], p[2]]).addTo(map));
+    });
   }
 
   function initMap() {
@@ -218,31 +285,33 @@
       mapReady = true;
       if (state.story) {
         map.jumpTo({ center: state.story.center, zoom: state.story.zoom });
+        placePlaces();
         if (pendingMap) { pendingMap = false; updateMapLayers(); }
       }
       state.data.stories.forEach(function (s) {
-        var el = document.createElement("button"); el.type = "button"; el.className = "pin"; el.title = s.title[state.lang];
-        el.style.cssText = "width:16px;height:16px;border-radius:50%;border:2px solid #fff;cursor:pointer;background:" + (s.ready ? "#e4572e" : "#8a9a94");
-        el.addEventListener("click", function () { if (s.ready) loadStory(s); });
-        new maplibregl.Marker({ element: el }).setLngLat(s.center).addTo(map);
+        var p = el("button", "pin"); p.type = "button"; p.title = s.title[state.lang]; p.setAttribute("aria-label", s.title[state.lang]);
+        p.style.background = "var(--t-" + (s.tone || "stable") + ")";
+        p.addEventListener("click", function () { if (s.ready) loadStory(s); });
+        new maplibregl.Marker({ element: p }).setLngLat(s.center).addTo(map);
       });
     };
+    map.addControl(new maplibregl.ScaleControl({ maxWidth: 120, unit: "metric" }), "bottom-left");
     map.on("style.load", onReady);
     map.on("load", onReady);
     if (map.isStyleLoaded()) onReady();
   }
 
   function bind() {
-    $("lang-en").addEventListener("click", function () { state.lang = "en"; applyStatic(); renderTabs(); if (state.story) { renderStoryText(); updateRaster(); drawPairTest(); } });
-    $("lang-ru").addEventListener("click", function () { state.lang = "ru"; applyStatic(); renderTabs(); if (state.story) { renderStoryText(); updateRaster(); drawPairTest(); } });
+    $("lang-en").addEventListener("click", function () { state.lang = "en"; applyStatic(); renderTabs(); renderCards(); if (state.story) { renderStoryText(); updateRaster(); drawPairTest(); } });
+    $("lang-ru").addEventListener("click", function () { state.lang = "ru"; applyStatic(); renderTabs(); renderCards(); if (state.story) { renderStoryText(); updateRaster(); drawPairTest(); } });
     $("layer-select").addEventListener("change", function (e) { state.layer = e.target.value; state.idx = defaultIdx(); updateRaster(); });
     $("time-slider").addEventListener("input", function (e) { state.idx = +e.target.value; updateRaster(); });
     $("opacity-slider").addEventListener("input", function (e) { state.opacity = e.target.value / 100; if (map.getLayer("radar")) map.setPaintProperty("radar", "raster-opacity", state.opacity); });
     $("zone-toggle").addEventListener("change", function (e) { state.zone = e.target.checked; if (map.getLayer("zone")) map.setLayoutProperty("zone", "visibility", state.zone ? "visible" : "none"); });
   }
 
-  fetch("data/stories.json").then(function (r) { return r.json(); }).then(function (d) {
-    state.data = d; applyStatic(); renderTabs(); bind(); initMap();
+  fetch("data/stories.json", { cache: "no-cache" }).then(function (r) { return r.json(); }).then(function (d) {
+    state.data = d; applyStatic(); renderTabs(); renderCards(); bind(); initMap();
     var first = d.stories.filter(function (s) { return s.ready; })[0];
     if (first) loadStory(first);
   });

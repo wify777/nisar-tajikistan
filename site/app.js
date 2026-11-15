@@ -48,6 +48,7 @@
     kicker: "NASA Space Apps 2026 · Dancing with the SARs · Dushanbe",
     f1: "days between passes", f2: "L-band wavelength: sees through clouds", f3: "pixels, every number reproducible",
     ctaStories: "See the five stories", ctaMethod: "How we checked",
+    scope: "What it is: a check after each 12-day pass, not an early warning. It sees changes of tens of hectares on slopes open to the radar, and says where it is blind.",
     heroCap: "Ayni, radar pair 9 → 21 July 2026 compared with the pair before. Red: the ground stopped matching between passes (coherence loss). Blue: it matched better than before. Yellow: the change zone on the slopes above Dargh and Kazdon, where a mudflow hit on 11 July.",
     storiesTitle: "Five places, five honest answers",
     storiesText: "Each story says what happened, what the radar shows, how we tested it and how sure we are, including the event the radar missed.",
@@ -150,8 +151,12 @@
   var map, chart, ASSET_V = "8";
   var $ = function (id) { return document.getElementById(id); };
   function t(k) { return UI[state.lang][k]; }
-  function fmtDate(d) { return d.slice(0, 4) + "-" + d.slice(4, 6) + "-" + d.slice(6, 8); }
-  function fmtPair(p) { var a = p.split("_"); return fmtDate(a[0]) + " → " + fmtDate(a[1]); }
+  var MONS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  function dayMon(d) { return (+d.slice(6, 8)) + " " + MONS[+d.slice(4, 6) - 1]; }
+  // readable dates: "9 Jul 2026", pairs "9 Jul → 21 Jul 2026"; charts use the short form without the year
+  function fmtDate(d) { return dayMon(d) + " " + d.slice(0, 4); }
+  function fmtPair(p) { var a = p.split("_"); return a[0].slice(0, 4) === a[1].slice(0, 4) ? dayMon(a[0]) + " → " + fmtDate(a[1]) : fmtDate(a[0]) + " → " + fmtDate(a[1]); }
+  function shortPair(p) { var a = p.split("_"); return dayMon(a[0]) + "–" + dayMon(a[1]); }
   function statText(s) { var v = s.stat; if (v == null) return ""; return typeof v === "string" ? v : (v[state.lang] || v.en || ""); }
   function fmtNum(v) { var s = String(v); return state.lang === "ru" ? s.replace(".", ",") : s; }
 
@@ -344,10 +349,10 @@
     var pairsMode = !waterMode && L.time !== "dates";
     var labels, datasets, sel;
     if (waterMode) {
-      labels = state.water.dates.map(fmtDate); sel = state.idx;
+      labels = state.water.dates.map(dayMon); sel = state.idx;
       datasets = [{ label: t("water"), data: state.water.water_km2, borderColor: "#2a8cff", backgroundColor: "#2a8cff", tension: 0.2, pointRadius: labels.map(function (_, i) { return i === sel ? 6 : 3; }) }];
     } else {
-      labels = pairsMode ? s.pairs.map(fmtPair) : s.dates.map(fmtDate);
+      labels = pairsMode ? s.pairs.map(shortPair) : s.dates.map(dayMon);
       var zone = pairsMode ? s.coh_zone : s.hh_zone, ref = pairsMode ? s.coh_ref : s.hh_ref;
       var evIdx = !ev ? -1 : (pairsMode ? s.pairs.indexOf(ev) : s.dates.indexOf(ev.split("_")[1]));
       sel = L.time ? state.idx : evIdx;
@@ -360,7 +365,7 @@
       data: { labels: labels, datasets: datasets },
       options: { responsive: true, animation: false, maintainAspectRatio: false,
         plugins: { legend: { labels: { color: ink, boxWidth: 12 } } },
-        scales: { x: { ticks: { color: ink, maxRotation: 60, minRotation: 40, font: { size: 9 } }, grid: { color: line } },
+        scales: { x: { ticks: { color: ink, maxRotation: 45, minRotation: 0, autoSkip: true, font: { size: 10 } }, grid: { color: line } },
                   y: { ticks: { color: ink, callback: function (v) { return fmtNum(v); } }, grid: { color: line }, suggestedMin: pairsMode ? 0 : undefined, suggestedMax: pairsMode ? 1 : undefined } } }
     };
     if (chart) chart.destroy();
@@ -376,9 +381,9 @@
     if (!pt || !window.Chart) return;
     var css = getComputedStyle(document.documentElement), ink = css.getPropertyValue("--muted").trim(), line = css.getPropertyValue("--line").trim(), acc = css.getPropertyValue("--warm").trim();
     chart2 = new Chart($("chart2"), { type: "bar",
-      data: { labels: pt.pairs.map(fmtPair), datasets: [{ data: pt.near_ha, backgroundColor: pt.pairs.map(function (p) { return p === state.story.eventPair ? acc : ink; }) }] },
+      data: { labels: pt.pairs.map(shortPair), datasets: [{ data: pt.near_ha, backgroundColor: pt.pairs.map(function (p) { return p === state.story.eventPair ? acc : ink; }) }] },
       options: { responsive: true, maintainAspectRatio: false, animation: false, plugins: { legend: { display: false } },
-        scales: { x: { ticks: { color: ink, maxRotation: 60, minRotation: 40, font: { size: 9 } }, grid: { display: false } }, y: { ticks: { color: ink, callback: function (v) { return fmtNum(v); } }, grid: { color: line }, title: { display: true, text: state.lang === "ru" ? "га" : "ha", color: ink } } } } });
+        scales: { x: { ticks: { color: ink, maxRotation: 45, minRotation: 0, autoSkip: true, font: { size: 10 } }, grid: { display: false } }, y: { ticks: { color: ink, callback: function (v) { return fmtNum(v); } }, grid: { color: line }, title: { display: true, text: state.lang === "ru" ? "га" : "ha", color: ink } } } } });
     note.textContent = state.lang === "ru"
       ? "Проверка без подгонки: площадь сильной потери когерентности (на 0,3 ниже медианы всех остальных пар) в радиусе " + fmtNum(pt.radius_km) + " км от сёл, по каждой паре снимков. Цветом выделена пара через событие."
       : "Unbiased check: area of strong coherence loss (0.3 below the median of all other pairs) within " + pt.radius_km + " km of the villages, for every image pair. The pair across the event is highlighted.";
@@ -401,7 +406,7 @@
       right: wide && panel ? Math.round(window.innerWidth - panel.getBoundingClientRect().left + 14) : 20,
       top: 100, bottom: 158
     };
-    var b = windowBounds(), o = { padding: pad, pitch: view3d ? PITCH : 0, bearing: view3d ? BEARING : 0, duration: ms, essential: true, maxZoom: 15.4 };
+    var b = windowBounds(), o = { padding: pad, pitch: view3d ? pitchFor() : 0, bearing: view3d ? BEARING : 0, duration: ms, essential: true, maxZoom: 15.4 };
     if (b) map.fitBounds(b, o);
     else map.flyTo({ center: s.center, zoom: zoomFor(s), pitch: o.pitch, bearing: o.bearing, duration: ms, essential: true });
   }
@@ -418,7 +423,7 @@
         renderTabs(); renderCards(); renderStoryText();
         if (mapReady) {
           placePlaces();
-          map.flyTo({ center: s.center, zoom: zoomFor(s), pitch: view3d ? PITCH : 0, bearing: view3d ? BEARING : 0, duration: REDUCED ? 0 : 1600, essential: true });          if (map.getLayer("zone")) { map.removeLayer("zone"); map.removeSource("zone"); }
+          map.flyTo({ center: s.center, zoom: zoomFor(s), pitch: view3d ? pitchFor() : 0, bearing: view3d ? BEARING : 0, duration: REDUCED ? 0 : 1600, essential: true });          if (map.getLayer("zone")) { map.removeLayer("zone"); map.removeSource("zone"); }
           if (map.getLayer("zone-edge")) { map.removeLayer("zone-edge"); map.removeSource("zone-edge"); }
           if (map.getLayer("radar")) { map.removeLayer("radar"); map.removeSource("radar"); }
           if (map.getLayer("cmp")) { map.removeLayer("cmp"); map.removeSource("cmp"); }
@@ -664,24 +669,32 @@
       markChips();
     }
     var mw = document.querySelector(".map-wrap"); if (mw) mw.style.setProperty("--dock-h", d.offsetHeight + "px");
+    fitPadding();
     appendWindowSpec();
   }
 
   var DEM = "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png";
-  var PITCH = 52, BEARING = -14, ZOOM3D = 0.9, view3d = true;
-  function zoomFor(s) { return s.zoom - (view3d ? ZOOM3D : 0); }
+  var PITCH_WIDE = 52, BEARING = -14, ZOOM3D = 0.9, view3d = true;
+  // on a phone the map is short and the bars cover its top: tilt less and step back a little
+  function narrow() { return window.innerWidth < 700; }
+  function pitchFor() { return narrow() ? 34 : PITCH_WIDE; }
+  function zoomFor(s) { return s.zoom - (view3d ? ZOOM3D : 0) - (narrow() ? 0.6 : 0); }
   var REDUCED = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
   function fitPadding() {
     if (!map) return;
     var wide = window.innerWidth > 1100, rail = document.querySelector(".rail"), panel = document.querySelector(".panel");
     var l = wide && rail ? rail.getBoundingClientRect().right : 0, r = wide && panel ? window.innerWidth - panel.getBoundingClientRect().left : 0;
-    map.setPadding({ left: Math.max(0, l), right: Math.max(0, r), top: 0, bottom: 0 });
+    // keep the place in the middle of the free map area: below the place/view bar, above the dock
+    var bar = document.getElementById("viewbar"), dock = document.getElementById("dock"), mapTop = $("map").getBoundingClientRect().top;
+    var top = bar ? Math.max(0, bar.getBoundingClientRect().bottom - mapTop) : 0;
+    var bottom = dock && dock.offsetHeight ? dock.offsetHeight + 40 : 0;
+    map.setPadding({ left: Math.max(0, l), right: Math.max(0, r), top: Math.min(top, 140), bottom: Math.min(bottom, 260) });
   }
   function toggle3d() {
     view3d = !view3d;
     var b = $("view-3d"); if (b) { b.setAttribute("aria-pressed", String(view3d)); b.textContent = view3d ? "3D" : "2D"; }
     map.setTerrain(view3d ? { source: "dem", exaggeration: 1.35 } : null);
-    map.easeTo({ zoom: zoomFor(state.story), pitch: view3d ? PITCH : 0, bearing: view3d ? BEARING : 0, duration: REDUCED ? 0 : 900 });
+    map.easeTo({ zoom: zoomFor(state.story), pitch: view3d ? pitchFor() : 0, bearing: view3d ? BEARING : 0, duration: REDUCED ? 0 : 900 });
   }
   function initMap(first) {
     map = new maplibregl.Map({
@@ -712,8 +725,8 @@
       if (mapReady) return;
       mapReady = true;
       if (state.story) {
-        if (REDUCED) map.jumpTo({ center: state.story.center, zoom: zoomFor(state.story), pitch: PITCH, bearing: BEARING });
-        else map.once("idle", function () { map.easeTo({ center: state.story.center, zoom: zoomFor(state.story), pitch: PITCH, bearing: BEARING, duration: 2400, essential: true }); });
+        if (REDUCED) map.jumpTo({ center: state.story.center, zoom: zoomFor(state.story), pitch: pitchFor(), bearing: BEARING });
+        else map.once("idle", function () { map.easeTo({ center: state.story.center, zoom: zoomFor(state.story), pitch: pitchFor(), bearing: BEARING, duration: 2400, essential: true }); });
         placePlaces();
         if (pendingMap) { pendingMap = false; updateMapLayers(); }
         if (state.series) applyView();

@@ -78,6 +78,7 @@ img { max-width: 100%; display: block; }
 .btn.primary { background: var(--ink); color: #04060c; border-color: var(--ink); }
 .btn.primary:hover { background: #fff; }
 .btn:active, .scard:active { transform: translateY(1px); }
+.scope { margin: 16px 0 0; padding: 10px 12px; border-left: 3px solid var(--amber, #fbbf24); background: rgba(251, 191, 36, .07); border-radius: 0 8px 8px 0; font-size: 13px; line-height: 1.45; color: var(--soft); }
 
 /* rail: the five places */
 .stories-sec { margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--line); }

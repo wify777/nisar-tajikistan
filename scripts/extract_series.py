@@ -1,6 +1,6 @@
 """Extract a small window of every NISAR GCOV acquisition and GUNW pair for one track/frame/mode
 at a site and cache them as .npz (no full downloads).
-Usage: python extract_series.py <site> <lon> <lat> <half_km> <track> <dir> <frame> <gcov_mode> <gunw_mode> [start end] [--workers N]
+Usage: python extract_series.py <site> <lon> <lat> <half_km> <track> <dir> <frame> <gcov_mode> <gunw_mode> [start end] [--workers N] [--gunw-only]
 Example: python extract_series.py ayni 68.978 39.346 4 012 A 021 2005 2000"""
 import sys, os, re, json, requests, numpy as np, pyproj, concurrent.futures as cf
 sys.path.insert(0, "scripts"); from nisar_io import open_h5
@@ -63,7 +63,7 @@ g = urls("GCOV", gmode); u = urls("GUNW", umode)
 print(f"{site}: {len(g)} GCOV dates, {len(u)} GUNW pairs", flush=True)
 json.dump({"site": site, "lon": lon, "lat": lat, "half_m": half, "track": f"{trk}{dr}", "frame": frm,
            "gcov": {k: v for k, v in g.items()}, "gunw": {k: v for k, v in u.items()}}, open(f"{out}/index.json", "w"), indent=1)
-jobs = [("gcov", k, *v) for k, v in g.items()] + [("gunw", k, *v) for k, v in u.items()]
+jobs = ([] if "--gunw-only" in sys.argv else [("gcov", k, *v) for k, v in g.items()]) + [("gunw", k, *v) for k, v in u.items()]
 with cf.ThreadPoolExecutor(workers) as ex:
     futs = {ex.submit(do_gcov if t == "gcov" else do_gunw, k, url, m): (t, k) for t, k, url, m in jobs}
     for fu in cf.as_completed(futs):

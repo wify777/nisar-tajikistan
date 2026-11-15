@@ -63,7 +63,20 @@
     a2t: "Yellow: check at a desk the same day", a2: "At least 50 ha of strong coherence loss in the circle, twice the average of the same image pair across the area, in a 12-day pair. In our five areas only 9 of 288 tests with no event passed this: about 3 alarms per 100 watched villages per pass.",
     a3t: "Red: send someone", a3: "Yellow plus any independent sign: a clear Landsat or Sentinel-2 view of fresh bare ground, heavy rain, a local report, or radar brightness that stays higher. One radar flag alone is not enough: a flag as large as Ayni's appears in about 1 of 80 tests where no mudflow happened.",
     actNote: "Reservoirs: if the water area jumps by more than 10% between passes, look for a clear Landsat or Sentinel-2 view within four days before reporting it. At Rogun this showed the autumn dips were a radar effect. Limits: the method shows change after it happened and misses narrow flows like Rushan.",
-    actLink: "Full workflow with diagram (EN/RU) →"
+    actLink: "Full workflow with diagram (EN/RU) →",
+    boardTitle: "The rule on our own data",
+    boardText: "Each square is one pair of radar passes over a 2.5 km circle around the place. The number is the flagged area in hectares, the date is the second pass. Squares with a red outline span a reported mudflow.",
+    bl1: "green", bl2: "yellow alarm", bl3: "24-day pair, not used", bl4: "reported mudflow in this pair",
+    spotHint: "Tap anywhere inside the radar window to run our alarm test there.",
+    blTitle: "Blind test: a second mudflow we never tuned on",
+    blText: "The same storm sent a mudflow into Rashnai Poyon (Panjakent) on 11 July 2026, about 100 km west of Ayni: 5 houses destroyed, 4 damaged. Before looking at any radar data there, we wrote down the rule: the pair spanning 11 July must be the largest of all pairs, at least 50 ha, and twice the area average. Then we ran the unchanged Ayni test on all three orbits that cover the village.",
+    btOrbit: "Orbit", btPair: "Pair across 11 July", btHa: "Flagged near the village", btRes: "Result",
+    btAsc: "ascending", btAsc2: "ascending", btDesc: "descending", btP1: "9 → 21 Jul", btP2: "4 → 16 Jul", btP3: "4 → 16 Jul",
+    btMiss: "not detected", btMiss2: "not detected", btHit: "detected",
+    btH1: "3 ha", btH2: "15 ha", btH3: "111 ha",
+    bwTitle: "Why only one orbit?",
+    bwText: "The slopes that changed face west. The descending orbit looks at them from the west: 64% of its flagged area is on west-facing slopes, against 31% of the land around. The two ascending orbits look from the east and see those slopes from behind. Lesson for any warning service: always check both orbit directions.",
+    bwLink: "Rule written before the test, and the full result →"
   });
   Object.assign(UI.ru, {
     navStories: "Истории", navExplore: "Карта", navMethod: "Метод", navData: "Данные",
@@ -86,7 +99,20 @@
     a2t: "Жёлтый: проверить за столом в тот же день", a2: "В круге не меньше 50 га сильной потери когерентности, вдвое больше среднего по всей области для той же пары снимков, пара через 12 дней. В наших пяти областях это прошли только 9 из 288 тестов без события: примерно 3 сигнала на 100 сёл под наблюдением за пролёт.",
     a3t: "Красный: отправить людей", a3: "Жёлтый плюс любой независимый признак: чистый снимок Landsat или Sentinel-2 со свежим голым грунтом, сильный дождь, сообщение с места или яркость радара, которая остаётся выше. Одного флага радара мало: флаг размером как в Айни встречается примерно в 1 из 80 тестов, где селя не было.",
     actNote: "Водохранилища: если площадь воды изменилась больше чем на 10% между пролётами, перед сообщением найдите чистый снимок Landsat или Sentinel-2 в пределах четырёх дней. На Рогуне так выяснилось, что осенние провалы — эффект радара. Ограничения: метод показывает изменение уже после события и пропускает узкие потоки, как в Рушане.",
-    actLink: "Полный порядок работы со схемой (EN/RU) →"
+    actLink: "Полный порядок работы со схемой (EN/RU) →",
+    boardTitle: "Правило на наших собственных данных",
+    boardText: "Каждый квадрат — одна пара пролётов радара над кругом 2.5 км вокруг места. Число — площадь с флагом в гектарах, дата — второй пролёт. Квадраты с красной рамкой охватывают известный сель.",
+    bl1: "зелёный", bl2: "жёлтый сигнал", bl3: "пара через 24 дня, не используется", bl4: "в этой паре был сель",
+    spotHint: "Нажмите в любом месте внутри радарного окна, чтобы запустить там наш тест.",
+    blTitle: "Слепой тест: второй сель, под который мы ничего не подстраивали",
+    blText: "Тот же ливень 11 июля 2026 обрушил сель на Рашнаи Поён (Пенджикент), примерно в 100 км западнее Айни: 5 домов разрушено, 4 повреждено. До того как смотреть радарные данные, мы записали правило: пара через 11 июля должна быть самой большой из всех пар, не меньше 50 га и вдвое больше среднего по области. Потом запустили неизменённый тест Айни на всех трёх орбитах, которые снимают это село.",
+    btOrbit: "Орбита", btPair: "Пара через 11 июля", btHa: "Флаг у села", btRes: "Итог",
+    btAsc: "восходящая", btAsc2: "восходящая", btDesc: "нисходящая", btP1: "9 → 21 июля", btP2: "4 → 16 июля", btP3: "4 → 16 июля",
+    btMiss: "не обнаружен", btMiss2: "не обнаружен", btHit: "обнаружен",
+    btH1: "3 га", btH2: "15 га", btH3: "111 га",
+    bwTitle: "Почему только одна орбита?",
+    bwText: "Склоны, которые изменились, смотрят на запад. Нисходящая орбита видит их с запада: 64% её флагов лежат на западных склонах, хотя таких склонов вокруг 31%. Две восходящие орбиты смотрят с востока и видят эти склоны со спины. Урок для любой службы предупреждения: всегда проверять обе стороны орбиты.",
+    bwLink: "Правило, записанное до теста, и полный результат →"
   });
   UI.en.L.water = "Water detected by radar"; UI.en.L.s2change = "Optical change (Sentinel-2)"; UI.ru.L.s2change = "Оптические изменения (Sentinel-2)"; UI.ru.L.water = "Вода по данным радара";
   UI.en.chartWater = "Water area detected by radar (km²)"; UI.ru.chartWater = "Площадь воды по радару (км²)";
@@ -330,6 +356,7 @@
     $("zone-toggle").addEventListener("change", function (e) { state.zone = e.target.checked; if (map.getLayer("zone")) map.setLayoutProperty("zone", "visibility", state.zone ? "visible" : "none"); });
   }
 
+  window.NISAR = { get map() { return map; }, get story() { return state.story; }, get lang() { return state.lang; }, get ready() { return mapReady; } };
   fetch("data/stories.json", { cache: "no-cache" }).then(function (r) { return r.json(); }).then(function (d) {
     state.data = d; applyStatic(); renderTabs(); renderCards(); bind(); initMap();
     var first = d.stories.filter(function (s) { return s.ready; })[0];

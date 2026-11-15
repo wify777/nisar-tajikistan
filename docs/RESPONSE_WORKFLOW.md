@@ -49,6 +49,7 @@ flowchart TD
 
 ### What it cannot do (tell users plainly)
 - **It misses narrow flows.** Rushan (20 Jul 2026): the channel was mostly 30–40 m wide, two radar pixels or less, and ran through orchards that are always low in coherence. Radar dropped only 0.10–0.15. Narrow flows, areas under trees and very steep slopes facing away from the satellite need other sources.
+- **One orbit direction can miss a slope.** At Panjakent (11 Jul 2026) only the descending orbit saw the mudflow: the slopes that changed face west, and the ascending orbits see them from behind. Run every circle on both ascending and descending orbits where available.
 - **Early season and longer gaps.** Pairs at the start of summer and 24-day pairs light up whole windows. Use 12-day pairs and compare each circle with the rest of the window.
 - **Not a warning before the event.** A pass every 12 days shows what changed after it happened. It helps with damage mapping, finding unreported events in remote valleys, and checking that a dam or slope did *not* change.
 - **Slow movement needs phase time series.** Few centimetres a year (for example the right-bank slope at Lake Sarez) is below what single 12-day coherence pairs show.
@@ -66,7 +67,7 @@ flowchart TD
 ### Start-up steps
 1. Agree the list of watch circles with KChS: villages with past mudflows, main roads (Dushanbe–Khujand, Pamir highway), main canals.
 2. Run the method backwards on all 2026 passes to learn each circle's normal level (the background test above, per circle).
-3. Collect every mapped event (KChS reports, Red Cross, Sentinel Asia) to measure how many are detected. Today we have one detected and one missed, which is not enough for a detection rate.
+3. Collect every mapped event (KChS reports, Red Cross, Sentinel Asia) to measure how many are detected. Today we have Ayni (detected), Panjakent (blind test: detected on 1 of 3 orbits) and Rushan (missed), which is not enough for a detection rate.
 4. Re-check the thresholds every season.
 
 ---
@@ -117,6 +118,7 @@ flowchart TD
   - оно шло через сады, где когерентность всегда низкая;
   - радар упал всего на 0.10–0.15.
   Для узких потоков, участков под деревьями и очень крутых склонов, обращённых от спутника, нужны другие источники.
+- **Одна сторона орбиты может не увидеть склон.** В Пенджикенте (11 июля 2026) сель увидела только нисходящая орбита: изменившиеся склоны смотрят на запад, а восходящие орбиты видят их со спины. Каждый круг нужно проверять и с восходящей, и с нисходящей орбиты, где они есть.
 - **Начало сезона и длинные промежутки.** Первые пары лета и пары через 24 дня «загораются» по всему окну. Используем пары через 12 дней и сравниваем круг с остальным окном.
 - **Это не предупреждение заранее.** Пролёт раз в 12 дней показывает, что изменилось уже после события. Метод полезен:
   - для карты ущерба;
@@ -140,5 +142,5 @@ flowchart TD
    - главные дороги (Душанбе–Худжанд, Памирский тракт);
    - главные каналы.
 2. Прогнать метод назад по всем пролётам 2026 года, чтобы узнать обычный уровень каждого круга (фоновый тест выше, для каждого круга отдельно).
-3. Собрать все задокументированные события (отчёты КЧС, Красный Крест, Sentinel Asia) и измерить, сколько из них метод находит. Сейчас у нас одно найденное и одно пропущенное событие. Этого мало, чтобы назвать процент обнаружения.
+3. Собрать все задокументированные события (отчёты КЧС, Красный Крест, Sentinel Asia) и измерить, сколько из них метод находит. Сейчас у нас Айни (найден), Пенджикент (слепой тест: найден на 1 из 3 орбит) и Рушан (пропущен). Этого мало, чтобы назвать процент обнаружения.
 4. Перепроверять пороги каждый сезон.

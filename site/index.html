@@ -16,7 +16,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap">
 <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
-<link rel="stylesheet" href="style.css?v=10">
+<link rel="stylesheet" href="style.css?v=14">
 </head>
 <body>
 <header class="top">
@@ -110,6 +110,10 @@
           </div>
         </div>
 
+        <div class="spot" id="spot">
+          <p class="spot-hint" data-i18n="spotHint">Tap anywhere inside the radar window to run our alarm test there.</p>
+          <div id="spot-out" aria-live="polite"></div>
+        </div>
         <div class="chart-box"><canvas id="chart"></canvas></div>
         <p class="chart-note" id="chart-note"></p>
         <div class="chart-box small" id="chart2-box" hidden><canvas id="chart2"></canvas></div>
@@ -139,6 +143,28 @@
     </ol>
   </section>
 
+  <section class="blind" id="blind">
+    <div class="sec-head">
+      <h2 data-i18n="blTitle">Blind test: a second mudflow we never tuned on</h2>
+      <p data-i18n="blText">The same storm sent a mudflow into Rashnai Poyon (Panjakent) on 11 July 2026, about 100 km west of Ayni: 5 houses destroyed, 4 damaged. Before looking at any radar data there, we wrote down the rule: the pair spanning 11 July must be the largest of all pairs, at least 50 ha, and twice the area average. Then we ran the unchanged Ayni test on all three orbits that cover the village.</p>
+    </div>
+    <div class="blind-grid">
+      <table class="blind-table">
+        <thead><tr><th data-i18n="btOrbit">Orbit</th><th data-i18n="btPair">Pair across 11 July</th><th data-i18n="btHa">Flagged near the village</th><th data-i18n="btRes">Result</th></tr></thead>
+        <tbody>
+          <tr><td>012A <span data-i18n="btAsc">ascending</span></td><td data-i18n="btP1">9 → 21 Jul</td><td data-i18n="btH1">3 ha</td><td><span class="verdict tone-missed" data-i18n="btMiss">not detected</span></td></tr>
+          <tr><td>113A <span data-i18n="btAsc2">ascending</span></td><td data-i18n="btP2">4 → 16 Jul</td><td data-i18n="btH2">15 ha</td><td><span class="verdict tone-missed" data-i18n="btMiss2">not detected</span></td></tr>
+          <tr><td>121D <span data-i18n="btDesc">descending</span></td><td data-i18n="btP3">4 → 16 Jul</td><td><strong data-i18n="btH3">111 ha</strong></td><td><span class="verdict tone-detected" data-i18n="btHit">detected</span></td></tr>
+        </tbody>
+      </table>
+      <div class="blind-why">
+        <h3 data-i18n="bwTitle">Why only one orbit?</h3>
+        <p data-i18n="bwText">The slopes that changed face west. The descending orbit looks at them from the west: 64% of its flagged area is on west-facing slopes, against 31% of the land around. The two ascending orbits look from the east and see those slopes from behind. Lesson for any warning service: always check both orbit directions.</p>
+        <p class="blind-link"><a href="https://github.com/wify777/nisar-tajikistan/blob/main/docs/BLIND_TEST_PANJAKENT.md" target="_blank" rel="noopener" data-i18n="bwLink">Rule written before the test, and the full result →</a></p>
+      </div>
+    </div>
+  </section>
+
   <section class="action" id="action">
     <div class="sec-head">
       <h2 data-i18n="actTitle">From map to action</h2>
@@ -149,6 +175,17 @@
       <li class="tier t-yellow"><h3 data-i18n="a2t">Yellow: check at a desk the same day</h3><p data-i18n="a2">At least 50 ha of strong coherence loss in the circle, twice the average of the same image pair across the area, in a 12-day pair. In our five areas only 9 of 288 tests with no event passed this: about 3 alarms per 100 watched villages per pass.</p></li>
       <li class="tier t-red"><h3 data-i18n="a3t">Red: send someone</h3><p data-i18n="a3">Yellow plus any independent sign: a clear Landsat or Sentinel-2 view of fresh bare ground, heavy rain, a local report, or radar brightness that stays higher. One radar flag alone is not enough: a flag as large as Ayni's appears in about 1 of 80 tests where no mudflow happened.</p></li>
     </ol>
+    <div class="board-wrap">
+      <h3 data-i18n="boardTitle">The rule on our own data</h3>
+      <p data-i18n="boardText">Each square is one pair of radar passes over a 2.5 km circle around the place. The number is the flagged area in hectares, the date is the second pass. Squares with a red outline span a reported mudflow.</p>
+      <div id="board" class="board"></div>
+      <ul class="board-legend">
+        <li><span class="bcell b-green" aria-hidden="true"></span><span data-i18n="bl1">green</span></li>
+        <li><span class="bcell b-yellow" aria-hidden="true"></span><span data-i18n="bl2">yellow alarm</span></li>
+        <li><span class="bcell b-long" aria-hidden="true"></span><span data-i18n="bl3">24-day pair, not used</span></li>
+        <li><span class="bcell b-green b-event" aria-hidden="true"></span><span data-i18n="bl4">reported mudflow in this pair</span></li>
+      </ul>
+    </div>
     <p class="action-note"><span data-i18n="actNote">Reservoirs: if the water area jumps by more than 10% between passes, look for a clear Landsat or Sentinel-2 view within four days before reporting it. At Rogun this showed the autumn dips were a radar effect. Limits: the method shows change after it happened and misses narrow flows like Rushan.</span> <a href="https://github.com/wify777/nisar-tajikistan/blob/main/docs/RESPONSE_WORKFLOW.md" target="_blank" rel="noopener" data-i18n="actLink">Full workflow with diagram (EN/RU) →</a></p>
   </section>
 
@@ -181,6 +218,8 @@
 
 <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-<script src="app.js?v=10"></script>
+<script src="app.js?v=14"></script>
+<script src="board.js?v=2"></script>
+<script src="spot.js?v=1"></script>
 </body>
 </html>

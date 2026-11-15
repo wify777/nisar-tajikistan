@@ -20,6 +20,9 @@ Optical cross-checks (Sentinel-2) and water-mask checks are in `analysis/`.
 
 - **False alarm rate** (`scripts/false_alarm_rate.py`): the same Ayni test on 331 circle-and-pair combinations with no reported event (five areas, three orbits). 4 of 331 (1.2%) reach the Ayni level of 126 ha, all in the first image pair of the summer.
 - **Proposed response workflow** (green / yellow / red alarms, EN/RU): [docs/RESPONSE_WORKFLOW.md](docs/RESPONSE_WORKFLOW.md).
+- **Alarm board** (`scripts/alarm_board.py` → `site/data/alarm_board.json`, shown by `site/board.js`): the yellow-alarm rule run on every watched village and every image pair we have.
+- **Test any spot** (`scripts/export_flags.py` → `site/data/<story>/flags.png`, run in the browser by `site/spot.js`): tap the map and the same rule runs in a 2.5 km circle around that point. Bit *i* of the PNG's red channel is the flag for pair *i*, and alpha 0 means no data.
+- **Ayni optical check** (`scripts/ayni_optical_check.py`) and **radar vs optical water gap** (`scripts/water_gap.py`).
 
 ## Data
 - NISAR L2 **GCOV** (backscatter, HH and HV, 20 m) and **GUNW** (interferograms, coherence 20 m), provisional products, from ASF DAAC. Only small windows are read remotely with HTTP range requests; full files (1.4-7 GB) are never downloaded.

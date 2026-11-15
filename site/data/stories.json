@@ -79,7 +79,7 @@
      {
       "check": true,
       "h": "How often does the test fire with no mudflow?",
-      "p": "We ran the same test on 331 circles and image pairs with no reported event, in five areas on three different orbits (Ayni, Sarez, Rushan, Rogun, Nurek). More than half flag less than 1 ha. Only 4 of 331 (1.2%) reach the 126 ha seen at Ayni, all four in the first image pair of the summer; 14 (4%) reach 70 ha. So one flag alone is not proof. Ayni counts because several checks agree: the change appears only in the event pair, at the reported villages, stands out against the same pair elsewhere, and the surface stayed brighter afterwards. With one detected and one missed event we cannot yet give a detection rate.",
+      "p": "We ran the same test on 331 circles and image pairs with no reported event, in five areas on three different orbits (Ayni, Sarez, Rushan, Rogun, Nurek). More than half flag less than 1 ha. Only 4 of 331 (1.2%) reach the 126 ha seen at Ayni, all four in the first image pair of the summer; 14 (4%) reach 70 ha. So one flag alone is not proof. Ayni counts because several checks agree: the change appears only in the event pair, at the reported villages, stands out against the same pair elsewhere, and the surface stayed brighter afterwards. A blind test on a second mudflow (Panjakent, same storm) found it on 1 of 3 orbits; with so few events we cannot yet give a detection rate.",
       "src": [
        [
         "False alarm test (our code)",
@@ -153,7 +153,7 @@
      {
       "check": true,
       "h": "Как часто тест срабатывает без селя?",
-      "p": "Мы прогнали тот же тест на 331 круге и паре снимков без известных событий, в пяти областях на трёх разных орбитах (Айни, Сарез, Рушан, Рогун, Нурек). Больше чем у половины флаг меньше 1 га. Уровня Айни (126 га) достигают только 4 из 331 (1.2%), и все четыре в первой паре снимков лета; 70 га достигают 14 (4%). Поэтому один флаг сам по себе не доказательство. Айни мы засчитываем, потому что сходятся несколько проверок: изменение есть только в паре через событие, у названных сёл, выделяется на фоне той же пары в других местах, а поверхность после этого осталась ярче. При одном найденном и одном пропущенном событии процент обнаружения назвать пока нельзя.",
+      "p": "Мы прогнали тот же тест на 331 круге и паре снимков без известных событий, в пяти областях на трёх разных орбитах (Айни, Сарез, Рушан, Рогун, Нурек). Больше чем у половины флаг меньше 1 га. Уровня Айни (126 га) достигают только 4 из 331 (1.2%), и все четыре в первой паре снимков лета; 70 га достигают 14 (4%). Поэтому один флаг сам по себе не доказательство. Айни мы засчитываем, потому что сходятся несколько проверок: изменение есть только в паре через событие, у названных сёл, выделяется на фоне той же пары в других местах, а поверхность после этого осталась ярче. Слепой тест на втором селе (Пенджикент, тот же ливень) нашёл его на 1 из 3 орбит; при таком малом числе событий процент обнаружения назвать пока нельзя.",
       "src": [
        [
         "False alarm test (our code)",
@@ -824,7 +824,7 @@
    "A 12-day gap means we see the state before and after an event, not the event itself.",
    "Steep mountains cause radar shadow and layover; some slopes are not visible from a given orbit direction.",
    "Coherence also drops with snow, rain and vegetation growth, so every change is checked against the other dates and the reported events.",
-   "We have one detected and one missed mudflow, so we cannot yet give a detection rate. Without any mudflow, the test reaches the Ayni level in about 1 of 80 circle-and-pair tests, more often in the first pair of the summer.",
+   "We have three mapped mudflows: Ayni detected, Panjakent detected on 1 of 3 orbits in a blind test, Rushan missed. That is too few for a detection rate. Without any mudflow, the test reaches the Ayni level in about 1 of 80 circle-and-pair tests, more often in the first pair of the summer.",
    "Images are smoothed with a small 3x3 window for display; numbers in the text use the original pixels."
   ],
   "ru": [
@@ -833,7 +833,7 @@
    "Промежуток 12 дней означает, что мы видим состояние до и после события, а не сам момент.",
    "Крутые горы дают радарные тени и наложения: часть склонов не видна с данного направления орбиты.",
    "Когерентность падает и от снега, дождя и роста растений, поэтому каждое изменение сверяется с другими датами и с задокументированными событиями.",
-   "У нас один найденный и один пропущенный сель, поэтому процент обнаружения назвать пока нельзя. Без всякого селя тест достигает уровня Айни примерно в 1 из 80 тестов «круг и пара», чаще в первой паре снимков лета.",
+   "У нас три задокументированных селя: Айни найден, Пенджикент найден на 1 из 3 орбит в слепом тесте, Рушан пропущен. Этого мало, чтобы назвать процент обнаружения. Без всякого селя тест достигает уровня Айни примерно в 1 из 80 тестов «круг и пара», чаще в первой паре снимков лета.",
    "Для показа изображения сглажены окном 3×3; числа в тексте посчитаны по исходным пикселям."
   ]
  },

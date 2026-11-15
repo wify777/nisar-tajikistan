@@ -128,12 +128,13 @@
     bwTitle: "Почему только одна орбита?",
     bwText: "Склоны, которые изменились, смотрят на запад. Нисходящая орбита видит их с запада: 64% её флагов лежат на западных склонах, хотя таких склонов вокруг 31%. Две восходящие орбиты смотрят с востока и видят эти склоны со спины. Мы измерили это по модели рельефа и векторам визирования из файлов NISAR: из 111 га, которые изменились, с орбиты 012A можно следить только за 23%, с 113A за 31% (остальное в радарной тени, видно под скользящим углом или имеет слишком низкую обычную когерентность), а по остальной земле вокруг села около 65%. Урок для любой службы предупреждения: всегда проверять оба направления орбиты. Три орбиты вместе видят 94% круга.",
     bwLink: "Правило, записанное до теста, и полный результат →",
-    bwNote: "«Видно» под каждым названием: доля круга, где эта орбита вообще могла бы заметить сель. Остальное скрыто рельефом (радарная тень, наложение, скользящий угол) или имеет обычную когерентность ниже 0.5, и падение на 0.3 там невозможно (ниже 0.2 когерентность почти не опускается). Измерено по модели рельефа Copernicus и векторам визирования из файлов NISAR."
+    bwNote: "«Видно» под каждым названием: доля круга, где эта орбита вообще могла бы заметить сель. Остальное скрыто рельефом (радарная тень, наложение, скользящий угол) или имеет обычную когерентность ниже 0,5, и падение на 0,3 там невозможно (ниже 0,2 когерентность почти не опускается). Измерено по модели рельефа Copernicus и векторам визирования из файлов NISAR."
   });
   UI.en.L.water = "Water detected by radar"; UI.en.L.s2change = "Optical change (Sentinel-2)"; UI.ru.L.s2change = "Оптические изменения (Sentinel-2)"; UI.ru.L.water = "Вода по данным радара";
   UI.en.chartWater = "Water area detected by radar (km²)"; UI.ru.chartWater = "Площадь воды по радару (км²)";
   UI.en.water = "water area"; UI.ru.water = "площадь воды";
   UI.en.readMore = "Full analysis"; UI.ru.readMore = "Полный разбор";
+  UI.en.mapLoad = "Loading 3D terrain…"; UI.ru.mapLoad = "Загружаем 3D-рельеф…";
   var state = { lang: "en", data: null, story: null, meta: null, series: null, layer: "cohchange", idx: 0, opacity: 0.85, zone: true };
   var map, chart, ASSET_V = "8";
   var $ = function (id) { return document.getElementById(id); };
@@ -330,9 +331,12 @@
   var placeMarkers = [];
   function placePlaces() {
     placeMarkers.forEach(function (m) { m.remove(); }); placeMarkers = [];
-    (state.story.places || []).forEach(function (p) {
-      var e = el("div", "place", p[0]);
-      placeMarkers.push(new maplibregl.Marker({ element: e, anchor: "left", offset: [-4, 0] }).setLngLat([p[1], p[2]]).addTo(map));
+    var pl = state.story.places || [];
+    pl.forEach(function (p, i) {
+      // put the label on the far side of the nearest neighbour, so close villages (Dargh, Kazdon) do not overlap
+      var flip = pl.some(function (q, k) { return k !== i && Math.abs(q[2] - p[2]) < 0.01 && q[1] > p[1] && q[1] - p[1] < 0.03; });
+      var e = el("div", "place" + (flip ? " flip" : ""), p[0]);
+      placeMarkers.push(new maplibregl.Marker({ element: e, anchor: flip ? "right" : "left", offset: [flip ? 4 : -4, 0] }).setLngLat([p[1], p[2]]).addTo(map));
     });
   }
 
@@ -352,7 +356,7 @@
     map.setTerrain(view3d ? { source: "dem", exaggeration: 1.35 } : null);
     map.easeTo({ zoom: zoomFor(state.story), pitch: view3d ? PITCH : 0, bearing: view3d ? BEARING : 0, duration: REDUCED ? 0 : 900 });
   }
-  function initMap() {
+  function initMap(first) {
     map = new maplibregl.Map({
       container: "map",
       style: { version: 8, sources: { s2: { type: "raster", tileSize: 256, maxzoom: 15,
@@ -363,8 +367,16 @@
         layers: [{ id: "s2", type: "raster", source: "s2" },
           { id: "hills", type: "hillshade", source: "hs", paint: { "hillshade-exaggeration": 0.28, "hillshade-shadow-color": "#05070a", "hillshade-highlight-color": "rgba(255,255,255,0.12)", "hillshade-accent-color": "#05070a" } }],
         terrain: { source: "dem", exaggeration: 1.35 } },
-      center: [70.8, 38.6], zoom: 6.1, pitch: 0, maxPitch: 75, attributionControl: { compact: true }
+      // open already over the first story, a little higher and flatter: the tiles on screen are the ones the final view needs
+      center: first ? first.center : [70.8, 38.6], zoom: first ? zoomFor(first) - 1.1 : 6.1, pitch: first ? 30 : 0, bearing: 0,
+      maxPitch: 75, attributionControl: { compact: true }, fadeDuration: 150
     });
+    var shown = false, show = function () {
+      if (shown) return; shown = true;
+      $("map").classList.add("in"); var ml = $("map-load"); if (ml) ml.classList.add("done");
+      var at = document.querySelector(".maplibregl-ctrl-attrib"); if (at) at.classList.remove("maplibregl-compact-show");
+    };
+    map.once("idle", show); setTimeout(show, 6000);
     fitPadding(); window.addEventListener("resize", fitPadding);
     map.addControl(new maplibregl.NavigationControl({ showCompass: false }), "top-right");
     var onReady = function () {
@@ -372,7 +384,7 @@
       mapReady = true;
       if (state.story) {
         if (REDUCED) map.jumpTo({ center: state.story.center, zoom: zoomFor(state.story), pitch: PITCH, bearing: BEARING });
-        else setTimeout(function () { map.flyTo({ center: state.story.center, zoom: zoomFor(state.story), pitch: PITCH, bearing: BEARING, duration: 5200, curve: 1.6, essential: true }); }, 700);
+        else map.once("idle", function () { map.easeTo({ center: state.story.center, zoom: zoomFor(state.story), pitch: PITCH, bearing: BEARING, duration: 2400, essential: true }); });
         placePlaces();
         if (pendingMap) { pendingMap = false; updateMapLayers(); }
       }
@@ -401,8 +413,8 @@
 
   window.NISAR = { get map() { return map; }, get story() { return state.story; }, get lang() { return state.lang; }, get ready() { return mapReady; } };
   fetch("data/stories.json", { cache: "no-cache" }).then(function (r) { return r.json(); }).then(function (d) {
-    state.data = d; applyStatic(); renderTabs(); renderCards(); bind(); initMap();
     var first = d.stories.filter(function (s) { return s.ready; })[0];
+    state.data = d; applyStatic(); renderTabs(); renderCards(); bind(); initMap(first);
     if (first) loadStory(first);
   });
 })();

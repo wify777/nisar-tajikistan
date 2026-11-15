@@ -11,12 +11,15 @@
 <meta property="og:url" content="https://wify777.github.io/nisar-tajikistan/">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
-<meta name="theme-color" content="#06080b">
+<meta name="theme-color" content="#04060c">
+<link rel="preconnect" href="https://tiles.maps.eox.at" crossorigin>
+<link rel="preconnect" href="https://s3.amazonaws.com" crossorigin>
+<link rel="preconnect" href="https://unpkg.com" crossorigin>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
-<link rel="stylesheet" href="style.css?v=21">
+<link rel="stylesheet" href="style.css?v=23">
 </head>
 <body>
 <header class="top">
@@ -44,6 +47,7 @@
   <section class="app" id="explore">
     <div class="map-wrap">
       <div id="map" role="region" aria-label="Map"></div>
+      <div class="map-load" id="map-load" role="status" data-i18n="mapLoad">Loading 3D terrain…</div>
       <div class="legend" id="legend"></div>
       <button type="button" class="map-btn" id="view-3d" aria-pressed="true" title="2D / 3D">3D</button>
     </div>
@@ -228,8 +232,8 @@
 
 <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-<script src="app.js?v=21"></script>
-<script src="board.js?v=5"></script>
+<script src="app.js?v=23"></script>
+<script src="board.js?v=6"></script>
 <script src="spot.js?v=3"></script>
 </body>
 </html>

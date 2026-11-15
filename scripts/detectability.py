@@ -128,7 +128,7 @@ PLACES = [("Dargh (Ayni)", "Дарг (Айни)", "ayni", 68.9814, 39.3474), ("K
           ("Rashnai Poyon (Panjakent)", "Рашнаи Поён (Пенджикент)", "panjakent", 67.8004, 39.2326),
           ("Rashnai Poyon (Panjakent)", "Рашнаи Поён (Пенджикент)", "panjakent_113a", 67.8004, 39.2326),
           ("Rashnai Poyon (Panjakent)", "Рашнаи Поён (Пенджикент)", "panjakent_121d", 67.8004, 39.2326),
-          ("Barrushon (Rushan)", "Баррушон (Рушан)", "rushan_d", 71.4809, 37.9504), ("Derushon (Rushan)", "Дерушон (Рушан)", "rushan_d", 71.432, 37.926),
+          ("Barrushon (Rushan)", "Баррушон (Рушан)", "rushan_d", 71.4809, 37.9504), ("Dehrushon (Rushan)", "Дерушон (Рушан)", "rushan_d", 71.432, 37.926),
           ("Usoi dam (Sarez)", "Усойский завал (Сарез)", "sarez", 72.5894, 38.2676)]
 rows = []
 for en, ru, s, lo, la in PLACES:

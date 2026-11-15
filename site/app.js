@@ -695,10 +695,17 @@
         tiles: ["https://tiles.maps.eox.at/wmts/1.0.0/s2cloudless-2023_3857/default/g/{z}/{y}/{x}.jpg"],
         attribution: "Sentinel-2 cloudless 2023 by EOX IT Services GmbH (contains modified Copernicus Sentinel data 2023)" },
         dem: { type: "raster-dem", tiles: [DEM], encoding: "terrarium", tileSize: 256, maxzoom: 14, attribution: "Terrain: Mapzen / AWS Terrain Tiles" },
-        hs: { type: "raster-dem", tiles: [DEM], encoding: "terrarium", tileSize: 256, maxzoom: 14 } },
-        layers: [{ id: "s2", type: "raster", source: "s2" },
-          { id: "hills", type: "hillshade", source: "hs", paint: { "hillshade-exaggeration": 0.28, "hillshade-shadow-color": "#05070a", "hillshade-highlight-color": "rgba(255,255,255,0.12)", "hillshade-accent-color": "#05070a" } }],
-        terrain: { source: "dem", exaggeration: 1.35 } },
+        hs: { type: "raster-dem", tiles: [DEM], encoding: "terrarium", tileSize: 256, maxzoom: 14 },
+        // Sentinel-2 is 10 m per pixel and turns to mush past zoom 6, so from there the base photo is
+        // Esri World Imagery: sub-metre to a few metres, which is what a place needs when you fly in
+        hi: { type: "raster", tileSize: 256, maxzoom: 17, tiles: ["https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"],
+          attribution: "Detail imagery: Esri, Maxar, Earthstar Geographics" } },
+      layers: [{ id: "bg", type: "background", paint: { "background-color": "#2a2f35" } },
+        { id: "s2", type: "raster", source: "s2", maxzoom: 6 },
+        { id: "hi", type: "raster", source: "hi", minzoom: 5, paint: { "raster-opacity": ["interpolate", ["linear"], ["zoom"], 5, 0, 6, 1], "raster-saturation": 0.12, "raster-contrast": 0.12, "raster-brightness-max": 1, "raster-fade-duration": 200 } },
+        { id: "hills", type: "hillshade", source: "hs", paint: { "hillshade-exaggeration": ["interpolate", ["linear"], ["zoom"], 7, 0.18, 11, 0.04], "hillshade-shadow-color": "#1b2430", "hillshade-highlight-color": "rgba(255,255,255,0.08)", "hillshade-accent-color": "#1b2430" } }],
+      terrain: { source: "dem", exaggeration: 1.35 },
+      sky: { "sky-color": "#4f7fb8", "horizon-color": "#c3d3e4", "fog-color": "#c7d3df", "sky-horizon-blend": 0.5, "horizon-fog-blend": 0.6, "fog-ground-blend": 0.12, "atmosphere-blend": 0.8 } },
       // open already over the first story, a little higher and flatter: the tiles on screen are the ones the final view needs
       center: first ? first.center : [70.8, 38.6], zoom: first ? zoomFor(first) - 1.1 : 6.1, pitch: first ? 30 : 0, bearing: 0,
       maxPitch: 75, attributionControl: { compact: true }, fadeDuration: 150

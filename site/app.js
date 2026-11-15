@@ -56,7 +56,14 @@
     m3t: "Test against all other dates", m3: "A change only counts if it stands out against the median of all other pairs, so we do not fool ourselves with one lucky image.",
     m4t: "Check with reality", m4: "We compare with news and Red Cross reports and with optical Sentinel-2 images, and we say how sure we are.",
     repo: "Open code and method on GitHub →", showZone: "Change zone", explore: "Open on the map",
-    u1: "Pick a place: a card above, a pin on the map or a tab", u2: "Move the date slider and switch radar layers", u3: "Read the verdict and the checks under the map", u4: "Free, no sign-up, works on a phone"
+    u1: "Pick a place: a card above, a pin on the map or a tab", u2: "Move the date slider and switch radar layers", u3: "Read the verdict and the checks under the map", u4: "Free, no sign-up, works on a phone",
+    navAction: "In practice", actTitle: "From map to action",
+    actText: "How a rescue service could use each new NISAR pass. A proposal built on our measurements, not yet agreed with the Committee of Emergency Situations.",
+    a1t: "Green: log it", a1: "The 2.5 km circle around a village, road or canal shows no unusual coherence loss. Nothing to do.",
+    a2t: "Yellow: check at a desk the same day", a2: "At least 50 ha of strong coherence loss in the circle, twice the average of the same image pair across the area, in a 12-day pair. In our five areas only 9 of 288 tests with no event passed this: about 3 alarms per 100 watched villages per pass.",
+    a3t: "Red: send someone", a3: "Yellow plus any independent sign: a clear Landsat or Sentinel-2 view of fresh bare ground, heavy rain, a local report, or radar brightness that stays higher. One radar flag alone is not enough: a flag as large as Ayni's appears in about 1 of 80 tests where no mudflow happened.",
+    actNote: "Reservoirs: if the water area jumps by more than 10% between passes, look for a clear Landsat or Sentinel-2 view within four days before reporting it. At Rogun this showed the autumn dips were a radar effect. Limits: the method shows change after it happened and misses narrow flows like Rushan.",
+    actLink: "Full workflow with diagram (EN/RU) →"
   });
   Object.assign(UI.ru, {
     navStories: "Истории", navExplore: "Карта", navMethod: "Метод", navData: "Данные",
@@ -72,7 +79,14 @@
     m3t: "Проверяем против всех остальных дат", m3: "Изменение засчитывается, только если оно выделяется на фоне медианы всех остальных пар. Так мы не обманываем себя одним удачным снимком.",
     m4t: "Сверяем с реальностью", m4: "Сравниваем с новостями и отчётами Красного Креста и с оптическими снимками Sentinel-2 и говорим, насколько уверены.",
     repo: "Открытый код и метод на GitHub →", showZone: "Зона изменений", explore: "Открыть на карте",
-    u1: "Выберите место: карточка выше, точка на карте или вкладка", u2: "Двигайте ползунок дат и переключайте радарные слои", u3: "Читайте вердикт и проверки под картой", u4: "Бесплатно, без регистрации, работает на телефоне"
+    u1: "Выберите место: карточка выше, точка на карте или вкладка", u2: "Двигайте ползунок дат и переключайте радарные слои", u3: "Читайте вердикт и проверки под картой", u4: "Бесплатно, без регистрации, работает на телефоне",
+    navAction: "На практике", actTitle: "От карты к действию",
+    actText: "Как спасательная служба могла бы использовать каждый новый пролёт NISAR. Это предложение на основе наших измерений, с КЧС оно пока не согласовано.",
+    a1t: "Зелёный: записать", a1: "В круге 2.5 км вокруг села, дороги или канала нет необычной потери когерентности. Ничего делать не нужно.",
+    a2t: "Жёлтый: проверить за столом в тот же день", a2: "В круге не меньше 50 га сильной потери когерентности, вдвое больше среднего по всей области для той же пары снимков, пара через 12 дней. В наших пяти областях это прошли только 9 из 288 тестов без события: примерно 3 сигнала на 100 сёл под наблюдением за пролёт.",
+    a3t: "Красный: отправить людей", a3: "Жёлтый плюс любой независимый признак: чистый снимок Landsat или Sentinel-2 со свежим голым грунтом, сильный дождь, сообщение с места или яркость радара, которая остаётся выше. Одного флага радара мало: флаг размером как в Айни встречается примерно в 1 из 80 тестов, где селя не было.",
+    actNote: "Водохранилища: если площадь воды изменилась больше чем на 10% между пролётами, перед сообщением найдите чистый снимок Landsat или Sentinel-2 в пределах четырёх дней. На Рогуне так выяснилось, что осенние провалы — эффект радара. Ограничения: метод показывает изменение уже после события и пропускает узкие потоки, как в Рушане.",
+    actLink: "Полный порядок работы со схемой (EN/RU) →"
   });
   UI.en.L.water = "Water detected by radar"; UI.en.L.s2change = "Optical change 16 → 26 Jul (Sentinel-2)"; UI.ru.L.s2change = "Оптические изменения 16 → 26 июля (Sentinel-2)"; UI.ru.L.water = "Вода по данным радара";
   UI.en.chartWater = "Water area detected by radar (km²)"; UI.ru.chartWater = "Площадь воды по радару (км²)";

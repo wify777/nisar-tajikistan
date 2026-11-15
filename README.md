@@ -18,6 +18,9 @@ A static web app (`site/`) with an interactive map, a date slider and charts. Fo
 
 Optical cross-checks (Sentinel-2) and water-mask checks are in `analysis/`.
 
+- **False alarm rate** (`scripts/false_alarm_rate.py`): the same Ayni test on 331 circle-and-pair combinations with no reported event (five areas, three orbits). 4 of 331 (1.2%) reach the Ayni level of 126 ha, all in the first image pair of the summer.
+- **Proposed response workflow** (green / yellow / red alarms, EN/RU): [docs/RESPONSE_WORKFLOW.md](docs/RESPONSE_WORKFLOW.md).
+
 ## Data
 - NISAR L2 **GCOV** (backscatter, HH and HV, 20 m) and **GUNW** (interferograms, coherence 20 m), provisional products, from ASF DAAC. Only small windows are read remotely with HTTP range requests; full files (1.4-7 GB) are never downloaded.
 - NASA HLS v2.0 (HLSL30 Landsat 8/9, HLSS30), LP DAAC, for the Rogun autumn check (`scripts/hls_water.py`).

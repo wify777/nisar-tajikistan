@@ -16,7 +16,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap">
 <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
-<link rel="stylesheet" href="style.css?v=7">
+<link rel="stylesheet" href="style.css?v=8">
 </head>
 <body>
 <header class="top">
@@ -31,6 +31,7 @@
     <a href="#stories" data-i18n="navStories">Stories</a>
     <a href="#explore" data-i18n="navExplore">Explore</a>
     <a href="#method" data-i18n="navMethod">Method</a>
+    <a href="#action" data-i18n="navAction">In practice</a>
     <a href="#data" data-i18n="navData">Data</a>
   </nav>
   <div class="lang" role="group" aria-label="Language">
@@ -138,6 +139,19 @@
     </ol>
   </section>
 
+  <section class="action" id="action">
+    <div class="sec-head">
+      <h2 data-i18n="actTitle">From map to action</h2>
+      <p data-i18n="actText">How a rescue service could use each new NISAR pass. A proposal built on our measurements, not yet agreed with the Committee of Emergency Situations.</p>
+    </div>
+    <ol class="tiers">
+      <li class="tier t-green"><h3 data-i18n="a1t">Green: log it</h3><p data-i18n="a1">The 2.5 km circle around a village, road or canal shows no unusual coherence loss. Nothing to do.</p></li>
+      <li class="tier t-yellow"><h3 data-i18n="a2t">Yellow: check at a desk the same day</h3><p data-i18n="a2">At least 50 ha of strong coherence loss in the circle, twice the average of the same image pair across the area, in a 12-day pair. In our five areas only 9 of 288 tests with no event passed this: about 3 alarms per 100 watched villages per pass.</p></li>
+      <li class="tier t-red"><h3 data-i18n="a3t">Red: send someone</h3><p data-i18n="a3">Yellow plus any independent sign: a clear Landsat or Sentinel-2 view of fresh bare ground, heavy rain, a local report, or radar brightness that stays higher. One radar flag alone is not enough: a flag as large as Ayni's appears in about 1 of 80 tests where no mudflow happened.</p></li>
+    </ol>
+    <p class="action-note"><span data-i18n="actNote">Reservoirs: if the water area jumps by more than 10% between passes, look for a clear Landsat or Sentinel-2 view within four days before reporting it. At Rogun this showed the autumn dips were a radar effect. Limits: the method shows change after it happened and misses narrow flows like Rushan.</span> <a href="https://github.com/wify777/nisar-tajikistan/blob/main/docs/RESPONSE_WORKFLOW.md" target="_blank" rel="noopener" data-i18n="actLink">Full workflow with diagram (EN/RU) →</a></p>
+  </section>
+
   <section class="explain">
     <h2 data-i18n="readTitle">How to read a radar image</h2>
     <div class="cards">
@@ -167,6 +181,6 @@
 
 <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-<script src="app.js?v=8"></script>
+<script src="app.js?v=9"></script>
 </body>
 </html>

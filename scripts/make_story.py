@@ -17,10 +17,12 @@ dx = x[1]-x[0]; dy = y[1]-y[0]
 corners = [inv.transform(x[0]-dx/2, y[0]-dy/2), inv.transform(x[-1]+dx/2, y[0]-dy/2), inv.transform(x[-1]+dx/2, y[-1]+dy/2), inv.transform(x[0]-dx/2, y[-1]+dy/2)]
 corners = [[round(a, 6), round(b, 6)] for a, b in corners]   # TL, TR, BR, BL (MapLibre image source order)
 def box(a, k=3):
+    valid = np.isfinite(a)       # NaN is only filled to run the filter; no-data pixels stay no-data in the result
     a = np.nan_to_num(a, nan=np.nanmedian(a)); p = np.pad(a, k//2, mode="edge"); s = np.zeros(a.shape)
     for i in range(k):
         for j in range(k): s += p[i:i+a.shape[0], j:j+a.shape[1]]
-    return s/(k*k)
+    out = s/(k*k); out[~valid] = np.nan
+    return out
 db = lambda v: 10*np.log10(np.where(v > 0, v, np.nan))
 def save(arr, name, cmap, lo, hi, alpha=None):
     n = np.clip((arr-lo)/(hi-lo), 0, 1); rgba = (mpl.colormaps[cmap](n)*255).astype(np.uint8)

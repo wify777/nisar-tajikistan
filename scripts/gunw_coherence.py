@@ -17,6 +17,7 @@ for url in urls:
     c0, c1 = np.searchsorted(x, X-half), np.searchsorted(x, X+half); r0, r1 = np.searchsorted(-y, -(Y+half)), np.searchsorted(-y, -(Y-half))
     cohs.append(h[G+"HH/coherenceMagnitude"][r0:r1, c0:c1]); d = re.findall(r"_(20\d{6})T", url); titles.append(f"{d[0]} -> {d[2]}")
     xs, ys = x[c0:c1], y[r0:r1]; print(titles[-1], cohs[-1].shape, "mean coh", np.nanmean(cohs[-1]).round(3))
+assert len({c.shape for c in cohs}) == 1, f"windows differ in shape: {[c.shape for c in cohs]} (pairs must come from the same frame)"
 ext = [xs[0], xs[-1], ys[-1], ys[0]]; pts = [(n, *tr.transform(float(lo), float(la))) for lo, la, n in labels]
 diff = cohs[ev] - cohs[0]
 fig, ax = plt.subplots(1, len(cohs)+1, figsize=(5*(len(cohs)+1), 5), constrained_layout=True)

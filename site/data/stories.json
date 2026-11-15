@@ -63,6 +63,21 @@
      },
      {
       "check": true,
+      "h": "Independent check: optical images",
+      "p": "We compared clear Sentinel-2 images from 6 and 19 July, taken from the same orbit (layer 'Optical change'). After the storm the whole valley got a little greener and darker, so we measure each pixel against the area around it. Inside the NISAR change zone, 26% of the ground (32 ha) lost vegetation and got brighter, against 8% in the rest of the 2.5 km circle. In two pairs without the mudflow (16 Jun to 6 Jul, and 19 to 26 Jul) the zone does not stand out (10% vs 12%, 0% vs 2%). So optical images confirm the radar zone, but the change is faint: vegetation index down about 0.03 and visible reflectance up about 1 percentage point. That is why the mudflow is hard to see by eye. Mixing images from two Sentinel-2 orbits doubles the apparent change because the sun angle differs, so we use one orbit only.",
+      "src": [
+       [
+        "Sentinel-2 L2A (AWS Open Data)",
+        "https://registry.opendata.aws/sentinel-2-l2a-cogs/"
+       ],
+       [
+        "Optical check (our code)",
+        "https://github.com/wify777/nisar-tajikistan/blob/main/scripts/ayni_optical_check.py"
+       ]
+      ]
+     },
+     {
+      "check": true,
       "h": "How often does the test fire with no mudflow?",
       "p": "We ran the same test on 331 circles and image pairs with no reported event, in five areas on three different orbits (Ayni, Sarez, Rushan, Rogun, Nurek). More than half flag less than 1 ha. Only 4 of 331 (1.2%) reach the 126 ha seen at Ayni, all four in the first image pair of the summer; 14 (4%) reach 70 ha. So one flag alone is not proof. Ayni counts because several checks agree: the change appears only in the event pair, at the reported villages, stands out against the same pair elsewhere, and the surface stayed brighter afterwards. With one detected and one missed event we cannot yet give a detection rate.",
       "src": [
@@ -74,7 +89,7 @@
      },
      {
       "h": "How sure are we",
-      "p": "Moderate to high for 'the surface above the villages changed between 9 and 21 July'. We cannot separate erosion from deposition precisely, and on 10 m optical images (Sentinel-2) the change is hardly visible. NISAR data used here are provisional.",
+      "p": "Moderate to high for 'the surface above the villages changed between 9 and 21 July'. We cannot separate erosion from deposition precisely, and on optical images the change is faint, although it lines up with the radar zone. NISAR data used here are provisional.",
       "conf": true
      }
     ],
@@ -122,6 +137,21 @@
      },
      {
       "check": true,
+      "h": "Независимая проверка: оптические снимки",
+      "p": "Мы сравнили чистые снимки Sentinel-2 за 6 и 19 июля с одной и той же орбиты (слой «Оптические изменения»). После ливня вся долина стала чуть зеленее и темнее, поэтому каждый пиксель мы сравниваем с окрестностью. Внутри зоны изменений NISAR 26% поверхности (32 га) потеряли растительность и посветлели, а в остальной части круга 2.5 км только 8%. В двух парах без селя (16 июня → 6 июля и 19 → 26 июля) зона не выделяется (10% против 12%, 0% против 2%). Значит, оптика подтверждает зону радара, но изменение слабое: индекс растительности упал примерно на 0.03, видимая яркость выросла примерно на 1 процентный пункт. Поэтому сель трудно увидеть глазом. Если смешать снимки с двух орбит Sentinel-2, кажущееся изменение удваивается из-за другого угла солнца, поэтому мы берём одну орбиту.",
+      "src": [
+       [
+        "Sentinel-2 L2A (AWS Open Data)",
+        "https://registry.opendata.aws/sentinel-2-l2a-cogs/"
+       ],
+       [
+        "Optical check (our code)",
+        "https://github.com/wify777/nisar-tajikistan/blob/main/scripts/ayni_optical_check.py"
+       ]
+      ]
+     },
+     {
+      "check": true,
       "h": "Как часто тест срабатывает без селя?",
       "p": "Мы прогнали тот же тест на 331 круге и паре снимков без известных событий, в пяти областях на трёх разных орбитах (Айни, Сарез, Рушан, Рогун, Нурек). Больше чем у половины флаг меньше 1 га. Уровня Айни (126 га) достигают только 4 из 331 (1.2%), и все четыре в первой паре снимков лета; 70 га достигают 14 (4%). Поэтому один флаг сам по себе не доказательство. Айни мы засчитываем, потому что сходятся несколько проверок: изменение есть только в паре через событие, у названных сёл, выделяется на фоне той же пары в других местах, а поверхность после этого осталась ярче. При одном найденном и одном пропущенном событии процент обнаружения назвать пока нельзя.",
       "src": [
@@ -133,13 +163,14 @@
      },
      {
       "h": "Насколько мы уверены",
-      "p": "От средней до высокой для вывода «поверхность над сёлами изменилась между 9 и 21 июля». Точно разделить размыв и отложение мы не можем, а на оптических снимках 10 м (Sentinel-2) изменение почти не видно. Данные NISAR здесь предварительные (provisional).",
+      "p": "От средней до высокой для вывода «поверхность над сёлами изменилась между 9 и 21 июля». Точно разделить размыв и отложение мы не можем, а на оптических снимках изменение слабое, хотя совпадает с зоной радара. Данные NISAR здесь предварительные (provisional).",
       "conf": true
      }
     ]
    },
    "layers": [
     "cohchange",
+    "s2change",
     "coh",
     "dhh",
     "hh",
@@ -171,7 +202,29 @@
      68.975,
      39.346
     ]
-   ]
+   ],
+   "s2change": {
+    "corners": [
+     [
+      68.931494,
+      39.38208
+     ],
+     [
+      69.024383,
+      39.382097
+     ],
+     [
+      69.024358,
+      39.310011
+     ],
+     [
+      68.931565,
+      39.309993
+     ]
+    ],
+    "before": "2026-07-06",
+    "after": "2026-07-19"
+   }
   },
   {
    "id": "sarez",
@@ -371,7 +424,7 @@
      {
       "check": true,
       "h": "Independent check: optical images",
-      "p": "On 5 cloud-free Sentinel-2 images from 29 June to 28 August, the same water body (water index MNDWI) grew from 23.5 to 29.3 km². Radar shows the same rise, from 24.8 to 31.6 km², but its areas are 5 to 13% larger than the optical ones. We have not yet found the reason for this offset.",
+      "p": "On 5 cloud-free Sentinel-2 images from 29 June to 28 August, the same water body (water index MNDWI) grew from 23.5 to 29.3 km². Radar shows the same rise, from 24.8 to 31.6 km², but its areas are 5 to 13% larger than the optical ones. Where does the extra radar water come from? On 9 July both satellites imaged the reservoir on the same day. Radar shows 2.1 km² more. Of this, 1.4 km² lies within 60 m (three radar pixels) of the optical shoreline: a boundary effect along 83 km of shore, where one pixel of width alone is 1.1 km². The other 0.8 km² is gentle, sparsely vegetated ground that the optical index calls dry. It is not radar shadow: these pixels are rarely on slopes facing away from the satellite (7%, against 20% of the land nearby).",
       "src": [
        [
         "Sentinel-2 L2A (AWS Open Data)",
@@ -381,7 +434,7 @@
      },
      {
       "h": "How sure are we",
-      "p": "High for the summer rise, which optical Sentinel-2 images confirm; medium for the exact areas, which are 5 to 13% above the optical ones. Wind can roughen the water and make it brighter, so some water may be missed on windy days. The numbers describe an 18 x 18 km section, not the full reservoir. NISAR data used here are provisional.",
+      "p": "High for the summer rise, which optical Sentinel-2 images confirm; medium for the exact areas, which are 5 to 13% above the optical ones, mostly from the shoreline pixels. Wind can roughen the water and make it brighter, so some water may be missed on windy days. The numbers describe an 18 x 18 km section, not the full reservoir. NISAR data used here are provisional.",
       "conf": true
      }
     ],
@@ -401,7 +454,7 @@
      {
       "check": true,
       "h": "Независимая проверка: оптические снимки",
-      "p": "На 5 безоблачных снимках Sentinel-2 с 29 июня по 28 августа тот же водоём (водный индекс MNDWI) вырос с 23.5 до 29.3 км². Радар показывает такой же рост, с 24.8 до 31.6 км², но его площади на 5–13% больше оптических. Причину этого сдвига мы пока не нашли.",
+      "p": "На 5 безоблачных снимках Sentinel-2 с 29 июня по 28 августа тот же водоём (водный индекс MNDWI) вырос с 23.5 до 29.3 км². Радар показывает такой же рост, с 24.8 до 31.6 км², но его площади на 5–13% больше оптических. Откуда лишняя вода у радара? 9 июля оба спутника сняли водохранилище в один день. Радар показывает на 2.1 км² больше. Из них 1.4 км² лежат в пределах 60 м (трёх радарных пикселей) от берега по оптике: это эффект границы вдоль 83 км берега, где один пиксель ширины уже даёт 1.1 км². Остальные 0.8 км² — пологая земля с редкой растительностью, которую оптический индекс считает сухой. Это не радарная тень: такие пиксели редко лежат на склонах, обращённых от спутника (7% против 20% у окрестной суши).",
       "src": [
        [
         "Sentinel-2 L2A (AWS Open Data)",
@@ -411,7 +464,7 @@
      },
      {
       "h": "Насколько мы уверены",
-      "p": "Высоко для летнего роста, его подтверждают оптические снимки Sentinel-2; средне для точных площадей, они на 5–13% выше оптических. Ветер делает воду шероховатой и светлее, поэтому в ветреные дни часть воды может не попасть в маску. Числа описывают участок 18 × 18 км, а не всё водохранилище. Данные NISAR здесь предварительные (provisional).",
+      "p": "Высоко для летнего роста, его подтверждают оптические снимки Sentinel-2; средне для точных площадей, они на 5–13% выше оптических, в основном за счёт пикселей у берега. Ветер делает воду шероховатой и светлее, поэтому в ветреные дни часть воды может не попасть в маску. Числа описывают участок 18 × 18 км, а не всё водохранилище. Данные NISAR здесь предварительные (provisional).",
       "conf": true
      }
     ]
@@ -506,7 +559,7 @@
      {
       "check": true,
       "h": "Independent check: optical images",
-      "p": "On 7 cloud-free Sentinel-2 dates, the reservoir in the same window (water index MNDWI) grew from 13.3 km² on 29 June to 23.8 km² on 7 September (+10.4 km²); radar shows +9.7 km² between the same dates. Radar areas are 8 to 31% larger than optical ones, as at Nurek but more. On 22 October the optical image still shows 23.6 km², so the low radar values in October and November are most likely not a real drop in water. Sentinel-2's own cloud mask labels some clear water as thin cirrus, so we do not use that class.",
+      "p": "On 7 cloud-free Sentinel-2 dates, the reservoir in the same window (water index MNDWI) grew from 13.3 km² on 29 June to 23.8 km² on 7 September (+10.4 km²); radar shows +9.7 km² between the same dates. Radar areas are 8 to 31% larger than optical ones. Comparing the two maps on days when both satellites passed (9 July, 7 September), most of the extra radar water, 3.3 to 4.6 km², lies more than 60 m from the optical shore on flat ground (median slope 2 to 5 degrees): the valley floor at the head of the reservoir and side terraces. Flat, smooth ground looks as dark as water to the radar, while the optical index shows it dry. On 22 October the optical image still shows 23.6 km², so the low radar values in October and November are most likely not a real drop in water. Sentinel-2's own cloud mask labels some clear water as thin cirrus, so we do not use that class.",
       "src": [
        [
         "Sentinel-2 L2A (AWS Open Data)",
@@ -565,7 +618,7 @@
      {
       "check": true,
       "h": "Независимая проверка: оптические снимки",
-      "p": "На 7 безоблачных датах Sentinel-2 водохранилище в том же окне (водный индекс MNDWI) выросло с 13.3 км² 29 июня до 23.8 км² 7 сентября (+10.4 км²); радар между теми же датами показывает +9.7 км². Радарные площади на 8–31% больше оптических, как у Нурека, но сильнее. 22 октября на оптике всё ещё 23.6 км², поэтому низкие радарные значения в октябре и ноябре, скорее всего, не означают реального уменьшения воды. Собственная маска облаков Sentinel-2 отмечает часть чистой воды как перистые облака, поэтому этот класс мы не используем.",
+      "p": "На 7 безоблачных датах Sentinel-2 водохранилище в том же окне (водный индекс MNDWI) выросло с 13.3 км² 29 июня до 23.8 км² 7 сентября (+10.4 км²); радар между теми же датами показывает +9.7 км². Радарные площади на 8–31% больше оптических. Если сравнить обе карты в дни, когда прошли оба спутника (9 июля и 7 сентября), большая часть лишней воды радара, 3.3–4.6 км², лежит дальше 60 м от берега по оптике, на ровной земле (средний уклон 2–5°): дно долины в верховье водохранилища и боковые террасы. Ровная гладкая земля выглядит для радара такой же тёмной, как вода, а оптический индекс показывает её сухой. 22 октября на оптике всё ещё 23.6 км², поэтому низкие радарные значения в октябре и ноябре, скорее всего, не означают реального уменьшения воды. Собственная маска облаков Sentinel-2 отмечает часть чистой воды как перистые облака, поэтому этот класс мы не используем.",
       "src": [
        [
         "Sentinel-2 L2A (AWS Open Data)",

@@ -88,7 +88,7 @@
     actNote: "Водохранилища: если площадь воды изменилась больше чем на 10% между пролётами, перед сообщением найдите чистый снимок Landsat или Sentinel-2 в пределах четырёх дней. На Рогуне так выяснилось, что осенние провалы — эффект радара. Ограничения: метод показывает изменение уже после события и пропускает узкие потоки, как в Рушане.",
     actLink: "Полный порядок работы со схемой (EN/RU) →"
   });
-  UI.en.L.water = "Water detected by radar"; UI.en.L.s2change = "Optical change 16 → 26 Jul (Sentinel-2)"; UI.ru.L.s2change = "Оптические изменения 16 → 26 июля (Sentinel-2)"; UI.ru.L.water = "Вода по данным радара";
+  UI.en.L.water = "Water detected by radar"; UI.en.L.s2change = "Optical change (Sentinel-2)"; UI.ru.L.s2change = "Оптические изменения (Sentinel-2)"; UI.ru.L.water = "Вода по данным радара";
   UI.en.chartWater = "Water area detected by radar (km²)"; UI.ru.chartWater = "Площадь воды по радару (км²)";
   UI.en.water = "water area"; UI.ru.water = "площадь воды";
   var state = { lang: "en", data: null, story: null, meta: null, series: null, layer: "cohchange", idx: 0, opacity: 0.85, zone: true };

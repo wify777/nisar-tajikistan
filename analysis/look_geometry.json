@@ -1,0 +1,56 @@
+{
+ "ayni": {
+  "track": "012A",
+  "epsg": 32642,
+  "los_e": 0.6091,
+  "los_n": 0.1772,
+  "incidence_deg": 39.37,
+  "los_az_deg": 73.8,
+  "h": 2500.0
+ },
+ "panjakent": {
+  "track": "012A",
+  "epsg": 32642,
+  "los_e": 0.6718,
+  "los_n": 0.2071,
+  "incidence_deg": 44.67,
+  "los_az_deg": 72.9,
+  "h": 2500.0
+ },
+ "panjakent_113a": {
+  "track": "113A",
+  "epsg": 32642,
+  "los_e": 0.5563,
+  "los_n": 0.1543,
+  "incidence_deg": 35.26,
+  "los_az_deg": 74.5,
+  "h": 2500.0
+ },
+ "panjakent_121d": {
+  "track": "121D",
+  "epsg": 32642,
+  "los_e": -0.6477,
+  "los_n": 0.2328,
+  "incidence_deg": 43.5,
+  "los_az_deg": 289.8,
+  "h": 2500.0
+ },
+ "rushan_d": {
+  "track": "092D",
+  "epsg": 32642,
+  "los_e": -0.6513,
+  "los_n": 0.2298,
+  "incidence_deg": 43.68,
+  "los_az_deg": 289.4,
+  "h": 2500.0
+ },
+ "sarez": {
+  "track": "084A",
+  "epsg": 32642,
+  "los_e": 0.5374,
+  "los_n": 0.1443,
+  "incidence_deg": 33.81,
+  "los_az_deg": 75.0,
+  "h": 2500.0
+ }
+}

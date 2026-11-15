@@ -75,8 +75,9 @@
     btMiss: "not detected", btMiss2: "not detected", btHit: "detected",
     btH1: "3 ha", btH2: "15 ha", btH3: "111 ha",
     bwTitle: "Why only one orbit?",
-    bwText: "The slopes that changed face west. The descending orbit looks at them from the west: 64% of its flagged area is on west-facing slopes, against 31% of the land around. The two ascending orbits look from the east and see those slopes from behind. Lesson for any warning service: always check both orbit directions.",
-    bwLink: "Rule written before the test, and the full result →"
+    bwText: "The slopes that changed face west. The descending orbit looks at them from the west: 64% of its flagged area is on west-facing slopes, against 31% of the land around. The two ascending orbits look from the east and see those slopes from behind. We measured this with the terrain model and the line-of-sight vectors stored in the NISAR files: of the 111 ha that changed, only 23% can be watched from orbit 012A and 31% from 113A (the rest is in radar shadow, seen at a grazing angle, or has too low usual coherence), against about 65% of the land around the village. Lesson for any warning service: always check both orbit directions. Together the three orbits can watch 94% of the circle.",
+    bwLink: "Rule written before the test, and the full result →",
+    bwNote: "\"Watchable\" under each name: the share of the circle where this orbit could see a mudflow at all. The rest is hidden by terrain (radar shadow, layover, a grazing view) or has usual coherence below 0.5, so a 0.3 drop cannot happen there (coherence rarely falls below 0.2). Measured with the Copernicus terrain model and the line-of-sight vectors in the NISAR files."
   });
   Object.assign(UI.ru, {
     navStories: "Истории", navExplore: "Карта", navMethod: "Метод", navData: "Данные",
@@ -111,8 +112,9 @@
     btMiss: "не обнаружен", btMiss2: "не обнаружен", btHit: "обнаружен",
     btH1: "3 га", btH2: "15 га", btH3: "111 га",
     bwTitle: "Почему только одна орбита?",
-    bwText: "Склоны, которые изменились, смотрят на запад. Нисходящая орбита видит их с запада: 64% её флагов лежат на западных склонах, хотя таких склонов вокруг 31%. Две восходящие орбиты смотрят с востока и видят эти склоны со спины. Урок для любой службы предупреждения: всегда проверять обе стороны орбиты.",
-    bwLink: "Правило, записанное до теста, и полный результат →"
+    bwText: "Склоны, которые изменились, смотрят на запад. Нисходящая орбита видит их с запада: 64% её флагов лежат на западных склонах, хотя таких склонов вокруг 31%. Две восходящие орбиты смотрят с востока и видят эти склоны со спины. Мы измерили это по модели рельефа и векторам визирования из файлов NISAR: из 111 га, которые изменились, с орбиты 012A можно следить только за 23%, с 113A за 31% (остальное в радарной тени, видно под скользящим углом или имеет слишком низкую обычную когерентность), а по остальной земле вокруг села около 65%. Урок для любой службы предупреждения: всегда проверять обе стороны орбиты. Три орбиты вместе видят 94% круга.",
+    bwLink: "Правило, записанное до теста, и полный результат →",
+    bwNote: "«Видно» под каждым названием: доля круга, где эта орбита вообще могла бы заметить сель. Остальное скрыто рельефом (радарная тень, наложение, скользящий угол) или имеет обычную когерентность ниже 0.5, и падение на 0.3 там невозможно (ниже 0.2 когерентность почти не опускается). Измерено по модели рельефа Copernicus и векторам визирования из файлов NISAR."
   });
   UI.en.L.water = "Water detected by radar"; UI.en.L.s2change = "Optical change (Sentinel-2)"; UI.ru.L.s2change = "Оптические изменения (Sentinel-2)"; UI.ru.L.water = "Вода по данным радара";
   UI.en.chartWater = "Water area detected by radar (km²)"; UI.ru.chartWater = "Площадь воды по радару (км²)";

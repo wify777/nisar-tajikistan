@@ -181,6 +181,8 @@ section { margin-top: 64px; }
 .brow { display: grid; grid-template-columns: 250px minmax(0, 1fr); gap: 12px; align-items: start; padding-top: 4px; border-top: 1px solid var(--line); }
 .brow:first-child { border-top: 0; }
 .bname { font-size: 13px; font-weight: 600; padding-top: 8px; }
+.bwatch { display: block; font-weight: 400; font-size: 12px; color: var(--muted); margin-top: 2px; }
+.board-watch { margin: 10px 0 0; font-size: 13px; color: var(--muted); }
 .bcells { display: flex; flex-wrap: wrap; gap: 6px; }
 .bcell { position: relative; min-width: 42px; height: 32px; padding: 0 6px; display: inline-grid; place-items: center; border-radius: 7px;
   font: 600 13px var(--f-display); font-variant-numeric: tabular-nums; border: 1px solid var(--line); margin-bottom: 19px; cursor: default; }

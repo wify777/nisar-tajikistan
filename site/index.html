@@ -16,7 +16,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap">
 <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
-<link rel="stylesheet" href="style.css?v=14">
+<link rel="stylesheet" href="style.css?v=15">
 </head>
 <body>
 <header class="top">
@@ -159,7 +159,7 @@
       </table>
       <div class="blind-why">
         <h3 data-i18n="bwTitle">Why only one orbit?</h3>
-        <p data-i18n="bwText">The slopes that changed face west. The descending orbit looks at them from the west: 64% of its flagged area is on west-facing slopes, against 31% of the land around. The two ascending orbits look from the east and see those slopes from behind. Lesson for any warning service: always check both orbit directions.</p>
+        <p data-i18n="bwText">The slopes that changed face west. The descending orbit looks at them from the west: 64% of its flagged area is on west-facing slopes, against 31% of the land around. The two ascending orbits look from the east and see those slopes from behind. We measured this with the terrain model and the line-of-sight vectors stored in the NISAR files: of the 111 ha that changed, only 23% can be watched from orbit 012A and 31% from 113A (the rest is in radar shadow, seen at a grazing angle, or has too low usual coherence), against about 65% of the land around the village. Lesson for any warning service: always check both orbit directions. Together the three orbits can watch 94% of the circle.</p>
         <p class="blind-link"><a href="https://github.com/wify777/nisar-tajikistan/blob/main/docs/BLIND_TEST_PANJAKENT.md" target="_blank" rel="noopener" data-i18n="bwLink">Rule written before the test, and the full result →</a></p>
       </div>
     </div>
@@ -185,6 +185,7 @@
         <li><span class="bcell b-long" aria-hidden="true"></span><span data-i18n="bl3">24-day pair, not used</span></li>
         <li><span class="bcell b-green b-event" aria-hidden="true"></span><span data-i18n="bl4">reported mudflow in this pair</span></li>
       </ul>
+      <p class="board-watch" data-i18n="bwNote">"Watchable" under each name: the share of the circle where this orbit could see a mudflow at all. The rest is hidden by terrain (radar shadow, layover, a grazing view) or has usual coherence below 0.5, so a 0.3 drop cannot happen there (coherence rarely falls below 0.2). Measured with the Copernicus terrain model and the line-of-sight vectors in the NISAR files.</p>
     </div>
     <p class="action-note"><span data-i18n="actNote">Reservoirs: if the water area jumps by more than 10% between passes, look for a clear Landsat or Sentinel-2 view within four days before reporting it. At Rogun this showed the autumn dips were a radar effect. Limits: the method shows change after it happened and misses narrow flows like Rushan.</span> <a href="https://github.com/wify777/nisar-tajikistan/blob/main/docs/RESPONSE_WORKFLOW.md" target="_blank" rel="noopener" data-i18n="actLink">Full workflow with diagram (EN/RU) →</a></p>
   </section>
@@ -218,8 +219,8 @@
 
 <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-<script src="app.js?v=14"></script>
-<script src="board.js?v=2"></script>
+<script src="app.js?v=15"></script>
+<script src="board.js?v=3"></script>
 <script src="spot.js?v=1"></script>
 </body>
 </html>

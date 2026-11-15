@@ -303,7 +303,7 @@ body.shownotes .notes { display: block; }
 (function () {
   "use strict";
   // ----- edit these three lines before submitting -----
-  var TEAM = { name: "[TEAM NAME]", members: "[MEMBER NAMES]",
+  var TEAM = { name: "X code", members: "",
                ai: "AI assistance used: Claude (Anthropic) helped write code and texts; every number comes from our open scripts and NISAR data." };
 
   var D = "../data/", W = innerWidth, NARROW = W < 900;
@@ -332,8 +332,8 @@ body.shownotes .notes { display: block; }
   if (NARROW) Object.keys(SHADE).forEach(function (k) { SHADE[k] = "linear-gradient(0deg, rgba(4,6,12,.94), rgba(4,6,12,.5) 55%, rgba(4,6,12,.1))"; });
 
   var slides = [].slice.call(document.querySelectorAll(".slide")), cur = -1;
-  document.getElementById("team1").innerHTML = TEAM.name + "<span>" + TEAM.members + "</span>";
-  document.getElementById("team7").innerHTML = "Team " + TEAM.name + "<span>" + TEAM.members + "</span>";
+  document.getElementById("team1").innerHTML = "Team " + TEAM.name + (TEAM.members ? "<span>" + TEAM.members + "</span>" : "");
+  document.getElementById("team7").innerHTML = "Team " + TEAM.name + (TEAM.members ? "<span>" + TEAM.members + "</span>" : "");
   document.getElementById("ai").textContent = TEAM.ai;
 
   var DEM = "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png";

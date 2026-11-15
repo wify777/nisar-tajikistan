@@ -709,8 +709,13 @@
     var bar = document.getElementById("viewbar"), dock = document.getElementById("dock"), mapTop = $("map").getBoundingClientRect().top;
     var top = bar ? Math.max(0, bar.getBoundingClientRect().bottom - mapTop) : 0;
     var bottom = dock && dock.offsetHeight ? dock.offsetHeight + 40 : 0;
-    map.setPadding({ left: Math.max(0, l), right: Math.max(0, r), top: Math.min(top, 140), bottom: Math.min(bottom, 260) });
+    var pad = { left: Math.max(0, l), right: Math.max(0, r), top: Math.min(top, 140), bottom: Math.min(bottom, 260) }, cur = map.getPadding();
+    if (cur.left === pad.left && cur.right === pad.right && cur.top === pad.top && cur.bottom === pad.bottom) return;
+    // setPadding jumps the camera and would cancel a running flight to the new place: apply it once the flight ends
+    if (map.isMoving()) { if (!padWait) { padWait = true; map.once("moveend", function () { padWait = false; fitPadding(); }); } return; }
+    map.setPadding(pad);
   }
+  var padWait = false;
   function toggle3d() {
     view3d = !view3d;
     var b = $("view-3d"); if (b) { b.setAttribute("aria-pressed", String(view3d)); b.textContent = view3d ? "3D" : "2D"; }

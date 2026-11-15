@@ -88,6 +88,17 @@
       ]
      },
      {
+      "check": true,
+      "h": "Why does the first pair of the summer fire? (tested, not solved)",
+      "p": "Six of the nine background yellow alarms and all four tests above 126 ha come from the first pair of the summer (27 June to 9 July on track 012A, 20 June to 2 July at Rushan). We tested three local explanations on the 760 ha flagged in those circles, against the unflagged land of the same circles, with Sentinel-2 images from one orbit and NISAR brightness. Reservoir filling: 0.5% of the flagged land became water, against 1.0% of the rest, so no. Wheat harvest or hay cutting: 6% of the flagged land lost greenness, against 8% of the rest, so no. Bare soil drying out (no vegetation, radar brightness down by more than 1 dB): 9% against 4.5%, twice as common but far too little to explain the alarms. One radar clue: on track 012A the first pair has the largest distance between the two satellite passes (perpendicular baseline 130 m, against 7 to 100 m for the other pairs, read from the GUNW files). At L-band this usually costs little coherence, except on slopes facing the radar, so it is a lead, not an answer. The cause is still unknown, so a warning service should treat alarms in the first pair of a season with extra care.",
+      "src": [
+       [
+        "First-pair test (our code)",
+        "https://github.com/wify777/nisar-tajikistan/blob/main/scripts/first_pair_alarms.py"
+       ]
+      ]
+     },
+     {
       "h": "How sure are we?",
       "p": "Moderate to high for 'the surface above the villages changed between 9 and 21 July'. We cannot separate erosion from deposition precisely, and on optical images the change is faint, although it lines up with the radar zone. NISAR data used here are provisional.",
       "conf": true
@@ -158,6 +169,17 @@
        [
         "False alarm test (our code)",
         "https://github.com/wify777/nisar-tajikistan/blob/main/scripts/false_alarm_rate.py"
+       ]
+      ]
+     },
+     {
+      "check": true,
+      "h": "Почему срабатывает первая пара лета? (проверено, не решено)",
+      "p": "Шесть из девяти фоновых жёлтых сигналов и все четыре теста выше 126 га приходятся на первую пару лета (27 июня – 9 июля на орбите 012A, 20 июня – 2 июля в Рушане). Мы проверили три местных объяснения на 760 га с флагом в этих кругах, сравнивая с землёй без флага в тех же кругах, по снимкам Sentinel-2 с одной орбиты и яркости NISAR. Заполнение водохранилища: водой стало 0.5% земли с флагом против 1.0% остальной, значит нет. Уборка пшеницы или покос: зелень потеряли 6% земли с флагом против 8% остальной, значит нет. Высыхание голой почвы (растительности нет, яркость радара упала больше чем на 1 дБ): 9% против 4.5%, вдвое чаще, но слишком мало, чтобы объяснить сигналы. Одна радарная зацепка: на орбите 012A в первой паре самое большое расстояние между двумя пролётами спутника (перпендикулярная база 130 м против 7–100 м у других пар, по данным файлов GUNW). В L-диапазоне это обычно мало снижает когерентность, кроме склонов, обращённых к радару, так что это направление поиска, а не ответ. Причина пока неизвестна, поэтому службе предупреждения стоит относиться к сигналам в первой паре сезона с особой осторожностью.",
+      "src": [
+       [
+        "First-pair test (our code)",
+        "https://github.com/wify777/nisar-tajikistan/blob/main/scripts/first_pair_alarms.py"
        ]
       ]
      },
@@ -698,8 +720,8 @@
       "p": "Almost nothing. On both orbits, the image pair across the event (14 to 26 July) shows at most 0.8 ha of strong coherence loss within 3 km of the villages, less than other pairs in the same season. Brightness near the villages also barely changed."
      },
      {
-      "h": "Why we probably miss it (hypotheses)",
-      "p": "The optical check below shows the main reasons: the flow channel is mostly 30 to 40 m wide, two radar pixels or less, and the villages sit among orchards where coherence is low on every date, so a change does not stand out. Steep valley walls may also hide parts of the upper gullies in radar shadow or layover; we have not checked that in detail."
+      "h": "Why we miss it (measured)",
+      "p": "We tested two explanations on the pixels the optical check marks as mudflow. First: our 5x5 smoothing dilutes a narrow channel. Rejected: even on single 20 m pixels fully covered by the traces, the event pair lost only 0.05 (fan) and 0.10 (channel) coherence against the median of the other pairs, while the test needs 0.3. Second: there is no room to drop. Confirmed: coherence almost never falls below about 0.2 in any pair (the noise floor), so a 0.3 drop is only possible where the usual coherence is above 0.5. On the Barrushon fan the usual coherence is 0.40, among orchards, and only 15% of it could ever fire; on the channel 34%. Terrain is not the problem on the fan (fully visible from orbit 092D); on the channel 33% of the pixels are in radar shadow or a grazing view. Finally, the traces add up to about 9 ha, below the 50 ha alarm minimum even if every pixel had fired."
      },
      {
       "h": "Why we show it",
@@ -742,8 +764,8 @@
       "p": "Почти ничего. На обеих орбитах пара снимков через событие (14→26 июля) даёт не больше 0,8 га сильной потери когерентности в радиусе 3 км от сёл, меньше, чем другие пары того же сезона. Яркость возле сёл тоже почти не изменилась."
      },
      {
-      "h": "Почему радар, вероятно, не видит (гипотезы)",
-      "p": "Оптическая проверка ниже показывает главные причины: русло селя в основном шириной 30–40 м, это не больше двух радарных пикселей, а сёла стоят среди садов, где когерентность низкая на всех датах, поэтому изменение не выделяется. Крутые склоны долины могут ещё и прятать часть верхних оврагов в радарной тени или наложении; это мы подробно не проверяли."
+      "h": "Почему радар не видит (измерено)",
+      "p": "Мы проверили два объяснения на пикселях, которые оптика отметила как сель. Первое: наше сглаживание 5×5 размывает узкое русло. Отклонено: даже на отдельных пикселях 20 м, целиком покрытых следами селя, пара через событие потеряла лишь 0.05 (конус) и 0.10 (русло) когерентности относительно медианы других пар, а тесту нужно 0.3. Второе: падать некуда. Подтверждено: когерентность почти никогда не опускается ниже примерно 0.2 ни в одной паре (уровень шума), поэтому падение на 0.3 возможно только там, где обычная когерентность выше 0.5. На конусе у Баррушона обычная когерентность 0.40 (среди садов), и сработать может только 15% его площади; на русле 34%. Рельеф на конусе не мешает (орбита 092D видит его целиком); на русле 33% пикселей в радарной тени или под скользящим углом. И наконец, следы селя вместе занимают около 9 га, меньше порога 50 га, даже если бы сработал каждый пиксель."
      },
      {
       "h": "Зачем мы это показываем",
@@ -822,7 +844,7 @@
    "NISAR products used here are provisional: calibration is still being refined by NASA and ISRO.",
    "The public record over Tajikistan starts in June 2026 (some tracks from November 2025), with a pass about every 12 days. It shows seasonal and event changes, not multi-year trends.",
    "A 12-day gap means we see the state before and after an event, not the event itself.",
-   "Steep mountains cause radar shadow and layover; some slopes are not visible from a given orbit direction.",
+   "Steep mountains cause radar shadow and layover, and orchards and fields keep coherence too low for the test to fire. We measured both for every watched village: from one orbit only 37 to 73% of the 2.5 km circle can be watched (open view of the slope and usual coherence above 0.5). At Panjakent the three orbits together cover 94%.",
    "Coherence also drops with snow, rain and vegetation growth, so every change is checked against the other dates and the reported events.",
    "We have three mapped mudflows: Ayni detected, Panjakent detected on 1 of 3 orbits in a blind test, Rushan missed. That is too few for a detection rate. Without any mudflow, the test reaches the Ayni level in about 1 of 80 circle-and-pair tests, more often in the first pair of the summer.",
    "Images are smoothed with a small 3 × 3 window for display. Brightness values in the text are medians of the same smoothed data; coherence values use the original pixels."
@@ -831,7 +853,7 @@
    "Продукты NISAR здесь предварительные (provisional): NASA и ISRO ещё уточняют калибровку.",
    "Публичный ряд над Таджикистаном начинается в июне 2026 (по некоторым орбитам с ноября 2025), снимки примерно раз в 12 дней. Видны сезонные изменения и события, но не многолетние тренды.",
    "Промежуток 12 дней означает, что мы видим состояние до и после события, а не сам момент.",
-   "Крутые горы дают радарные тени и наложения: часть склонов не видна с данного направления орбиты.",
+   "Крутые горы дают радарные тени и наложения, а в садах и на полях когерентность слишком низкая, чтобы тест сработал. Мы измерили оба фактора для каждого села на табло: с одной орбиты можно следить только за 37–73% круга 2.5 км (склон открыт радару и обычная когерентность выше 0.5). В Пенджикенте три орбиты вместе покрывают 94%.",
    "Когерентность падает и от снега, дождя и роста растений, поэтому каждое изменение сверяется с другими датами и с задокументированными событиями.",
    "У нас три задокументированных селя: Айни найден, Пенджикент найден на 1 из 3 орбит в слепом тесте, Рушан пропущен. Этого мало, чтобы назвать процент обнаружения. Без всякого селя тест достигает уровня Айни примерно в 1 из 80 тестов «круг и пара», чаще в первой паре снимков лета.",
    "Для показа изображения сглажены окном 3 × 3. Значения яркости в тексте — медианы по тем же сглаженным данным; когерентность считается по исходным пикселям."

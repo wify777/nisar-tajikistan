@@ -1,0 +1,121 @@
+{
+ "rule": {
+  "usual_coherence_min": 0.5,
+  "grazing_deg": 70.0,
+  "circle_m": 2500.0
+ },
+ "villages": [
+  {
+   "name": {
+    "en": "Dargh (Ayni)",
+    "ru": "Дарг (Айни)"
+   },
+   "orbit": "012A",
+   "watchable": 0.591,
+   "good_geometry": 0.876,
+   "usual_coh_ok": 0.61,
+   "layover": 0.017,
+   "shadow": 0.0,
+   "grazing": 0.108,
+   "watchable_ha": 1160
+  },
+  {
+   "name": {
+    "en": "Kazdon (Ayni)",
+    "ru": "Каздон (Айни)"
+   },
+   "orbit": "012A",
+   "watchable": 0.62,
+   "good_geometry": 0.896,
+   "usual_coh_ok": 0.639,
+   "layover": 0.019,
+   "shadow": 0.0,
+   "grazing": 0.084,
+   "watchable_ha": 1217
+  },
+  {
+   "name": {
+    "en": "Rashnai Poyon (Panjakent)",
+    "ru": "Рашнаи Поён (Пенджикент)"
+   },
+   "orbit": "012A",
+   "watchable": 0.649,
+   "good_geometry": 0.733,
+   "usual_coh_ok": 0.744,
+   "layover": 0.028,
+   "shadow": 0.038,
+   "grazing": 0.201,
+   "watchable_ha": 1274
+  },
+  {
+   "name": {
+    "en": "Rashnai Poyon (Panjakent)",
+    "ru": "Рашнаи Поён (Пенджикент)"
+   },
+   "orbit": "113A",
+   "watchable": 0.626,
+   "good_geometry": 0.84,
+   "usual_coh_ok": 0.71,
+   "layover": 0.076,
+   "shadow": 0.013,
+   "grazing": 0.071,
+   "watchable_ha": 1229
+  },
+  {
+   "name": {
+    "en": "Rashnai Poyon (Panjakent)",
+    "ru": "Рашнаи Поён (Пенджикент)"
+   },
+   "orbit": "121D",
+   "watchable": 0.732,
+   "good_geometry": 0.799,
+   "usual_coh_ok": 0.824,
+   "layover": 0.02,
+   "shadow": 0.028,
+   "grazing": 0.153,
+   "watchable_ha": 1437
+  },
+  {
+   "name": {
+    "en": "Barrushon (Rushan)",
+    "ru": "Баррушон (Рушан)"
+   },
+   "orbit": "092D",
+   "watchable": 0.471,
+   "good_geometry": 0.86,
+   "usual_coh_ok": 0.525,
+   "layover": 0.013,
+   "shadow": 0.001,
+   "grazing": 0.126,
+   "watchable_ha": 925
+  },
+  {
+   "name": {
+    "en": "Derushon (Rushan)",
+    "ru": "Дерушон (Рушан)"
+   },
+   "orbit": "092D",
+   "watchable": 0.369,
+   "good_geometry": 0.763,
+   "usual_coh_ok": 0.458,
+   "layover": 0.016,
+   "shadow": 0.036,
+   "grazing": 0.185,
+   "watchable_ha": 724
+  },
+  {
+   "name": {
+    "en": "Usoi dam (Sarez)",
+    "ru": "Усойский завал (Сарез)"
+   },
+   "orbit": "084A",
+   "watchable": 0.723,
+   "good_geometry": 0.954,
+   "usual_coh_ok": 0.761,
+   "layover": 0.038,
+   "shadow": 0.0,
+   "grazing": 0.008,
+   "watchable_ha": 1411
+  }
+ ]
+}

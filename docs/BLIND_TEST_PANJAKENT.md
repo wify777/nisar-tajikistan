@@ -27,3 +27,16 @@ Detected on 1 of 3 orbits. Geometry (Copernicus DEM 30 m): on 121D, 64% of the f
 (towards the descending satellite), against 31% of the circle; the largest patch, 48 ha, is 860 m east of the village at
 about 1,740 m, on a west-facing slope. The two ascending orbits look from the east and see these slopes from behind;
 their few flags are on east-facing slopes. Optical confirmation of the 121D patches has not been done yet.
+
+
+## Follow-up (15 Nov 2026): why the ascending orbits missed it
+
+Added after the result, so this is an explanation, not part of the blind test. `scripts/detectability.py` combines the Copernicus DEM (30 m) with the line-of-sight vectors stored in the GUNW metadata (012A: radar at azimuth 73°, incidence 45°; 113A: 75°, 35°; 121D: 290°, 44°) and marks pixels in radar shadow, layover or a grazing view (local incidence > 70°), and pixels whose usual coherence (median of the 12-day pairs) is below 0.5, where a 0.3 drop cannot happen because coherence rarely falls below 0.2.
+
+| Orbit | Changed slopes (111 ha, found by 121D) watchable | Rest of the 2.5 km circle watchable |
+|---|---|---|
+| 012A ascending | 23% (shadow 23%, grazing view 40%: slopes seen from behind) | 67% |
+| 113A ascending | 31% (shadow 9%, grazing view 26%, low usual coherence) | 64% |
+| 121D descending | 85% (12% layover: these slopes face it; partly expected, the slopes were defined by 121D) | 73% |
+
+Watchable part of the changed slopes in 012A and 113A: about 25 and 34 ha, below the 50 ha minimum even if all of it had fired. In the event pairs of the ascending orbits, coherence on that watchable part fell by 0.10 (012A) and 0.19 (113A) against 0.02 and 0.06 on the hidden part. Three orbits together can watch 94% of the circle.

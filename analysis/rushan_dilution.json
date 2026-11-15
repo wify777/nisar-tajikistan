@@ -1,0 +1,83 @@
+{
+ "event_pair": "20260714_20260726",
+ "pixel_m": 20.0,
+ "optical_change_ha": 15.23,
+ "trace_pixels": 393,
+ "trace_ha": 15.72,
+ "boxes": {
+  "1x1": {
+   "trace_mean_drop": -0.055,
+   "trace_p10_drop": -0.228,
+   "near_mean_drop": 0.015,
+   "trace_mean_cover": 0.83,
+   "trace_flagged_frac": 0.038,
+   "near_flagged_frac": 0.0036,
+   "event_window_flag_ha": 40.3,
+   "other_pairs_window_flag_ha": [
+    423.9,
+    481.8,
+    30.5,
+    57.3,
+    188.1,
+    218.3,
+    5.6,
+    412.5
+   ]
+  },
+  "3x3": {
+   "trace_mean_drop": -0.05,
+   "trace_p10_drop": -0.163,
+   "near_mean_drop": 0.015,
+   "trace_mean_cover": 0.51,
+   "trace_flagged_frac": 0.005,
+   "near_flagged_frac": 0.0003,
+   "event_window_flag_ha": 1.9,
+   "other_pairs_window_flag_ha": [
+    283.1,
+    331.9,
+    0.8,
+    2.3,
+    87.2,
+    142.3,
+    0.0,
+    191.0
+   ]
+  },
+  "5x5": {
+   "trace_mean_drop": -0.041,
+   "trace_p10_drop": -0.134,
+   "near_mean_drop": 0.015,
+   "trace_mean_cover": 0.35,
+   "trace_flagged_frac": 0.0,
+   "near_flagged_frac": 0.0001,
+   "event_window_flag_ha": 0.1,
+   "other_pairs_window_flag_ha": [
+    229.4,
+    280.2,
+    0.2,
+    0.1,
+    63.1,
+    111.6,
+    0.0,
+    120.0
+   ]
+  }
+ },
+ "full_cover_pixels": 194,
+ "full_cover_raw_drop": -0.068,
+ "traces": {
+  "fan": {
+   "ha": 2.6,
+   "baseline_coh": 0.376,
+   "event_coh": 0.324,
+   "raw_drop": -0.049
+  },
+  "channel": {
+   "ha": 6.2,
+   "baseline_coh": 0.514,
+   "event_coh": 0.389,
+   "raw_drop": -0.095
+  }
+ },
+ "coherence_floor_p5_event_pair": 0.192
+}

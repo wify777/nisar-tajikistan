@@ -1,0 +1,221 @@
+{
+ "cases": [
+  {
+   "site": "rogun",
+   "pair": "20260627_20260709",
+   "lon": 69.74,
+   "lat": 38.8765,
+   "flagged_ha": 110.5,
+   "ratio": 2.03,
+   "flagged": {
+    "n": 2436,
+    "water": 0.01,
+    "harvest": 0.072,
+    "drying": 0.02,
+    "green_before": 0.754,
+    "ndvi_before": 0.5,
+    "ndvi_change": -0.054,
+    "hh_change_db": -1.35
+   },
+   "rest": {
+    "n": 44545,
+    "water": 0.004,
+    "harvest": 0.141,
+    "drying": 0.023,
+    "green_before": 0.797,
+    "ndvi_before": 0.544,
+    "ndvi_change": -0.059,
+    "hh_change_db": -0.85
+   },
+   "optical_coverage": 0.96
+  },
+  {
+   "site": "rogun",
+   "pair": "20260627_20260709",
+   "lon": 69.7976,
+   "lat": 38.8761,
+   "flagged_ha": 153.4,
+   "ratio": 2.82,
+   "flagged": {
+    "n": 3836,
+    "water": 0.009,
+    "harvest": 0.2,
+    "drying": 0.029,
+    "green_before": 0.785,
+    "ndvi_before": 0.481,
+    "ndvi_change": -0.064,
+    "hh_change_db": -1.65
+   },
+   "rest": {
+    "n": 45247,
+    "water": 0.011,
+    "harvest": 0.284,
+    "drying": 0.019,
+    "green_before": 0.818,
+    "ndvi_before": 0.595,
+    "ndvi_change": -0.075,
+    "hh_change_db": -1.11
+   },
+   "optical_coverage": 1.0
+  },
+  {
+   "site": "rogun",
+   "pair": "20260627_20260709",
+   "lon": 69.9106,
+   "lat": 38.695,
+   "flagged_ha": 176.6,
+   "ratio": 3.24,
+   "flagged": {
+    "n": 1165,
+    "water": 0.008,
+    "harvest": 0.141,
+    "drying": 0.043,
+    "green_before": 0.349,
+    "ndvi_before": 0.219,
+    "ndvi_change": -0.018,
+    "hh_change_db": -0.09
+   },
+   "rest": {
+    "n": 27132,
+    "water": 0.013,
+    "harvest": 0.096,
+    "drying": 0.026,
+    "green_before": 0.757,
+    "ndvi_before": 0.572,
+    "ndvi_change": -0.035,
+    "hh_change_db": -0.59
+   },
+   "optical_coverage": 0.58
+  },
+  {
+   "site": "rogun",
+   "pair": "20260627_20260709",
+   "lon": 69.9112,
+   "lat": 38.7401,
+   "flagged_ha": 172.3,
+   "ratio": 3.17,
+   "flagged": {
+    "n": 4308,
+    "water": 0.002,
+    "harvest": 0.008,
+    "drying": 0.124,
+    "green_before": 0.401,
+    "ndvi_before": 0.218,
+    "ndvi_change": -0.015,
+    "hh_change_db": -0.2
+   },
+   "rest": {
+    "n": 43856,
+    "water": 0.003,
+    "harvest": 0.024,
+    "drying": 0.047,
+    "green_before": 0.558,
+    "ndvi_before": 0.36,
+    "ndvi_change": -0.018,
+    "hh_change_db": -0.39
+   },
+   "optical_coverage": 0.98
+  },
+  {
+   "site": "nurek",
+   "pair": "20260627_20260709",
+   "lon": 69.4601,
+   "lat": 38.4163,
+   "flagged_ha": 69.6,
+   "ratio": 3.91,
+   "flagged": {
+    "n": 1737,
+    "water": 0.0,
+    "harvest": 0.004,
+    "drying": 0.007,
+    "green_before": 0.737,
+    "ndvi_before": 0.381,
+    "ndvi_change": -0.022,
+    "hh_change_db": 0.01
+   },
+   "rest": {
+    "n": 47281,
+    "water": 0.015,
+    "harvest": 0.002,
+    "drying": 0.081,
+    "green_before": 0.559,
+    "ndvi_before": 0.331,
+    "ndvi_change": -0.037,
+    "hh_change_db": -0.25
+   },
+   "optical_coverage": 1.0
+  },
+  {
+   "site": "nurek",
+   "pair": "20260627_20260709",
+   "lon": 69.4604,
+   "lat": 38.4614,
+   "flagged_ha": 58.5,
+   "ratio": 3.28,
+   "flagged": {
+    "n": 1459,
+    "water": 0.001,
+    "harvest": 0.001,
+    "drying": 0.07,
+    "green_before": 0.639,
+    "ndvi_before": 0.437,
+    "ndvi_change": -0.017,
+    "hh_change_db": -0.33
+   },
+   "rest": {
+    "n": 47615,
+    "water": 0.005,
+    "harvest": 0.014,
+    "drying": 0.005,
+    "green_before": 0.891,
+    "ndvi_before": 0.573,
+    "ndvi_change": -0.031,
+    "hh_change_db": -0.56
+   },
+   "optical_coverage": 1.0
+  },
+  {
+   "site": "rushan_d",
+   "pair": "20260620_20260702",
+   "lon": 71.4761,
+   "lat": 37.9182,
+   "flagged_ha": 172.0,
+   "ratio": 1.82,
+   "flagged": {
+    "n": 4023,
+    "water": 0.004,
+    "harvest": 0.0,
+    "drying": 0.212,
+    "green_before": 0.016,
+    "ndvi_before": 0.144,
+    "ndvi_change": -0.016,
+    "hh_change_db": -0.22
+   },
+   "rest": {
+    "n": 41006,
+    "water": 0.022,
+    "harvest": 0.016,
+    "drying": 0.111,
+    "green_before": 0.159,
+    "ndvi_before": 0.156,
+    "ndvi_change": -0.015,
+    "hh_change_db": -0.1
+   },
+   "optical_coverage": 0.92
+  }
+ ],
+ "total": {
+  "flagged": {
+   "water": 0.005,
+   "harvest": 0.061,
+   "drying": 0.09,
+   "n": 18964
+  },
+  "rest": {
+   "water": 0.01,
+   "harvest": 0.082,
+   "drying": 0.045,
+   "n": 296682
+  }
+ }
+}

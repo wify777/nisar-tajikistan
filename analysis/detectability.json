@@ -1,0 +1,288 @@
+{
+ "rule": {
+  "usual_coherence_min": 0.5,
+  "grazing_deg": 70.0,
+  "circle_m": 2500.0
+ },
+ "geometry": {
+  "ayni": {
+   "track": "012A",
+   "epsg": 32642,
+   "los_e": 0.6091,
+   "los_n": 0.1772,
+   "incidence_deg": 39.37,
+   "los_az_deg": 73.8,
+   "h": 2500.0
+  },
+  "panjakent": {
+   "track": "012A",
+   "epsg": 32642,
+   "los_e": 0.6718,
+   "los_n": 0.2071,
+   "incidence_deg": 44.67,
+   "los_az_deg": 72.9,
+   "h": 2500.0
+  },
+  "panjakent_113a": {
+   "track": "113A",
+   "epsg": 32642,
+   "los_e": 0.5563,
+   "los_n": 0.1543,
+   "incidence_deg": 35.26,
+   "los_az_deg": 74.5,
+   "h": 2500.0
+  },
+  "panjakent_121d": {
+   "track": "121D",
+   "epsg": 32642,
+   "los_e": -0.6477,
+   "los_n": 0.2328,
+   "incidence_deg": 43.5,
+   "los_az_deg": 289.8,
+   "h": 2500.0
+  },
+  "rushan_d": {
+   "track": "092D",
+   "epsg": 32642,
+   "los_e": -0.6513,
+   "los_n": 0.2298,
+   "incidence_deg": 43.68,
+   "los_az_deg": 289.4,
+   "h": 2500.0
+  },
+  "sarez": {
+   "track": "084A",
+   "epsg": 32642,
+   "los_e": 0.5374,
+   "los_n": 0.1443,
+   "incidence_deg": 33.81,
+   "los_az_deg": 75.0,
+   "h": 2500.0
+  }
+ },
+ "panjakent_zone_ha": 110.8,
+ "panjakent": {
+  "012A": {
+   "changed_slopes": {
+    "pixels": 2770,
+    "layover": 0.002,
+    "shadow": 0.232,
+    "grazing": 0.4,
+    "good_geometry": 0.365,
+    "usual_coh_ge_0.5": 0.295,
+    "watchable": 0.227,
+    "usual_coh_median": 0.382
+   },
+   "rest_of_circle": {
+    "pixels": 46321,
+    "layover": 0.03,
+    "shadow": 0.027,
+    "grazing": 0.189,
+    "good_geometry": 0.755,
+    "usual_coh_ge_0.5": 0.771,
+    "watchable": 0.674,
+    "usual_coh_median": 0.658
+   },
+   "event_pair_20260709_20260721_mean_drop": {
+    "watchable_part": -0.096,
+    "blind_part": -0.017
+   }
+  },
+  "113A": {
+   "changed_slopes": {
+    "pixels": 2770,
+    "layover": 0.007,
+    "shadow": 0.092,
+    "grazing": 0.256,
+    "good_geometry": 0.645,
+    "usual_coh_ge_0.5": 0.373,
+    "watchable": 0.31,
+    "usual_coh_median": 0.445
+   },
+   "rest_of_circle": {
+    "pixels": 46321,
+    "layover": 0.08,
+    "shadow": 0.008,
+    "grazing": 0.06,
+    "good_geometry": 0.852,
+    "usual_coh_ge_0.5": 0.73,
+    "watchable": 0.644,
+    "usual_coh_median": 0.617
+   },
+   "event_pair_20260704_20260716_mean_drop": {
+    "watchable_part": -0.192,
+    "blind_part": -0.058
+   }
+  },
+  "121D": {
+   "changed_slopes": {
+    "pixels": 2770,
+    "layover": 0.117,
+    "shadow": 0.018,
+    "grazing": 0.008,
+    "good_geometry": 0.857,
+    "usual_coh_ge_0.5": 0.99,
+    "watchable": 0.851,
+    "usual_coh_median": 0.776
+   },
+   "rest_of_circle": {
+    "pixels": 46321,
+    "layover": 0.015,
+    "shadow": 0.029,
+    "grazing": 0.161,
+    "good_geometry": 0.795,
+    "usual_coh_ge_0.5": 0.815,
+    "watchable": 0.725,
+    "usual_coh_median": 0.704
+   }
+  }
+ },
+ "rushan": {
+  "fan": {
+   "pixels": 112,
+   "layover": 0.0,
+   "shadow": 0.0,
+   "grazing": 0.0,
+   "good_geometry": 1.0,
+   "usual_coh_ge_0.5": 0.152,
+   "watchable": 0.152,
+   "usual_coh_median": 0.397
+  },
+  "channel": {
+   "pixels": 666,
+   "layover": 0.0,
+   "shadow": 0.189,
+   "grazing": 0.138,
+   "good_geometry": 0.673,
+   "usual_coh_ge_0.5": 0.443,
+   "watchable": 0.344,
+   "usual_coh_median": 0.475
+  }
+ },
+ "ayni_changed_slopes": {
+  "pixels": 3152,
+  "layover": 0.009,
+  "shadow": 0.0,
+  "grazing": 0.001,
+  "good_geometry": 0.991,
+  "usual_coh_ge_0.5": 0.993,
+  "watchable": 0.984,
+  "usual_coh_median": 0.878
+ },
+ "villages": [
+  {
+   "name": {
+    "en": "Dargh (Ayni)",
+    "ru": "\u0414\u0430\u0440\u0433 (\u0410\u0439\u043d\u0438)"
+   },
+   "orbit": "012A",
+   "watchable": 0.591,
+   "good_geometry": 0.876,
+   "usual_coh_ok": 0.61,
+   "layover": 0.017,
+   "shadow": 0.0,
+   "grazing": 0.108,
+   "watchable_ha": 1160
+  },
+  {
+   "name": {
+    "en": "Kazdon (Ayni)",
+    "ru": "\u041a\u0430\u0437\u0434\u043e\u043d (\u0410\u0439\u043d\u0438)"
+   },
+   "orbit": "012A",
+   "watchable": 0.62,
+   "good_geometry": 0.896,
+   "usual_coh_ok": 0.639,
+   "layover": 0.019,
+   "shadow": 0.0,
+   "grazing": 0.084,
+   "watchable_ha": 1217
+  },
+  {
+   "name": {
+    "en": "Rashnai Poyon (Panjakent)",
+    "ru": "\u0420\u0430\u0448\u043d\u0430\u0438 \u041f\u043e\u0451\u043d (\u041f\u0435\u043d\u0434\u0436\u0438\u043a\u0435\u043d\u0442)"
+   },
+   "orbit": "012A",
+   "watchable": 0.649,
+   "good_geometry": 0.733,
+   "usual_coh_ok": 0.744,
+   "layover": 0.028,
+   "shadow": 0.038,
+   "grazing": 0.201,
+   "watchable_ha": 1274
+  },
+  {
+   "name": {
+    "en": "Rashnai Poyon (Panjakent)",
+    "ru": "\u0420\u0430\u0448\u043d\u0430\u0438 \u041f\u043e\u0451\u043d (\u041f\u0435\u043d\u0434\u0436\u0438\u043a\u0435\u043d\u0442)"
+   },
+   "orbit": "113A",
+   "watchable": 0.626,
+   "good_geometry": 0.84,
+   "usual_coh_ok": 0.71,
+   "layover": 0.076,
+   "shadow": 0.013,
+   "grazing": 0.071,
+   "watchable_ha": 1229
+  },
+  {
+   "name": {
+    "en": "Rashnai Poyon (Panjakent)",
+    "ru": "\u0420\u0430\u0448\u043d\u0430\u0438 \u041f\u043e\u0451\u043d (\u041f\u0435\u043d\u0434\u0436\u0438\u043a\u0435\u043d\u0442)"
+   },
+   "orbit": "121D",
+   "watchable": 0.732,
+   "good_geometry": 0.799,
+   "usual_coh_ok": 0.824,
+   "layover": 0.02,
+   "shadow": 0.028,
+   "grazing": 0.153,
+   "watchable_ha": 1437
+  },
+  {
+   "name": {
+    "en": "Barrushon (Rushan)",
+    "ru": "\u0411\u0430\u0440\u0440\u0443\u0448\u043e\u043d (\u0420\u0443\u0448\u0430\u043d)"
+   },
+   "orbit": "092D",
+   "watchable": 0.471,
+   "good_geometry": 0.86,
+   "usual_coh_ok": 0.525,
+   "layover": 0.013,
+   "shadow": 0.001,
+   "grazing": 0.126,
+   "watchable_ha": 925
+  },
+  {
+   "name": {
+    "en": "Derushon (Rushan)",
+    "ru": "\u0414\u0435\u0440\u0443\u0448\u043e\u043d (\u0420\u0443\u0448\u0430\u043d)"
+   },
+   "orbit": "092D",
+   "watchable": 0.369,
+   "good_geometry": 0.763,
+   "usual_coh_ok": 0.458,
+   "layover": 0.016,
+   "shadow": 0.036,
+   "grazing": 0.185,
+   "watchable_ha": 724
+  },
+  {
+   "name": {
+    "en": "Usoi dam (Sarez)",
+    "ru": "\u0423\u0441\u043e\u0439\u0441\u043a\u0438\u0439 \u0437\u0430\u0432\u0430\u043b (\u0421\u0430\u0440\u0435\u0437)"
+   },
+   "orbit": "084A",
+   "watchable": 0.723,
+   "good_geometry": 0.954,
+   "usual_coh_ok": 0.761,
+   "layover": 0.038,
+   "shadow": 0.0,
+   "grazing": 0.008,
+   "watchable_ha": 1411
+  }
+ ],
+ "panjakent_any_orbit_watchable": 0.941,
+ "panjakent_zone_any_orbit_watchable": 0.342
+}

@@ -109,7 +109,13 @@ img { max-width: 100%; display: block; }
 .howto-note { color: var(--soft); }
 
 /* inspector */
-.stories { display: none; }
+.stories { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 18px; }
+.stories button { min-height: 40px; padding: 0 16px; border-radius: 999px; cursor: pointer; font: 500 13.5px var(--f); color: var(--soft);
+  background: transparent; border: 1px solid var(--line-2); transition: color .15s, border-color .15s, background-color .15s; }
+.stories button:hover { color: var(--ink); border-color: rgba(160, 190, 255, .5); }
+.stories button.on { color: var(--accent-ink); background: var(--accent); border-color: var(--accent); font-weight: 600; }
+.sec-head p.sec-kicker { font: 400 11.5px/1.5 var(--mono); color: var(--muted); margin: 0; text-transform: uppercase; letter-spacing: .08em; }
+.ctl-help { font-size: 12px; font-weight: 400; line-height: 1.45; color: var(--soft); }
 .panel-kicker { font: 400 11.5px/1.5 var(--mono); color: var(--muted); margin: 0 0 6px; }
 .panel h2 { font: 600 21px/1.2 var(--f); letter-spacing: -0.025em; margin: 0 0 14px; }
 .detail-head { display: grid; gap: 10px; padding: 14px 0 16px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); margin-bottom: 12px; }
@@ -197,7 +203,7 @@ main > section:not(.app) { max-width: 1240px; margin: 0 auto; padding: 120px max
 main > section.analysis { padding-top: 96px; }
 
 /* analysis: the findings of the selected story */
-.findings { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; }
+.findings { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
 .finding { padding: 20px 22px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); }
 .finding h3 { margin: 0 0 8px; font: 600 16px/1.3 var(--f); letter-spacing: -0.01em; }
 .finding p { margin: 0 0 6px; color: var(--soft); font-size: 15px; }
@@ -312,6 +318,7 @@ main > section.action { padding-top: 100px; }
   .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 28px; }
   .steps li:nth-child(3) { border-left: 0; padding-left: 0; }
   .blind-grid, .tiers, .two-col { grid-template-columns: 1fr; }
+  .findings { grid-template-columns: 1fr; }
   .tiers { gap: 28px; }
   .tier + .tier { padding-left: 0; }
   .brow { grid-template-columns: 1fr; gap: 4px; }

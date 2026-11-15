@@ -19,7 +19,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
-<link rel="stylesheet" href="style.css?v=23">
+<link rel="stylesheet" href="style.css?v=24">
 </head>
 <body>
 <header class="top">
@@ -31,13 +31,14 @@
     </span>
   </a>
   <nav class="nav" aria-label="Sections">
-    <a href="#stories" data-i18n="navStories">Stories</a>
-    <a href="#explore" data-i18n="navExplore">Explore</a>
+    <a href="#explore" data-i18n="navExplore">Map</a>
+    <a href="#analysis" data-i18n="navAnalysis">Analysis</a>
     <a href="#method" data-i18n="navMethod">Method</a>
+    <a href="#blind" data-i18n="navBlind">Blind test</a>
     <a href="#action" data-i18n="navAction">In practice</a>
-    <a href="#data" data-i18n="navData">Data</a>
+    <a href="#data" data-i18n="navData">Limits and data</a>
   </nav>
-  <div class="lang" role="group" aria-label="Language">
+  <div class="lang" role="group" aria-label="Language" hidden>
     <button type="button" id="lang-en" class="on">EN</button>
     <button type="button" id="lang-ru">RU</button>
   </div>
@@ -84,7 +85,6 @@
 
     <aside class="panel" id="panel">
       <div class="detail">
-        <div class="stories" id="story-tabs" role="tablist"></div>
         <p class="panel-kicker" id="story-kind"></p>
         <h2 id="story-title"></h2>
         <div class="detail-head">
@@ -96,6 +96,7 @@
           <label class="ctl">
             <span data-i18n="layer">Radar layer</span>
             <select id="layer-select"></select>
+            <span class="ctl-help" id="layer-help"></span>
           </label>
           <label class="ctl">
             <span class="ctl-row"><span id="time-label" data-i18n="date">Date</span><output id="time-value"></output></span>
@@ -126,7 +127,11 @@
   </section>
 
   <section class="analysis" id="analysis">
-    <div class="sec-head"><h2 id="analysis-title"></h2></div>
+    <div class="sec-head">
+      <p class="sec-kicker" data-i18n="anKicker">Full analysis · choose a place</p>
+      <div class="stories" id="story-tabs" role="tablist" aria-label="Place"></div>
+      <h2 id="analysis-title"></h2>
+    </div>
     <div class="findings" id="findings"></div>
   </section>
 
@@ -200,7 +205,7 @@
       </ul>
       <p class="board-watch" data-i18n="bwNote">"Watchable" under each name: the share of the circle where this orbit could see a mudflow at all. The rest is hidden by terrain (radar shadow, layover, a grazing view) or has usual coherence below 0.5, so a 0.3 drop cannot happen there (coherence rarely falls below 0.2). Measured with the Copernicus terrain model and the line-of-sight vectors in the NISAR files.</p>
     </div>
-    <p class="action-note"><span data-i18n="actNote">Reservoirs: if the water area jumps by more than 10% between passes, look for a clear Landsat or Sentinel-2 view within four days before reporting it. At Rogun this showed the autumn dips were a radar effect. Limits: the method shows change after it happened and misses narrow flows like Rushan.</span> <a href="https://github.com/wify777/nisar-tajikistan/blob/main/docs/RESPONSE_WORKFLOW.md" target="_blank" rel="noopener" data-i18n="actLink">Full workflow with diagram (EN/RU) →</a></p>
+    <p class="action-note"><span data-i18n="actNote">Reservoirs: if the water area jumps by more than 10% between passes, look for a clear Landsat or Sentinel-2 view within four days before reporting it. At Rogun this showed the autumn dips were a radar effect. Limits: the method shows change after it happened and misses narrow flows like Rushan.</span> <a href="https://github.com/wify777/nisar-tajikistan/blob/main/docs/RESPONSE_WORKFLOW.md" target="_blank" rel="noopener" data-i18n="actLink">Full workflow with diagram →</a></p>
   </section>
 
   <section class="explain">
@@ -232,7 +237,7 @@
 
 <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-<script src="app.js?v=23"></script>
+<script src="app.js?v=24"></script>
 <script src="board.js?v=6"></script>
 <script src="spot.js?v=3"></script>
 </body>

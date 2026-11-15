@@ -43,7 +43,8 @@
       label: function (st) { return st.s2change.before + " → " + st.s2change.after + " · Sentinel-2"; } }
   };
   Object.assign(UI.en, {
-    navStories: "Stories", navExplore: "Explore", navMethod: "Method", navData: "Data",
+    navStories: "Stories", navExplore: "Map", navMethod: "Method", navData: "Limits and data", navAnalysis: "Analysis", navBlind: "Blind test",
+    anKicker: "Full analysis · choose a place",
     kicker: "NASA Space Apps 2026 · Dancing with the SARs · Dushanbe",
     f1: "days between passes", f2: "L-band wavelength: sees through clouds", f3: "pixels, every number reproducible",
     ctaStories: "See the five stories", ctaMethod: "How we checked",
@@ -70,7 +71,7 @@
     a2t: "Yellow: check at a desk the same day", a2: "At least 50 ha of strong coherence loss in the circle, twice the average of the same image pair across the area, in a 12-day pair. In our five areas only 9 of 288 tests with no event passed this: about 3 alarms per 100 watched villages per pass.",
     a3t: "Red: send someone", a3: "Yellow plus any independent sign: a clear Landsat or Sentinel-2 view of fresh bare ground, heavy rain, a local report, or radar brightness that stays higher. One radar flag alone is not enough: a flag as large as Ayni's appears in about 1 of 80 tests where no mudflow happened.",
     actNote: "Reservoirs: if the water area jumps by more than 10% between passes, look for a clear Landsat or Sentinel-2 view within four days before reporting it. At Rogun this showed the autumn dips were a radar effect. Limits: the method shows change after it happened and misses narrow flows like Rushan.",
-    actLink: "Full workflow with diagram (EN/RU) →",
+    actLink: "Full workflow with diagram →",
     boardTitle: "The rule on our own data",
     boardText: "Each square is one pair of radar passes over a 2.5 km circle around the place. The number is the flagged area in hectares, the date is the second pass. Squares with a red outline span a reported mudflow.",
     bl1: "green", bl2: "yellow alarm", bl3: "pair longer than 12 days, not used", bl4: "reported mudflow in this pair",
@@ -134,6 +135,16 @@
   UI.en.chartWater = "Water area detected by radar (km²)"; UI.ru.chartWater = "Площадь воды по радару (км²)";
   UI.en.water = "water area"; UI.ru.water = "площадь воды";
   UI.en.readMore = "Full analysis"; UI.ru.readMore = "Полный разбор";
+  UI.en.LD = {
+    cohchange: "Red: the ground stopped matching between the two passes across the event (something moved). Blue: it matched better than in the pair before.",
+    coh: "How well the ground matches itself between two passes 12 days apart. Bright = unchanged; dark = moved, wet, snow-covered or overgrown.",
+    hh: "Strength of the radar echo. Bright = rough ground, rock, buildings. Dark = smooth ground or calm water.",
+    hv: "Echo that changed polarization: bright where the signal bounces inside vegetation or loose material.",
+    dhh: "Brightness compared with the first image. Red = brighter (rougher or wetter), blue = darker (smoother or flooded).",
+    water: "Blue = open water found by the radar on this date (smooth water looks dark to radar).",
+    s2change: "Magenta = ground that lost vegetation and got brighter in optical Sentinel-2 images: an independent check of the radar."
+  };
+  UI.ru.LD = UI.en.LD;
   UI.en.mapLoad = "Loading 3D terrain…"; UI.ru.mapLoad = "Загружаем 3D-рельеф…";
   var state = { lang: "en", data: null, story: null, meta: null, series: null, layer: "cohchange", idx: 0, opacity: 0.85, zone: true };
   var map, chart, ASSET_V = "8";
@@ -164,6 +175,7 @@
       var b = document.createElement("button"); b.type = "button"; b.role = "tab";
       b.textContent = s.title[state.lang] + (s.ready ? "" : " · " + t("soon"));
       b.disabled = !s.ready; b.classList.toggle("on", state.story && s.id === state.story.id);
+      b.setAttribute("aria-selected", String(!!(state.story && s.id === state.story.id)));
       b.addEventListener("click", function () { if (s.ready) loadStory(s); });
       box.appendChild(b);
     });
@@ -253,6 +265,7 @@
   function updatePanel() {
     var L = LAYERS[state.layer], keys = timeKeys(), sl = $("time-slider");
     sl.disabled = !L.time; sl.max = Math.max(0, keys.length - 1); sl.value = state.idx;
+    if ($("layer-help")) $("layer-help").textContent = (UI[state.lang].LD || {})[state.layer] || "";
     $("time-label").textContent = L.time === "pairs" ? t("pair") : t("date");
     var label = L.label ? L.label(state.story) : !L.time ? fmtPair(state.story.eventPair) : (L.time === "pairs" ? fmtPair(keys[state.idx]) : fmtDate(keys[state.idx]));
     var isEvent = !L.label && !!state.story.eventPair && (L.time === "pairs" ? keys[state.idx] === state.story.eventPair : !L.time);

@@ -439,7 +439,8 @@
         renderTabs(); renderCards(); renderStoryText();
         if (mapReady) {
           placePlaces();
-          map.flyTo({ center: s.center, zoom: zoomFor(s), pitch: view3d ? pitchFor() : 0, bearing: view3d ? BEARING : 0, duration: REDUCED ? 0 : 1600, essential: true });          if (map.getLayer("zone")) { map.removeLayer("zone"); map.removeSource("zone"); }
+          map.flyTo({ center: s.center, zoom: zoomFor(s), pitch: view3d ? pitchFor() : 0, bearing: view3d ? BEARING : 0, padding: computePad(), duration: REDUCED ? 0 : 1600, essential: true });
+          if (map.getLayer("zone")) { map.removeLayer("zone"); map.removeSource("zone"); }
           if (map.getLayer("zone-edge")) { map.removeLayer("zone-edge"); map.removeSource("zone-edge"); }
           if (map.getLayer("radar")) { map.removeLayer("radar"); map.removeSource("radar"); }
           if (map.getLayer("cmp")) { map.removeLayer("cmp"); map.removeSource("cmp"); }
@@ -701,21 +702,33 @@
   function pitchFor() { return narrow() ? 34 : PITCH_WIDE; }
   function zoomFor(s) { return s.zoom - (view3d ? ZOOM3D : 0) - (narrow() ? 0.6 : 0); }
   var REDUCED = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
-  function fitPadding() {
-    if (!map) return;
+  // padding keeps the place in the free map area. setPadding() stops a running flyTo in MapLibre,
+  // so the padding goes into the camera move itself and is never changed while the camera moves.
+  function computePad() {
     var wide = window.innerWidth > 1100, rail = document.querySelector(".rail"), panel = document.querySelector(".panel");
     var l = wide && rail ? rail.getBoundingClientRect().right : 0, r = wide && panel ? window.innerWidth - panel.getBoundingClientRect().left : 0;
     // keep the place in the middle of the free map area: below the place/view bar, above the dock
     var bar = document.getElementById("viewbar"), dock = document.getElementById("dock"), mapTop = $("map").getBoundingClientRect().top;
     var top = bar ? Math.max(0, bar.getBoundingClientRect().bottom - mapTop) : 0;
     var bottom = dock && dock.offsetHeight ? dock.offsetHeight + 40 : 0;
-    map.setPadding({ left: Math.max(0, l), right: Math.max(0, r), top: Math.min(top, 140), bottom: Math.min(bottom, 260) });
+    return { left: Math.max(0, Math.round(l)), right: Math.max(0, Math.round(r)), top: Math.min(Math.round(top), 140), bottom: Math.min(Math.round(bottom), 260) };
+  }
+  var padWait = false;
+  function fitPadding() {
+    if (!map) return;
+    var p = computePad(), c = map.getPadding();
+    if (Math.abs(p.left - c.left) < 2 && Math.abs(p.right - c.right) < 2 && Math.abs(p.top - c.top) < 2 && Math.abs(p.bottom - c.bottom) < 2) return;
+    if (map.isMoving() || (map.isEasing && map.isEasing())) {
+      if (!padWait) { padWait = true; map.once("moveend", function () { padWait = false; fitPadding(); }); }
+      return;
+    }
+    map.setPadding(p);
   }
   function toggle3d() {
     view3d = !view3d;
     var b = $("view-3d"); if (b) { b.setAttribute("aria-pressed", String(view3d)); b.textContent = view3d ? "3D" : "2D"; }
     map.setTerrain(view3d ? { source: "dem", exaggeration: 1.35 } : null);
-    map.easeTo({ zoom: zoomFor(state.story), pitch: view3d ? pitchFor() : 0, bearing: view3d ? BEARING : 0, duration: REDUCED ? 0 : 900 });
+    map.easeTo({ zoom: zoomFor(state.story), pitch: view3d ? pitchFor() : 0, bearing: view3d ? BEARING : 0, padding: computePad(), duration: REDUCED ? 0 : 900 });
   }
   var pins = [];
   function updatePins() {
@@ -755,8 +768,8 @@
       if (mapReady) return;
       mapReady = true;
       if (state.story) {
-        if (REDUCED) map.jumpTo({ center: state.story.center, zoom: zoomFor(state.story), pitch: pitchFor(), bearing: BEARING });
-        else map.once("idle", function () { map.easeTo({ center: state.story.center, zoom: zoomFor(state.story), pitch: pitchFor(), bearing: BEARING, duration: 2400, essential: true }); });
+        if (REDUCED) map.jumpTo({ center: state.story.center, zoom: zoomFor(state.story), pitch: pitchFor(), bearing: BEARING, padding: computePad() });
+        else map.once("idle", function () { map.easeTo({ center: state.story.center, zoom: zoomFor(state.story), pitch: pitchFor(), bearing: BEARING, padding: computePad(), duration: 2400, essential: true }); });
         placePlaces();
         if (pendingMap) { pendingMap = false; updateMapLayers(); }
         if (state.series) applyView();

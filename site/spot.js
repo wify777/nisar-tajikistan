@@ -6,13 +6,13 @@
     en: { outside: "This spot is outside the radar window of this story. Tap closer to the place.",
           edge: "Too close to the edge of the radar window: less than 90% of the 2.5 km circle has data.",
           head: "Test at this spot", yes: "Yellow alarm in", no: "No alarm in any 12-day pair.",
-          pair: "pair", ha: "ha", x: "× area average", long: "24-day pair, not used",
+          pair: "pair", ha: "ha", x: "× area average", long: "pair longer than 12 days, not used",
           mon: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
           rule: "Rule: at least 50 ha flagged in the circle and twice the average of the same pair over the whole window, 12-day pairs only." },
     ru: { outside: "Эта точка вне радарного окна этой истории. Нажмите ближе к месту.",
           edge: "Слишком близко к краю радарного окна: данные есть меньше чем для 90% круга 2,5 км.",
           head: "Тест в этой точке", yes: "Жёлтый сигнал в", no: "Сигнала нет ни в одной паре через 12 дней.",
-          pair: "пара", ha: "га", x: "× от среднего", long: "пара через 24 дня, не используется",
+          pair: "пара", ha: "га", x: "× от среднего", long: "пара длиннее 12 дней, не используется",
           mon: ["янв", "фев", "мар", "апр", "мая", "июн", "июл", "авг", "сен", "окт", "ноя", "дек"],
           rule: "Правило: в круге не меньше 50 га с флагом и вдвое больше среднего для той же пары по всему окну, только пары через 12 дней." }
   };

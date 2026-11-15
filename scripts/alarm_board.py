@@ -17,7 +17,7 @@ PLACES = [  # name_en, name_ru, cache window, lon, lat
     ("Rashnai Poyon (Panjakent), orbit 113A", "Рашнаи Поён (Пенджикент), орбита 113A", "panjakent_113a", 67.8004, 39.2326),
     ("Rashnai Poyon (Panjakent), orbit 121D", "Рашнаи Поён (Пенджикент), орбита 121D", "panjakent_121d", 67.8004, 39.2326),
     ("Barrushon (Rushan)", "Баррушон (Рушан)", "rushan_d", 71.4809, 37.9504),
-    ("Derushon (Rushan)", "Дерушон (Рушан)", "rushan_d", 71.432, 37.926),
+    ("Dehrushon (Rushan)", "Дерушон (Рушан)", "rushan_d", 71.432, 37.926),
     ("Usoi dam (Sarez)", "Усойский завал (Сарез)", "sarez", 72.5894, 38.2676),
 ]
 EVENTS = {"ayni": "2026-07-11", "panjakent": "2026-07-11", "panjakent_113a": "2026-07-11", "panjakent_121d": "2026-07-11",

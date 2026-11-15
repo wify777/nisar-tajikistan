@@ -2,10 +2,10 @@
 (function () {
   "use strict";
   var T = {
-    en: { yellow: "yellow alarm", green: "green", long: "24-day pair, not used for alarms", nodata: "not enough data",
+    en: { yellow: "yellow alarm", green: "green", long: "pair longer than 12 days, not used for alarms", nodata: "not enough data",
           event: "pair spans a reported mudflow", ha: "ha flagged", x: "× the area average",
           mon: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"] },
-    ru: { yellow: "жёлтый сигнал", green: "зелёный", long: "пара через 24 дня, для сигналов не используется", nodata: "мало данных",
+    ru: { yellow: "жёлтый сигнал", green: "зелёный", long: "пара длиннее 12 дней, для сигналов не используется", nodata: "мало данных",
           event: "пара охватывает известный сель", ha: "га с флагом", x: "× от среднего по области",
           mon: ["янв", "фев", "мар", "апр", "мая", "июн", "июл", "авг", "сен", "окт", "ноя", "дек"] }
   };

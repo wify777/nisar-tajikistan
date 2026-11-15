@@ -897,6 +897,14 @@
     "https://open-meteo.com/en/docs/historical-weather-api"
    ],
    [
+    "Detail imagery close to a place: Esri World Imagery (Esri, Maxar, Earthstar Geographics)",
+    "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+   ],
+   [
+    "Terrain: Mapzen / AWS Terrain Tiles (Terrarium elevation tiles)",
+    "https://registry.opendata.aws/terrain-tiles/"
+   ],
+   [
     "Data processing: Python (h5py, numpy, pyproj, rasterio). Web: MapLibre GL JS, Chart.js",
     ""
    ],
@@ -925,6 +933,14 @@
    [
     "Осадки и ветер: реанализ ERA5 (Copernicus Climate Change Service) через архив Open-Meteo (CC BY 4.0)",
     "https://open-meteo.com/en/docs/historical-weather-api"
+   ],
+   [
+    "Детальные снимки при приближении: Esri World Imagery (Esri, Maxar, Earthstar Geographics)",
+    "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+   ],
+   [
+    "Рельеф: Mapzen / AWS Terrain Tiles (Terrarium)",
+    "https://registry.opendata.aws/terrain-tiles/"
    ],
    [
     "Обработка данных: Python (h5py, numpy, pyproj, rasterio). Сайт: MapLibre GL JS, Chart.js",

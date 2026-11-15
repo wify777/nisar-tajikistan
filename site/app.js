@@ -147,7 +147,7 @@
   };
   UI.ru.LD = UI.en.LD;
   UI.en.mapLoad = "Loading 3D terrain…"; UI.ru.mapLoad = "Загружаем 3D-рельеф…";
-  var state = { lang: "en", data: null, story: null, meta: null, series: null, layer: "cohchange", idx: 0, opacity: 0.4, zone: true };
+  var state = { lang: "en", data: null, story: null, meta: null, series: null, layer: "cohchange", idx: 0, opacity: 0.6, zone: true };
   var map, chart, ASSET_V = "8";
   var $ = function (id) { return document.getElementById(id); };
   function t(k) { return UI[state.lang][k]; }

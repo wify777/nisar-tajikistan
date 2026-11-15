@@ -411,11 +411,27 @@
     else map.flyTo({ center: s.center, zoom: zoomFor(s), pitch: o.pitch, bearing: o.bearing, duration: ms, essential: true });
   }
 
+  var loadSeq = 0;
+  function showError(msg) {
+    var e = $("load-error"); if (!e) return;
+    e.textContent = msg; e.hidden = !msg;
+  }
+  function errText() {
+    return state.lang === "ru" ? "Не удалось загрузить данные. Проверьте соединение и обновите страницу." : "Could not load the data. Check your connection and reload the page.";
+  }
+  function getJson(url) {
+    return fetch(url, { cache: "no-cache" }).then(function (r) {
+      if (!r.ok) throw new Error(url + " " + r.status);
+      return r.json();
+    });
+  }
   function loadStory(s) {
-    state.story = s;
-    var j = function (f) { return fetch("data/" + s.id + "/" + f, { cache: "no-cache" }).then(function (r) { return r.json(); }); };
+    var prev = state.story, req = ++loadSeq;   // ignore answers of older requests (fast clicks on slow networks)
+    state.story = s; showError("");
+    var j = function (f) { return getJson("data/" + s.id + "/" + f); };
     Promise.all([j("meta.json"), j("series.json"), s.water ? j("water.json") : Promise.resolve(null), s.pairTest ? j("pair_test.json") : Promise.resolve(null)])
       .then(function (res) {
+        if (req !== loadSeq) return;
         state.meta = res[0]; state.series = res[1]; state.water = res[2]; state.pairTest = res[3];
         drawPairTest();
         state.layer = s.defaultLayer || storyLayers()[0];
@@ -432,6 +448,11 @@
         state.view = "change";
         updateRaster();
         applyView();
+      })
+      .catch(function (err) {
+        if (req !== loadSeq) return;
+        if (window.console) console.error(err);
+        state.story = prev; showError(errText());
       });
   }
 
@@ -696,6 +717,11 @@
     map.setTerrain(view3d ? { source: "dem", exaggeration: 1.35 } : null);
     map.easeTo({ zoom: zoomFor(state.story), pitch: view3d ? pitchFor() : 0, bearing: view3d ? BEARING : 0, duration: REDUCED ? 0 : 900 });
   }
+  var pins = [];
+  function updatePins() {
+    pins.forEach(function (p) { var n = p.story.title[state.lang]; p.el.title = n; p.el.setAttribute("aria-label", n); });
+  }
+
   function initMap(first) {
     map = new maplibregl.Map({
       container: "map",
@@ -739,8 +765,10 @@
         var p = el("button", "pin"); p.type = "button"; p.title = s.title[state.lang]; p.setAttribute("aria-label", s.title[state.lang]);
         p.style.setProperty("--tone", "var(--t-" + (s.tone || "stable") + ")");
         p.addEventListener("click", function () { if (s.ready) loadStory(s); });
+        pins.push({ el: p, story: s });
         new maplibregl.Marker({ element: p }).setLngLat(s.center).addTo(map);
       });
+      updatePins();
     };
     map.addControl(new maplibregl.ScaleControl({ maxWidth: 120, unit: "metric" }), "bottom-left");
     map.on("style.load", onReady);
@@ -749,8 +777,13 @@
   }
 
   function bind() {
-    $("lang-en").addEventListener("click", function () { state.lang = "en"; applyStatic(); renderTabs(); renderCards(); if (state.story) { renderStoryText(); updateRaster(); drawPairTest(); } });
-    $("lang-ru").addEventListener("click", function () { state.lang = "ru"; applyStatic(); renderTabs(); renderCards(); if (state.story) { renderStoryText(); updateRaster(); drawPairTest(); } });
+    var setLang = function (l) {
+      state.lang = l; applyStatic(); renderTabs(); renderCards(); updatePins();
+      if ($("load-error") && !$("load-error").hidden) showError(errText());
+      if (state.story && state.meta) { renderStoryText(); updateRaster(); drawPairTest(); }
+    };
+    $("lang-en").addEventListener("click", function () { setLang("en"); });
+    $("lang-ru").addEventListener("click", function () { setLang("ru"); });
     $("layer-select").addEventListener("change", function (e) {
       state.layer = e.target.value; state.idx = defaultIdx(); state.view = LAYERS[state.layer].time ? "time" : "change";
       stopPlay(); cmpLayerOff(); updateRaster(); renderViews(); renderDock();
@@ -765,9 +798,13 @@
   }
 
   window.NISAR = { get map() { return map; }, get story() { return state.story; }, get lang() { return state.lang; }, get ready() { return mapReady; } };
-  fetch("data/stories.json", { cache: "no-cache" }).then(function (r) { return r.json(); }).then(function (d) {
+  getJson("data/stories.json").then(function (d) {
     var first = d.stories.filter(function (s) { return s.ready; })[0];
-    state.data = d; applyStatic(); renderTabs(); renderCards(); bind(); initMap(first);
+    state.data = d; applyStatic(); renderTabs(); renderCards(); bind();
+    try { initMap(first); } catch (e) { if (window.console) console.error(e); showError(errText()); }  // e.g. map library blocked or offline
     if (first) loadStory(first);
+  }).catch(function (err) {
+    if (window.console) console.error(err);
+    showError(errText());
   });
 })();

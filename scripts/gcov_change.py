@@ -39,5 +39,6 @@ s = {"name": name, "before": b["date"], "after": a["date"], "dHH": stat(d_hh), "
 # local stats in 600 m circles around labelled points
 for n, px, py in pts:
     XX, YY = np.meshgrid(b["x"], b["y"]); m = (XX-px)**2 + (YY-py)**2 < 600**2
-    s[f"near_{n}"] = {"dHH_mean": round(float(np.nanmean(d_hh[m])),2), "dHV_mean": round(float(np.nanmean(d_hv[m])),2)}
+    mean = lambda v: round(float(np.nanmean(v[m])), 2) if np.isfinite(v[m]).any() else None   # null, not invalid NaN, in JSON
+    s[f"near_{n}"] = {"dHH_mean": mean(d_hh), "dHV_mean": mean(d_hv)}
 json.dump(s, open(f"analysis/{name}_gcov_change.json", "w"), indent=1); print(json.dumps(s, indent=1)); print("saved", png)

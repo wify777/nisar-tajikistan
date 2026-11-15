@@ -16,9 +16,11 @@ def write_tif(path, arr, x, y, epsg):
                        dtype="float32", crs=f"EPSG:{epsg}", transform=tr, nodata=np.nan, compress="deflate") as d:
         d.write(arr.astype("float32"), 1)
 
-shutil.rmtree(OUT, ignore_errors=True)
 for src, name in SITES.items():
-    o = f"{OUT}/{name}"; os.makedirs(f"{o}/gcov"); os.makedirs(f"{o}/coherence")
+    o = f"{OUT}/{name}"
+    # regenerate only what this script writes; keep geometry.json and any files added by hand
+    for sub in ("gcov", "coherence", "results"): shutil.rmtree(f"{o}/{sub}", ignore_errors=True)
+    os.makedirs(f"{o}/gcov"); os.makedirs(f"{o}/coherence")
     rows = []
     for f in sorted(glob.glob(f"cache/{src}/*.npz")):
         z = np.load(f); b = os.path.basename(f)[:-4]; epsg = int(z["epsg"])

@@ -4,7 +4,9 @@ import os, subprocess
 from PIL import Image, ImageDraw, ImageFont
 
 D = "demo"; T = f"{D}/video_tmp"; os.makedirs(T, exist_ok=True)
-FONT = "/Library/Fonts/Arial Unicode.ttf"
+FONT = next((f for f in ["/Library/Fonts/Arial Unicode.ttf", "C:/Windows/Fonts/arial.ttf",
+                         "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"] if os.path.exists(f)), None)
+if FONT is None: raise SystemExit("No TrueType font found: set FONT in scripts/make_video.py")
 # (image, seconds, caption)
 SEG = [
     ("frames/slide1.png", 3.5, "We are a team from Dushanbe, Tajikistan."),

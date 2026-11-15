@@ -11,12 +11,12 @@
 <meta property="og:url" content="https://wify777.github.io/nisar-tajikistan/">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
-<meta name="theme-color" content="#0e6b5a">
+<meta name="theme-color" content="#06080b">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
-<link rel="stylesheet" href="style.css?v=16">
+<link rel="stylesheet" href="style.css?v=20">
 </head>
 <body>
 <header class="top">
@@ -41,8 +41,15 @@
 </header>
 
 <main>
-  <section class="hero">
-    <div class="hero-text">
+  <section class="app" id="explore">
+    <div class="map-wrap">
+      <div id="map" role="region" aria-label="Map"></div>
+      <div class="legend" id="legend"></div>
+      <button type="button" class="map-btn" id="view-3d" aria-pressed="true" title="2D / 3D">3D</button>
+    </div>
+
+    <aside class="rail">
+      <div class="hero">
       <p class="kicker" data-i18n="kicker">NASA Space Apps 2026 · Dancing with the SARs · Dushanbe</p>
       <h1 data-i18n="introTitle">Seeing the ground move through clouds and darkness</h1>
       <p class="lede" data-i18n="introText">NISAR, the NASA-ISRO radar satellite, images Tajikistan about every 12 days, day or night, in any weather. We compare its images over time to show where the surface changed and explain what the change most likely means.</p>
@@ -55,40 +62,32 @@
         <a class="btn primary" href="#stories" data-i18n="ctaStories">See the five stories</a>
         <a class="btn" href="#method" data-i18n="ctaMethod">How we checked</a>
       </div>
-    </div>
-    <figure class="hero-fig">
-      <img src="img/ayni.jpg" width="1200" height="1206" alt="Radar coherence loss in red and the detected change zone in yellow over a satellite view of the valley above Dargh and Kazdon">
-      <figcaption data-i18n="heroCap">Ayni, radar pair 9 → 21 July 2026 compared with the pair before. Red: the ground stopped matching between passes (coherence loss). Blue: it matched better than before. Yellow: the change zone on the slopes above Dargh and Kazdon, where a mudflow hit on 11 July.</figcaption>
-    </figure>
-  </section>
-
-  <section class="stories-sec" id="stories">
-    <div class="sec-head">
+      </div>
+      <div class="stories-sec" id="stories">
+        <div class="sec-head">
       <h2 data-i18n="storiesTitle">Five places, five honest answers</h2>
       <p data-i18n="storiesText">Each story says what happened, what the radar shows, how we tested it and how sure we are, including the event the radar missed.</p>
     </div>
-    <div class="story-cards" id="story-cards"></div>
-  </section>
-
-  <section class="explore-sec" id="explore">
-    <ol class="howto" aria-label="How to use">
+        <div class="story-cards" id="story-cards"></div>
+      </div>
+      <ol class="howto" aria-label="How to use">
       <li><b>1</b><span data-i18n="u1">Pick a place: a card above, a pin on the map or a tab</span></li>
       <li><b>2</b><span data-i18n="u2">Move the date slider and switch radar layers</span></li>
       <li><b>3</b><span data-i18n="u3">Read the verdict and the checks under the map</span></li>
       <li class="howto-note" data-i18n="u4">Free, no sign-up, works on a phone</li>
     </ol>
-    <div class="explorer">
-      <div class="map-wrap">
-        <div id="map" role="region" aria-label="Map"></div>
-        <div class="legend" id="legend"></div>
-      </div>
+    </aside>
 
-      <aside class="panel" id="panel">
+    <aside class="panel" id="panel">
+      <div class="detail">
         <div class="stories" id="story-tabs" role="tablist"></div>
         <p class="panel-kicker" id="story-kind"></p>
         <h2 id="story-title"></h2>
+        <div class="detail-head">
+          <span class="verdict" id="detail-verdict"></span>
+          <div class="detail-stat"><strong id="detail-stat"></strong><span id="detail-stat-label"></span></div>
+        </div>
         <p class="story-meta" id="story-meta"></p>
-
         <div class="controls" id="controls">
           <label class="ctl">
             <span data-i18n="layer">Radar layer</span>
@@ -109,7 +108,6 @@
             </label>
           </div>
         </div>
-
         <div class="spot" id="spot">
           <p class="spot-hint" data-i18n="spotHint">Tap anywhere inside the radar window to run our alarm test there.</p>
           <div id="spot-out" aria-live="polite"></div>
@@ -118,16 +116,14 @@
         <p class="chart-note" id="chart-note"></p>
         <div class="chart-box small" id="chart2-box" hidden><canvas id="chart2"></canvas></div>
         <p class="chart-note" id="chart2-note" hidden></p>
-      </aside>
-    </div>
-
-    <div class="detail">
-      <div class="detail-head">
-        <span class="verdict" id="detail-verdict"></span>
-        <div class="detail-stat"><strong id="detail-stat"></strong><span id="detail-stat-label"></span></div>
+        <a class="more" href="#analysis" data-i18n="readMore">Full analysis</a>
       </div>
-      <div class="findings" id="findings"></div>
-    </div>
+    </aside>
+  </section>
+
+  <section class="analysis" id="analysis">
+    <div class="sec-head"><h2 id="analysis-title"></h2></div>
+    <div class="findings" id="findings"></div>
   </section>
 
   <section class="method" id="method">
@@ -231,7 +227,7 @@
 
 <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-<script src="app.js?v=16"></script>
+<script src="app.js?v=20"></script>
 <script src="board.js?v=4"></script>
 <script src="spot.js?v=3"></script>
 </body>

@@ -131,6 +131,7 @@
   UI.en.L.water = "Water detected by radar"; UI.en.L.s2change = "Optical change (Sentinel-2)"; UI.ru.L.s2change = "Оптические изменения (Sentinel-2)"; UI.ru.L.water = "Вода по данным радара";
   UI.en.chartWater = "Water area detected by radar (km²)"; UI.ru.chartWater = "Площадь воды по радару (км²)";
   UI.en.water = "water area"; UI.ru.water = "площадь воды";
+  UI.en.readMore = "Full analysis"; UI.ru.readMore = "Полный разбор";
   var state = { lang: "en", data: null, story: null, meta: null, series: null, layer: "cohchange", idx: 0, opacity: 0.85, zone: true };
   var map, chart, ASSET_V = "8";
   var $ = function (id) { return document.getElementById(id); };
@@ -181,7 +182,7 @@
       body.appendChild(el("span", "scard-label", s.statLabel ? s.statLabel[state.lang] : ""));
       b.appendChild(body);
       b.setAttribute("aria-label", s.title[state.lang] + ". " + t("explore"));
-      b.addEventListener("click", function () { if (s.ready) { loadStory(s); $("explore").scrollIntoView({ behavior: "smooth" }); } });
+      b.addEventListener("click", function () { if (s.ready) { loadStory(s); document.querySelector(".map-wrap").scrollIntoView({ behavior: "smooth", block: "start" }); } });
       box.appendChild(b);
     });
   }
@@ -189,6 +190,7 @@
   function renderStoryText() {
     var s = state.story;
     $("story-title").textContent = s.title[state.lang];
+    if ($("analysis-title")) $("analysis-title").textContent = s.title[state.lang];
     $("story-meta").textContent = s.meta[state.lang];
     $("story-kind").textContent = s.kind ? s.kind[state.lang] : "";
     var d = document.querySelector(".detail"); d.className = "detail tone-" + (s.tone || "stable");
@@ -315,7 +317,7 @@
         renderTabs(); renderCards(); renderStoryText();
         if (mapReady) {
           placePlaces();
-          map.flyTo({ center: s.center, zoom: s.zoom, duration: 800 });
+          map.flyTo({ center: s.center, zoom: zoomFor(s), pitch: view3d ? PITCH : 0, bearing: view3d ? BEARING : 0, duration: REDUCED ? 0 : 1600, essential: true });
           if (map.getLayer("zone")) { map.removeLayer("zone"); map.removeSource("zone"); }
           if (map.getLayer("radar")) { map.removeLayer("radar"); map.removeSource("radar"); }
         }
@@ -332,21 +334,43 @@
     });
   }
 
+  var DEM = "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png";
+  var PITCH = 52, BEARING = -14, ZOOM3D = 0.9, view3d = true;
+  function zoomFor(s) { return s.zoom - (view3d ? ZOOM3D : 0); }
+  var REDUCED = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function fitPadding() {
+    if (!map) return;
+    var wide = window.innerWidth > 1100, rail = document.querySelector(".rail"), panel = document.querySelector(".panel");
+    var l = wide && rail ? rail.getBoundingClientRect().right : 0, r = wide && panel ? window.innerWidth - panel.getBoundingClientRect().left : 0;
+    map.setPadding({ left: Math.max(0, l), right: Math.max(0, r), top: 0, bottom: 0 });
+  }
+  function toggle3d() {
+    view3d = !view3d;
+    var b = $("view-3d"); if (b) { b.setAttribute("aria-pressed", String(view3d)); b.textContent = view3d ? "3D" : "2D"; }
+    map.setTerrain(view3d ? { source: "dem", exaggeration: 1.35 } : null);
+    map.easeTo({ zoom: zoomFor(state.story), pitch: view3d ? PITCH : 0, bearing: view3d ? BEARING : 0, duration: REDUCED ? 0 : 900 });
+  }
   function initMap() {
     map = new maplibregl.Map({
       container: "map",
       style: { version: 8, sources: { s2: { type: "raster", tileSize: 256, maxzoom: 15,
         tiles: ["https://tiles.maps.eox.at/wmts/1.0.0/s2cloudless-2023_3857/default/g/{z}/{y}/{x}.jpg"],
-        attribution: "Sentinel-2 cloudless 2023 by EOX IT Services GmbH (contains modified Copernicus Sentinel data 2023)" } },
-        layers: [{ id: "s2", type: "raster", source: "s2" }] },
-      center: [70.8, 38.6], zoom: 6.3, attributionControl: { compact: true }
+        attribution: "Sentinel-2 cloudless 2023 by EOX IT Services GmbH (contains modified Copernicus Sentinel data 2023)" },
+        dem: { type: "raster-dem", tiles: [DEM], encoding: "terrarium", tileSize: 256, maxzoom: 14, attribution: "Terrain: Mapzen / AWS Terrain Tiles" },
+        hs: { type: "raster-dem", tiles: [DEM], encoding: "terrarium", tileSize: 256, maxzoom: 14 } },
+        layers: [{ id: "s2", type: "raster", source: "s2" },
+          { id: "hills", type: "hillshade", source: "hs", paint: { "hillshade-exaggeration": 0.28, "hillshade-shadow-color": "#05070a", "hillshade-highlight-color": "rgba(255,255,255,0.12)", "hillshade-accent-color": "#05070a" } }],
+        terrain: { source: "dem", exaggeration: 1.35 } },
+      center: [70.8, 38.6], zoom: 6.1, pitch: 0, maxPitch: 75, attributionControl: { compact: true }
     });
+    fitPadding(); window.addEventListener("resize", fitPadding);
     map.addControl(new maplibregl.NavigationControl({ showCompass: false }), "top-right");
     var onReady = function () {
       if (mapReady) return;
       mapReady = true;
       if (state.story) {
-        map.jumpTo({ center: state.story.center, zoom: state.story.zoom });
+        if (REDUCED) map.jumpTo({ center: state.story.center, zoom: zoomFor(state.story), pitch: PITCH, bearing: BEARING });
+        else setTimeout(function () { map.flyTo({ center: state.story.center, zoom: zoomFor(state.story), pitch: PITCH, bearing: BEARING, duration: 5200, curve: 1.6, essential: true }); }, 700);
         placePlaces();
         if (pendingMap) { pendingMap = false; updateMapLayers(); }
       }
@@ -369,6 +393,7 @@
     $("layer-select").addEventListener("change", function (e) { state.layer = e.target.value; state.idx = defaultIdx(); updateRaster(); });
     $("time-slider").addEventListener("input", function (e) { state.idx = +e.target.value; updateRaster(); });
     $("opacity-slider").addEventListener("input", function (e) { state.opacity = e.target.value / 100; if (map.getLayer("radar")) map.setPaintProperty("radar", "raster-opacity", state.opacity); });
+    if ($("view-3d")) $("view-3d").addEventListener("click", function () { if (map) toggle3d(); });
     $("zone-toggle").addEventListener("change", function (e) { state.zone = e.target.checked; if (map.getLayer("zone")) map.setLayoutProperty("zone", "visibility", state.zone ? "visible" : "none"); });
   }
 

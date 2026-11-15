@@ -885,6 +885,10 @@
     "https://s2maps.eu"
    ],
    [
+    "Detail imagery close up: Esri World Imagery (Esri, Maxar, Earthstar Geographics)",
+    "https://www.arcgis.com/home/item.html?id=10df2279f9684e4a9f6a7f08febac2a9"
+   ],
+   [
     "Optical check: Copernicus Sentinel-2 L2A (contains modified Copernicus Sentinel data 2026), via AWS Open Data",
     "https://registry.opendata.aws/sentinel-2-l2a-cogs/"
    ],
@@ -913,6 +917,10 @@
    [
     "Подложка: Sentinel-2 cloudless 2023, EOX IT Services GmbH (contains modified Copernicus Sentinel data 2023)",
     "https://s2maps.eu"
+   ],
+   [
+    "Детальный снимок вблизи: Esri World Imagery (Esri, Maxar, Earthstar Geographics)",
+    "https://www.arcgis.com/home/item.html?id=10df2279f9684e4a9f6a7f08febac2a9"
    ],
    [
     "Оптическая проверка: Copernicus Sentinel-2 L2A (contains modified Copernicus Sentinel data 2026), AWS Open Data",

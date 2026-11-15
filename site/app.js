@@ -147,7 +147,7 @@
   };
   UI.ru.LD = UI.en.LD;
   UI.en.mapLoad = "Loading 3D terrain…"; UI.ru.mapLoad = "Загружаем 3D-рельеф…";
-  var state = { lang: "en", data: null, story: null, meta: null, series: null, layer: "cohchange", idx: 0, opacity: 0.72, zone: true };
+  var state = { lang: "en", data: null, story: null, meta: null, series: null, layer: "cohchange", idx: 0, opacity: 0.4, zone: true };
   var map, chart, ASSET_V = "8";
   var $ = function (id) { return document.getElementById(id); };
   function t(k) { return UI[state.lang][k]; }
@@ -674,7 +674,7 @@
   }
 
   var DEM = "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png";
-  var PITCH_WIDE = 52, BEARING = -14, ZOOM3D = 0.9, view3d = true;
+  var PITCH_WIDE = 30, BEARING = -8, ZOOM3D = 0.4, view3d = true;   // flatter view: the villages and the zone stay in the middle, lighter to draw
   // on a phone the map is short and the bars cover its top: tilt less and step back a little
   function narrow() { return window.innerWidth < 700; }
   function pitchFor() { return narrow() ? 34 : PITCH_WIDE; }
@@ -703,9 +703,13 @@
         tiles: ["https://tiles.maps.eox.at/wmts/1.0.0/s2cloudless-2023_3857/default/g/{z}/{y}/{x}.jpg"],
         attribution: "Sentinel-2 cloudless 2023 by EOX IT Services GmbH (contains modified Copernicus Sentinel data 2023)" },
         dem: { type: "raster-dem", tiles: [DEM], encoding: "terrarium", tileSize: 256, maxzoom: 14, attribution: "Terrain: Mapzen / AWS Terrain Tiles" },
-        hs: { type: "raster-dem", tiles: [DEM], encoding: "terrarium", tileSize: 256, maxzoom: 14 } },
+        hs: { type: "raster-dem", tiles: [DEM], encoding: "terrarium", tileSize: 256, maxzoom: 14 },
+        // sharper photo close to a place: Sentinel-2 is 10 m per pixel, this one is under a metre to a few metres, so houses and fields show
+        hi: { type: "raster", tileSize: 256, maxzoom: 17, tiles: ["https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"],
+          attribution: "Detail imagery: Esri, Maxar, Earthstar Geographics" } },
       layers: [{ id: "bg", type: "background", paint: { "background-color": "#2a2f35" } },
         { id: "s2", type: "raster", source: "s2", paint: { "raster-saturation": 0.12, "raster-contrast": 0.1 } },
+        { id: "hi", type: "raster", source: "hi", minzoom: 9, paint: { "raster-opacity": ["interpolate", ["linear"], ["zoom"], 9, 0, 10.5, 1], "raster-fade-duration": 150 } },
         { id: "hills", type: "hillshade", source: "hs", paint: { "hillshade-exaggeration": ["interpolate", ["linear"], ["zoom"], 7, 0.18, 11, 0.04], "hillshade-shadow-color": "#1b2430", "hillshade-highlight-color": "rgba(255,255,255,0.08)", "hillshade-accent-color": "#1b2430" } }],
       terrain: { source: "dem", exaggeration: 1.35 },
       sky: { "sky-color": "#4f7fb8", "horizon-color": "#c3d3e4", "fog-color": "#c7d3df", "sky-horizon-blend": 0.5, "horizon-fog-blend": 0.6, "fog-ground-blend": 0.12, "atmosphere-blend": 0.8 } },

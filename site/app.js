@@ -260,7 +260,8 @@
       }
     }
     map.setPaintProperty("radar", "raster-opacity", state.opacity);
-    if (map.getLayer("zone")) map.setLayoutProperty("zone", "visibility", state.zone ? "visible" : "none");
+    map.setLayoutProperty("radar", "visibility", cmpOn ? "none" : "visible");
+    if (map.getLayer("zone")) map.setLayoutProperty("zone", "visibility", zoneVisible() ? "visible" : "none");
   }
   function updatePanel() {
     var L = LAYERS[state.layer], keys = timeKeys(), sl = $("time-slider");
@@ -336,8 +337,12 @@
           map.flyTo({ center: s.center, zoom: zoomFor(s), pitch: view3d ? PITCH : 0, bearing: view3d ? BEARING : 0, duration: REDUCED ? 0 : 1600, essential: true });
           if (map.getLayer("zone")) { map.removeLayer("zone"); map.removeSource("zone"); }
           if (map.getLayer("radar")) { map.removeLayer("radar"); map.removeSource("radar"); }
+          if (map.getLayer("cmp")) { map.removeLayer("cmp"); map.removeSource("cmp"); }
         }
+        cmpOn = false; cmpImgs = null; stopPlay();
+        state.view = "change";
         updateRaster();
+        applyView();
       });
   }
 
@@ -351,6 +356,230 @@
       var e = el("div", "place" + (flip ? " flip" : ""), p[0]);
       placeMarkers.push(new maplibregl.Marker({ element: e, anchor: flip ? "right" : "left", offset: [flip ? 4 : -4, 0] }).setLngLat([p[1], p[2]]).addTo(map));
     });
+  }
+
+  // ---------- four ways to look at a change: What changed / Before-After / Swipe / Timeline ----------
+  var MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  function dShort(d) { return (+d.slice(6, 8)) + " " + MON[+d.slice(4, 6) - 1]; }
+  function kShort(k) { var a = k.split("_"); return a.length > 1 ? dShort(a[0]) + " → " + dShort(a[1]) : dShort(k); }
+  var SHORT = { ayni: "Ayni", sarez: "Sarez", nurek: "Nurek", rogun: "Rogun", rushan: "Rushan" };
+  var AFTER = { nurek: "20260826", rogun: "20260919" };
+  var VIEWS = [["change", "What changed"], ["ba", "Before / After"], ["swipe", "Swipe"], ["time", "Timeline"]];
+  var ICON = { play: '<svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5v11l9-5.5z" fill="currentColor"/></svg>',
+               pause: '<svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5h3v11H4zM9 2.5h3v11H9z" fill="currentColor"/></svg>' };
+  state.view = "change"; state.ba = "after"; state.swipe = 0.5;
+  var cmpOn = false, cmpKind = null, cmpImgs = null, cv = document.createElement("canvas"), playT = null, imgCache = {};
+
+  function zoneVisible() { return state.zone && state.view === "change" && !cmpOn; }
+  function isEvent() { return !!(state.story && state.story.eventPair); }
+  function km2(key) { var w = state.water; if (!w) return null; var i = w.dates.indexOf(key); return i < 0 ? null : w.water_km2[i]; }
+  // the "before" and "after" images this place compares
+  function pairOf() {
+    var s = state.story, se = state.series;
+    if (isEvent()) { var i = se.pairs.indexOf(s.eventPair); return { layer: "coh", keys: se.pairs, b: Math.max(0, i - 1), a: i }; }
+    var ks = se.dates, w = state.water, mx = ks.length - 1;
+    if (w) { var best = -1; w.water_km2.forEach(function (v, i) { var j = ks.indexOf(w.dates[i]); if (j >= 0 && v > best) { best = v; mx = j; } }); }
+    if (s.tone === "stable") mx = ks.length - 1;   // Sarez: first and last date, no trend to chase
+    var fixed = AFTER[s.id] || s.defaultDate; if (fixed && ks.indexOf(fixed) >= 0) mx = ks.indexOf(fixed);   // the date the story's number refers to
+    return { layer: "water", keys: ks, b: 0, a: mx };
+  }
+  function loadImg(u) {
+    if (!imgCache[u]) imgCache[u] = new Promise(function (res, rej) { var im = new Image(); im.onload = function () { res(im); }; im.onerror = rej; im.src = u; });
+    return imgCache[u];
+  }
+  function layerUrl(layer, key) { return "data/" + state.story.id + "/layers/" + LAYERS[layer].file(key, state.story) + ".png?v=" + ASSET_V; }
+
+  function stopPlay() {
+    if (playT) { clearInterval(playT); playT = null; }
+    var b = $("v-play"); if (b) { b.innerHTML = ICON.play; b.setAttribute("aria-label", "Play through the dates"); b.setAttribute("aria-pressed", "false"); }
+  }
+  function cmpLayerOff() {
+    cmpOn = false;
+    if (!map) return;
+    if (map.getLayer("cmp")) map.setLayoutProperty("cmp", "visibility", "none");
+    if (map.getLayer("swipe-line")) map.setLayoutProperty("swipe-line", "visibility", "none");
+    if (map.getLayer("radar")) map.setLayoutProperty("radar", "visibility", "visible");
+    if (map.getLayer("zone")) map.setLayoutProperty("zone", "visibility", zoneVisible() ? "visible" : "none");
+  }
+  // a canvas source only re-uploads while "playing": play for two frames after each redraw
+  function nudge() {
+    var src = map && map.getSource("cmp"); if (!src) return;
+    src.play(); map.triggerRepaint();
+    requestAnimationFrame(function () { requestAnimationFrame(function () { if (map.getSource("cmp")) map.getSource("cmp").pause(); }); });
+  }
+  function drawCanvas() {
+    if (!cmpImgs) return;
+    var W = cv.width, H = cv.height, b = cmpImgs[0], a = cmpImgs[1], ctx = cv.getContext("2d", { willReadFrequently: true });
+    ctx.clearRect(0, 0, W, H);
+    if (cmpKind === "swipe") {
+      var x = Math.round(state.swipe * W);
+      ctx.save(); ctx.beginPath(); ctx.rect(0, 0, x, H); ctx.clip(); ctx.drawImage(b, 0, 0, W, H); ctx.restore();
+      ctx.save(); ctx.beginPath(); ctx.rect(x, 0, W - x, H); ctx.clip(); ctx.drawImage(a, 0, 0, W, H); ctx.restore();
+      return;
+    }
+    // water: gained (cyan), lost (amber), on both dates (blue)
+    ctx.drawImage(b, 0, 0, W, H); var B = ctx.getImageData(0, 0, W, H).data;
+    ctx.clearRect(0, 0, W, H); ctx.drawImage(a, 0, 0, W, H);
+    var out = ctx.getImageData(0, 0, W, H), A = out.data;
+    for (var i = 0; i < A.length; i += 4) {
+      var wb = B[i + 3] > 0, wa = A[i + 3] > 0;
+      if (wa && wb) { A[i] = 47; A[i + 1] = 111; A[i + 2] = 224; A[i + 3] = 150; }
+      else if (wa) { A[i] = 64; A[i + 1] = 232; A[i + 2] = 255; A[i + 3] = 255; }
+      else if (wb) { A[i] = 255; A[i + 1] = 178; A[i + 2] = 36; A[i + 3] = 255; }
+      else A[i + 3] = 0;
+    }
+    ctx.putImageData(out, 0, 0);
+  }
+  function swipeLine() {
+    if (!map || !state.meta) return;
+    var c = state.meta.corners, f = state.swipe, on = cmpOn && cmpKind === "swipe";
+    var top = [c[0][0] + f * (c[1][0] - c[0][0]), c[0][1] + f * (c[1][1] - c[0][1])], bot = [c[3][0] + f * (c[2][0] - c[3][0]), c[3][1] + f * (c[2][1] - c[3][1])];
+    var data = { type: "Feature", geometry: { type: "LineString", coordinates: [top, bot] }, properties: {} };
+    if (!map.getSource("swipe-line")) {
+      map.addSource("swipe-line", { type: "geojson", data: data });
+      map.addLayer({ id: "swipe-line", type: "line", source: "swipe-line", paint: { "line-color": "#ffffff", "line-width": 3 } });
+    } else map.getSource("swipe-line").setData(data);
+    map.setLayoutProperty("swipe-line", "visibility", on ? "visible" : "none");
+  }
+  function showCanvas(kind) {
+    if (!mapReady) return;              // the map's ready handler applies the view again
+    var P = pairOf(), sid = state.story.id, want = kind === "diff" ? "change" : "swipe";
+    Promise.all([loadImg(layerUrl(P.layer, P.keys[P.b])), loadImg(layerUrl(P.layer, P.keys[P.a]))]).then(function (im) {
+      if (!state.story || state.story.id !== sid || state.view !== want) return;
+      cmpImgs = im; cmpKind = kind; cv.width = im[1].naturalWidth; cv.height = im[1].naturalHeight;
+      drawCanvas();
+      if (!map.getSource("cmp")) {
+        map.addSource("cmp", { type: "canvas", canvas: cv, coordinates: state.meta.corners, animate: false });
+        map.addLayer({ id: "cmp", type: "raster", source: "cmp", paint: { "raster-opacity": state.opacity, "raster-fade-duration": 0 } });
+      }
+      cmpOn = true;
+      map.setLayoutProperty("cmp", "visibility", "visible"); map.setPaintProperty("cmp", "raster-opacity", state.opacity);
+      if (map.getLayer("radar")) map.setLayoutProperty("radar", "visibility", "none");
+      if (map.getLayer("zone")) map.setLayoutProperty("zone", "visibility", "none");
+      nudge(); swipeLine();
+    }, function () { cmpLayerOff(); });
+  }
+
+  function applyView() {
+    if (!state.story || !state.series) return;
+    stopPlay();
+    var P = pairOf(), v = state.view;
+    if (v === "swipe" || (v === "change" && !isEvent())) {
+      state.layer = P.layer; state.idx = P.a;
+      updatePanel();
+      showCanvas(v === "swipe" ? "swipe" : "diff");
+    } else {
+      cmpLayerOff();
+      if (v === "change") { if (LAYERS[state.layer].time) state.layer = state.story.defaultLayer || storyLayers()[0]; state.idx = defaultIdx(); }
+      else if (v === "ba") { state.layer = P.layer; state.idx = state.ba === "before" ? P.b : P.a; }
+      else if (v === "time" && !LAYERS[state.layer].time) { state.layer = P.layer; state.idx = P.a; }
+      updateRaster();
+    }
+    $("layer-select").value = state.layer;
+    renderViews(); renderDock();
+  }
+
+  function renderViews() {
+    var bar = $("viewbar"); if (!bar || !state.data) return;
+    bar.innerHTML = "";
+    var pl = el("div", "vb-places"); pl.setAttribute("role", "group"); pl.setAttribute("aria-label", "Place");
+    state.data.stories.forEach(function (s) {
+      var on = !!(state.story && state.story.id === s.id);
+      var b = el("button", "vb-place tone-" + (s.tone || "stable") + (on ? " on" : ""), SHORT[s.id] || s.title[state.lang]);
+      b.type = "button"; b.title = s.title[state.lang]; b.setAttribute("aria-pressed", String(on));
+      b.addEventListener("click", function () { if (s.ready && !on) loadStory(s); });
+      pl.appendChild(b);
+    });
+    var md = el("div", "vb-modes"); md.setAttribute("role", "group"); md.setAttribute("aria-label", "How to view the change");
+    VIEWS.forEach(function (v) {
+      var on = state.view === v[0], b = el("button", "vb-mode" + (on ? " on" : ""), v[1]);
+      b.type = "button"; b.setAttribute("aria-pressed", String(on));
+      b.addEventListener("click", function () { if (state.view !== v[0]) { state.view = v[0]; applyView(); } });
+      md.appendChild(b);
+    });
+    bar.appendChild(pl); bar.appendChild(md);
+  }
+
+  function legendHtml(rows, title) {
+    return "<strong>" + title + "</strong><div class=\"lg-row\">" + rows.map(function (r) { return "<span><i class=\"lg-sw\" style=\"background:" + r[0] + "\"></i>" + r[1] + "</span>"; }).join("") + "</div>";
+  }
+  function markChips() {
+    var keys = timeKeys(), d = $("dock-date");
+    document.querySelectorAll("#dock .chip").forEach(function (c, i) { var on = i === state.idx; c.classList.toggle("on", on); c.setAttribute("aria-pressed", String(on)); if (on) c.scrollIntoView({ block: "nearest", inline: "nearest" }); });
+    if (d) d.textContent = keys[state.idx] ? kShort(keys[state.idx]) : "";
+    var k = $("dock-km"); if (k) { var v = km2(keys[state.idx]); k.textContent = v != null && state.layer === "water" ? v.toFixed(1) + " km² of water" : ""; }
+  }
+  function renderDock() {
+    var d = $("dock"); if (!d || !state.story || !state.series) return;
+    d.innerHTML = "";
+    var P = pairOf(), v = state.view, ev = isEvent(), s = state.story, kb = P.keys[P.b], ka = P.keys[P.a];
+    var cap = el("p", "dock-cap");
+    if (v === "change") {
+      if (ev && state.layer === "s2change") cap.textContent = "Magenta: ground that lost its vegetation and got brighter in optical Sentinel-2 images: an independent check of the radar.";
+      else if (ev && s.tone === "missed") cap.textContent = "Red would mark ground that stopped matching between the radar passes across the mudflow (" + kShort(s.eventPair) + "). Here almost nothing stands out: this is the event the radar missed. Try Before / After.";
+      else if (ev) cap.textContent = "Red: ground that stopped matching between the radar passes across the mudflow (" + kShort(s.eventPair) + "). Yellow: the change zone we measured above the villages. Try Before / After or Swipe.";
+      else {
+        var b0 = km2(kb), a0 = km2(ka), dd = (a0 != null && b0 != null) ? a0 - b0 : null;
+        cap.textContent = s.tone === "stable"
+          ? "Lake edge on " + dShort(kb) + " and " + dShort(ka) + ": cyan = water only on the later date, amber = only on the earlier one. The area moves between " + "23.7 and 28.0 km² with no trend (wind on the water)."
+          : "Cyan: new water since " + dShort(kb) + (dd != null ? " (+" + dd.toFixed(1) + " km² by " + dShort(ka) + ")" : "") + ". Blue: water on both dates. Amber: water that is gone.";
+        $("legend").innerHTML = legendHtml([["#40e8ff", "new"], ["#2f6fe0", "both dates"], ["#ffb224", "gone"]], "Water " + dShort(kb) + " → " + dShort(ka));
+      }
+      d.appendChild(cap);
+    } else if (v === "ba") {
+      var row = el("div", "dock-row");
+      [["before", "Before", kb], ["after", ev ? "Across the event" : "After", ka]].forEach(function (x) {
+        var on = state.ba === x[0], b = el("button", "ba-btn" + (on ? " on" : ""));
+        b.type = "button"; b.setAttribute("aria-pressed", String(on));
+        b.appendChild(document.createTextNode(x[1])); var sm = el("small", null, kShort(x[2])); b.appendChild(sm);
+        b.addEventListener("click", function () { state.ba = x[0]; applyView(); });
+        row.appendChild(b);
+      });
+      d.appendChild(row);
+      var k = state.ba === "before" ? kb : ka;
+      if (ev) cap.textContent = state.ba === "before"
+        ? "Radar pair " + kShort(kb) + ", before the mudflow. Bright = the ground stayed the same between the two passes."
+        : (s.tone === "missed" ? "Radar pair " + kShort(ka) + ", across the mudflow. Almost nothing went dark here: the flow channel is too narrow for the radar."
+                               : "Radar pair " + kShort(ka) + ", across the mudflow. The slopes above the villages went dark: the ground there moved.");
+      else cap.textContent = "Water seen by the radar on " + dShort(k) + (km2(k) != null ? ": " + km2(k).toFixed(1) + " km²." : ".") + " Switch between the two to see the difference.";
+      d.appendChild(cap);
+    } else if (v === "swipe") {
+      var sr = el("div", "swipe-row");
+      sr.appendChild(el("span", null, "◀ Before · " + kShort(kb)));
+      var r = document.createElement("input"); r.type = "range"; r.min = 0; r.max = 100; r.value = Math.round(state.swipe * 100); r.id = "swipe-range";
+      r.setAttribute("aria-label", "Drag to compare before and after");
+      r.addEventListener("input", function () { state.swipe = r.value / 100; drawCanvas(); nudge(); swipeLine(); });
+      sr.appendChild(r);
+      sr.appendChild(el("span", null, (ev ? "Across · " : "After · ") + kShort(ka) + " ▶"));
+      d.appendChild(sr);
+      cap.textContent = "Drag the slider: left of the white line is before, right of it is after.";
+      d.appendChild(cap);
+    } else {
+      var keys = timeKeys(), tr = el("div", "dock-row");
+      var pb = el("button", "play"); pb.type = "button"; pb.id = "v-play"; pb.innerHTML = ICON.play; pb.setAttribute("aria-label", "Play through the dates"); pb.setAttribute("aria-pressed", "false");
+      pb.addEventListener("click", function () {
+        if (playT) { stopPlay(); return; }
+        pb.innerHTML = ICON.pause; pb.setAttribute("aria-label", "Pause"); pb.setAttribute("aria-pressed", "true");
+        playT = setInterval(function () { state.idx = (state.idx + 1) % keys.length; updateRaster(); markChips(); }, 1100);
+      });
+      tr.appendChild(pb);
+      var info = el("div", "dock-info"); var big = el("strong", "dock-date"); big.id = "dock-date"; info.appendChild(big);
+      var kmEl = el("span", "dock-km"); kmEl.id = "dock-km"; info.appendChild(kmEl); tr.appendChild(info);
+      d.appendChild(tr);
+      var chips = el("div", "chips"); chips.setAttribute("role", "group"); chips.setAttribute("aria-label", LAYERS[state.layer].time === "pairs" ? "Image pairs" : "Dates");
+      var evKey = !ev ? null : (LAYERS[state.layer].time === "pairs" ? s.eventPair : s.eventPair.split("_")[1]);
+      keys.forEach(function (k, i) {
+        var c = el("button", "chip" + (k === evKey ? " ev" : ""), LAYERS[state.layer].time === "pairs" ? dShort(k.split("_")[1]) : dShort(k));
+        c.type = "button"; c.title = kShort(k) + (k === evKey ? " (across the event)" : "");
+        c.addEventListener("click", function () { stopPlay(); state.idx = i; updateRaster(); markChips(); });
+        chips.appendChild(c);
+      });
+      d.appendChild(chips);
+      cap.textContent = "Pick a date or press play. " + (evKey ? "The red date spans the reported event. " : "") + "Layer: " + UI[state.lang].L[state.layer] + " (change it in the panel).";
+      d.appendChild(cap);
+      markChips();
+    }
+    var mw = document.querySelector(".map-wrap"); if (mw) mw.style.setProperty("--dock-h", d.offsetHeight + "px");
   }
 
   var DEM = "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png";
@@ -400,6 +629,7 @@
         else map.once("idle", function () { map.easeTo({ center: state.story.center, zoom: zoomFor(state.story), pitch: PITCH, bearing: BEARING, duration: 2400, essential: true }); });
         placePlaces();
         if (pendingMap) { pendingMap = false; updateMapLayers(); }
+        if (state.series) applyView();
       }
       state.data.stories.forEach(function (s) {
         var p = el("button", "pin"); p.type = "button"; p.title = s.title[state.lang]; p.setAttribute("aria-label", s.title[state.lang]);
@@ -417,11 +647,17 @@
   function bind() {
     $("lang-en").addEventListener("click", function () { state.lang = "en"; applyStatic(); renderTabs(); renderCards(); if (state.story) { renderStoryText(); updateRaster(); drawPairTest(); } });
     $("lang-ru").addEventListener("click", function () { state.lang = "ru"; applyStatic(); renderTabs(); renderCards(); if (state.story) { renderStoryText(); updateRaster(); drawPairTest(); } });
-    $("layer-select").addEventListener("change", function (e) { state.layer = e.target.value; state.idx = defaultIdx(); updateRaster(); });
-    $("time-slider").addEventListener("input", function (e) { state.idx = +e.target.value; updateRaster(); });
-    $("opacity-slider").addEventListener("input", function (e) { state.opacity = e.target.value / 100; if (map.getLayer("radar")) map.setPaintProperty("radar", "raster-opacity", state.opacity); });
+    $("layer-select").addEventListener("change", function (e) {
+      state.layer = e.target.value; state.idx = defaultIdx(); state.view = LAYERS[state.layer].time ? "time" : "change";
+      stopPlay(); cmpLayerOff(); updateRaster(); renderViews(); renderDock();
+    });
+    $("time-slider").addEventListener("input", function (e) {
+      state.idx = +e.target.value; if (state.view !== "time") { state.view = "time"; stopPlay(); cmpLayerOff(); renderViews(); }
+      updateRaster(); renderDock();
+    });
+    $("opacity-slider").addEventListener("input", function (e) { state.opacity = e.target.value / 100; if (map.getLayer("radar")) map.setPaintProperty("radar", "raster-opacity", state.opacity); if (map.getLayer("cmp")) map.setPaintProperty("cmp", "raster-opacity", state.opacity); });
     if ($("view-3d")) $("view-3d").addEventListener("click", function () { if (map) toggle3d(); });
-    $("zone-toggle").addEventListener("change", function (e) { state.zone = e.target.checked; if (map.getLayer("zone")) map.setLayoutProperty("zone", "visibility", state.zone ? "visible" : "none"); });
+    $("zone-toggle").addEventListener("change", function (e) { state.zone = e.target.checked; if (map.getLayer("zone")) map.setLayoutProperty("zone", "visibility", zoneVisible() ? "visible" : "none"); });
   }
 
   window.NISAR = { get map() { return map; }, get story() { return state.story; }, get lang() { return state.lang; }, get ready() { return mapReady; } };

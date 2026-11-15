@@ -32,7 +32,11 @@ html, body { margin: 0; height: 100%; overflow: hidden; background: var(--bg); c
 .dots { margin-left: auto; display: flex; gap: 8px; pointer-events: auto; }
 .dots button { width: 28px; height: 6px; padding: 0; border: 0; border-radius: 3px; background: rgba(255, 255, 255, .22); cursor: pointer; transition: background .3s, width .3s; }
 .dots button.on { width: 46px; background: var(--cyan); }
-.count { font: 500 13px var(--mono); color: #e7edf7; text-shadow: 0 1px 3px rgba(0, 0, 0, .85); }
+.count { font: 500 13px var(--mono); color: #e7edf7; text-shadow: 0 1px 3px rgba(0, 0, 0, .85); white-space: nowrap; }
+
+/* phone: the seven dots wrap under the title and push the counter out of the corner;
+   the arrows in the hint bar already move between slides */
+@media (max-width: 700px) { .dots { display: none; } .count { margin-left: auto; } }
 
 /* slides */
 .slide { position: fixed; inset: 0; z-index: 5; padding: 92px var(--pad) 96px; display: flex; pointer-events: none; opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
@@ -143,7 +147,7 @@ body.shownotes .notes { display: block; }
 <!-- 1 -->
 <section class="slide" data-cam="overview" data-mk="places" data-note="Tajikistan's mountains are often under cloud. NISAR radar sees through it, so we used its open data to check five places.">
   <div class="left">
-    <p class="kicker">NASA Space Apps Challenge 2026 · Dushanbe</p>
+    <p class="kicker">NASA Space Apps Challenge 2026 ·&nbsp;Dushanbe</p>
     <h1>Clouds hide Tajikistan's mountains.<br><span class="cy">Radar does not.</span></h1>
     <p class="lede">NISAR Tajikistan: five places checked with NASA-ISRO L-band radar.</p>
     <p class="team" id="team1"></p>

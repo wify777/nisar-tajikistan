@@ -283,6 +283,31 @@
     map.addLayer({ id: "win-tick", type: "line", source: "win-t", paint: { "line-color": "#ffffff", "line-width": 2.6, "line-opacity": .95 } });
   }
 
+  // The area of the change zone is already in meta.zone_ha. A chip on the mask ties the number to
+  // the shape: the centre is the centre of mass of the same PNG the map draws, not the window centre.
+  var zoneTag = null;
+  function placeZoneLabel() {
+    if (zoneTag) { zoneTag.remove(); zoneTag = null; }
+    var ha = state.meta && state.meta.zone_ha;
+    if (!ha || ha < 5) return;            // below this the zone is not what the story is about
+    var img = new Image(), id = state.story.id, cn = state.meta.corners;
+    img.onload = function () {
+      var cv = document.createElement("canvas"); cv.width = img.width; cv.height = img.height;
+      var g = cv.getContext("2d"); g.drawImage(img, 0, 0);
+      var d = g.getImageData(0, 0, img.width, img.height).data, sx = 0, sy = 0, n = 0;
+      for (var i = 0; i < d.length; i += 4) {
+        if (d[i + 3] > 0) { var p = i / 4; sx += p % img.width; sy += (p - (p % img.width)) / img.width; n++; }
+      }
+      if (!n || !state.story || state.story.id !== id) return;
+      var u = sx / n / (img.width - 1), v = sy / n / (img.height - 1);
+      var lon = (1 - u) * (1 - v) * cn[0][0] + u * (1 - v) * cn[1][0] + u * v * cn[2][0] + (1 - u) * v * cn[3][0];
+      var lat = (1 - u) * (1 - v) * cn[0][1] + u * (1 - v) * cn[1][1] + u * v * cn[2][1] + (1 - u) * v * cn[3][1];
+      var tag = el("div", "zone-tag", Math.round(ha) + " ha");
+      zoneTag = new maplibregl.Marker({ element: tag, anchor: "center", opacityWhenCovered: "0.4" }).setLngLat([lon, lat]).addTo(map);
+    };
+    img.src = "data/" + id + "/layers/zone.png?v=" + ASSET_V;
+  }
+
   var mapReady = false, pendingMap = false, lastImg = "";
   function updateRaster() {
     updatePanel();
@@ -302,11 +327,17 @@
       if (state.meta.zone_pixels > 0) {
         map.addSource("zone", { type: "image", url: "data/" + state.story.id + "/layers/zone.png?v=" + ASSET_V, coordinates: c });
         map.addLayer({ id: "zone", type: "raster", source: "zone", paint: { "raster-opacity": 0.9, "raster-fade-duration": 0 } });
+        // the same mask, drawn as a 2-pixel ring (scripts/zone_edge.py): an edge instead of loose patches
+        map.addSource("zone-edge", { type: "image", url: "data/" + state.story.id + "/layers/zone-edge.png?v=" + ASSET_V, coordinates: c });
+        map.addLayer({ id: "zone-edge", type: "raster", source: "zone-edge", paint: { "raster-opacity": 1, "raster-fade-duration": 0 } });
+        placeZoneLabel();
       }
     }
     map.setPaintProperty("radar", "raster-opacity", state.opacity);
     map.setLayoutProperty("radar", "visibility", cmpOn ? "none" : "visible");
     if (map.getLayer("zone")) map.setLayoutProperty("zone", "visibility", zoneVisible() ? "visible" : "none");
+    if (map.getLayer("zone-edge")) map.setLayoutProperty("zone-edge", "visibility", zoneVisible() ? "visible" : "none");
+    if (zoneTag) zoneTag.getElement().style.display = zoneVisible() ? "" : "none";
     frameWindow(c);
   }
   // the legend box is rebuilt from several places (layer change, water views), so the window

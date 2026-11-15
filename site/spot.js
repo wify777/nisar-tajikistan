@@ -10,7 +10,7 @@
           mon: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
           rule: "Rule: at least 50 ha flagged in the circle and twice the average of the same pair over the whole window, 12-day pairs only." },
     ru: { outside: "Эта точка вне радарного окна этой истории. Нажмите ближе к месту.",
-          edge: "Слишком близко к краю радарного окна: данные есть меньше чем для 90% круга 2.5 км.",
+          edge: "Слишком близко к краю радарного окна: данные есть меньше чем для 90% круга 2,5 км.",
           head: "Тест в этой точке", yes: "Жёлтый сигнал в", no: "Сигнала нет ни в одной паре через 12 дней.",
           pair: "пара", ha: "га", x: "× от среднего", long: "пара через 24 дня, не используется",
           mon: ["янв", "фев", "мар", "апр", "мая", "июн", "июл", "авг", "сен", "окт", "ноя", "дек"],
@@ -66,7 +66,7 @@
       var st = days > m.max_days ? "long" : (ha >= m.min_ha && ratio >= m.min_ratio ? "yellow" : "green");
       if (st === "yellow") alarms.push(day(p[0], L) + " → " + day(p[1], L));
       var el = document.createElement("span"); el.className = "bcell b-" + st;
-      var txt = day(p[0], L) + " → " + day(p[1], L) + ": " + Math.round(ha) + " " + L.ha + ", " + ratio.toFixed(1) + L.x + (st === "long" ? " · " + L.long : "");
+      var txt = day(p[0], L) + " → " + day(p[1], L) + ": " + Math.round(ha) + " " + L.ha + ", " + (window.NISAR.lang === "ru" ? ratio.toFixed(1).replace(".", ",") : ratio.toFixed(1)) + L.x + (st === "long" ? " · " + L.long : "");
       el.title = txt; el.setAttribute("aria-label", txt); el.textContent = Math.round(ha);
       var lab = document.createElement("small"); lab.textContent = day(p[1], L); el.appendChild(lab); row.appendChild(el);
     });

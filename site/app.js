@@ -45,17 +45,24 @@
   Object.assign(UI.en, {
     navStories: "Stories", navExplore: "Explore", navMethod: "Method", navData: "Data",
     kicker: "NASA Space Apps 2026 · Dancing with the SARs · Dushanbe",
-    f1: "days between passes", f2: "L-band wavelength, sees through cloud", f3: "pixels, every number reproducible",
+    f1: "days between passes", f2: "L-band wavelength: sees through clouds", f3: "pixels, every number reproducible",
     ctaStories: "See the five stories", ctaMethod: "How we checked",
     heroCap: "Ayni, radar pair 9 → 21 July 2026 compared with the pair before. Red: the ground stopped matching between passes (coherence loss). Blue: it matched better than before. Yellow: the change zone on the slopes above Dargh and Kazdon, where a mudflow hit on 11 July.",
     storiesTitle: "Five places, five honest answers",
     storiesText: "Each story says what happened, what the radar shows, how we tested it and how sure we are, including the event the radar missed.",
     methodTitle: "How we turn radar into answers", methodText: "No black box: four steps, all in our open code.",
-    m1t: "Read only what we need", m1: "NISAR files are 1.4 to 7 GB. We read small windows around each place straight from NASA's archive, every date on the same orbit.",
+    m1t: "Read only what we need", m1: "NISAR files are 1.4 to 7 GB. We read small windows around each place straight from NASA's archive, every date on the same orbit. The same window can be cut out of any NISAR frame, so a new place in any country can be added with the same scripts.",
     m2t: "Compare every pair of dates", m2: "Brightness shows roughness and water; coherence shows whether the ground stayed the same between two passes 12 days apart.",
     m3t: "Test against all other dates", m3: "A change only counts if it stands out against the median of all other pairs, so we do not fool ourselves with one lucky image.",
     m4t: "Check with reality", m4: "We compare with news and Red Cross reports and with optical Sentinel-2 images, and we say how sure we are.",
-    repo: "Open code and method on GitHub →", showZone: "Change zone", explore: "Open on the map",
+    polTitle: "Polarizations: HH and HV",
+    pol1: "HH is mostly the direct echo from the surface. Rough ground and rock look bright; calm water looks dark.",
+    pol2: "At Ayni, HH brightness rose by 1.4 dB after the mudflow of 11 July and stayed higher afterwards.",
+    pol3: "HV appears when the signal bounces several times inside vegetation and loose material.",
+    pol4: "At Ayni, HV rose only on the first image after the event and was back to its earlier level by 14 August, so we rely on HH and coherence.",
+    pol5: "We used HH and HV from the GCOV product, and HH from GUNW.",
+    pol6: "VV and full polarization are not in the data over our sites.",
+    repo: "Open code and method on GitHub →", showZone: "Change zone", explore: "Open on the map", f2v: "24 cm", f3v: "20 m",
     u1: "Pick a place: a card above, a pin on the map or a tab", u2: "Move the date slider and switch radar layers", u3: "Read the verdict and the checks under the map", u4: "Free, no sign-up, works on a phone",
     navAction: "In practice", actTitle: "From map to action",
     actText: "How a rescue service could use each new NISAR pass. A proposal built on our measurements, not yet agreed with the Committee of Emergency Situations.",
@@ -81,27 +88,34 @@
   Object.assign(UI.ru, {
     navStories: "Истории", navExplore: "Карта", navMethod: "Метод", navData: "Данные",
     kicker: "NASA Space Apps 2026 · Dancing with the SARs · Душанбе",
-    f1: "дней между пролётами", f2: "длина волны L-диапазона, видит сквозь облака", f3: "пиксели, каждое число можно проверить",
+    f1: "дней между пролётами", f2: "длина волны L-диапазона: видит сквозь облака", f3: "пиксели, каждое число можно проверить",
     ctaStories: "Пять историй", ctaMethod: "Как мы проверяли",
     heroCap: "Айни, пара снимков 9 → 21 июля 2026 в сравнении с парой до неё. Красное: земля перестала совпадать между пролётами (потеря когерентности). Синее: совпадает лучше, чем раньше. Жёлтое: зона изменений на склонах над Даргом и Каздоном, куда 11 июля сошёл сель.",
     storiesTitle: "Пять мест, пять честных ответов",
     storiesText: "В каждой истории: что произошло, что показывает радар, как мы это проверили и насколько уверены. Включая событие, которое радар не увидел.",
     methodTitle: "Как мы превращаем радар в ответы", methodText: "Без чёрного ящика: четыре шага, всё в открытом коде.",
-    m1t: "Читаем только нужное", m1: "Файлы NISAR весят от 1.4 до 7 ГБ. Мы читаем небольшие окна вокруг каждого места прямо из архива NASA, все даты на одной орбите.",
+    m1t: "Читаем только нужное", m1: "Файлы NISAR весят от 1,4 до 7 ГБ. Мы читаем небольшие окна вокруг каждого места прямо из архива NASA, все даты на одной орбите. Такое же окно можно вырезать из любого кадра NISAR, поэтому новое место в любой стране добавляется теми же скриптами.",
     m2t: "Сравниваем каждую пару дат", m2: "Яркость показывает шероховатость и воду; когерентность показывает, осталась ли земля той же между двумя пролётами с разницей 12 дней.",
     m3t: "Проверяем против всех остальных дат", m3: "Изменение засчитывается, только если оно выделяется на фоне медианы всех остальных пар. Так мы не обманываем себя одним удачным снимком.",
     m4t: "Сверяем с реальностью", m4: "Сравниваем с новостями и отчётами Красного Креста и с оптическими снимками Sentinel-2 и говорим, насколько уверены.",
-    repo: "Открытый код и метод на GitHub →", showZone: "Зона изменений", explore: "Открыть на карте",
+    polTitle: "Поляризация: HH и HV",
+    pol1: "HH — в основном прямое отражение от поверхности. Шероховатая земля и скалы выглядят яркими, спокойная вода — тёмной.",
+    pol2: "В Айни яркость HH выросла на 1,4 дБ после селя 11 июля и после этого осталась выше.",
+    pol3: "HV возникает при многократном отражении сигнала в растительности и рыхлом материале.",
+    pol4: "В Айни HV вырос только на первом снимке после события и к 14 августа вернулся к прежнему уровню, поэтому мы опираемся на HH и когерентность.",
+    pol5: "Мы использовали HH и HV из продукта GCOV и HH из GUNW.",
+    pol6: "VV и полной поляризации над нашими участками в данных нет.",
+    repo: "Открытый код и метод на GitHub →", showZone: "Зона изменений", explore: "Открыть на карте", f2v: "24 см", f3v: "20 м",
     u1: "Выберите место: карточка выше, точка на карте или вкладка", u2: "Двигайте ползунок дат и переключайте радарные слои", u3: "Читайте вердикт и проверки под картой", u4: "Бесплатно, без регистрации, работает на телефоне",
     navAction: "На практике", actTitle: "От карты к действию",
     actText: "Как спасательная служба могла бы использовать каждый новый пролёт NISAR. Это предложение на основе наших измерений, с КЧС оно пока не согласовано.",
-    a1t: "Зелёный: записать", a1: "В круге 2.5 км вокруг села, дороги или канала нет необычной потери когерентности. Ничего делать не нужно.",
+    a1t: "Зелёный: записать", a1: "В круге 2,5 км вокруг села, дороги или канала нет необычной потери когерентности. Ничего делать не нужно.",
     a2t: "Жёлтый: проверить за столом в тот же день", a2: "В круге не меньше 50 га сильной потери когерентности, вдвое больше среднего по всей области для той же пары снимков, пара через 12 дней. В наших пяти областях это прошли только 9 из 288 тестов без события: примерно 3 сигнала на 100 сёл под наблюдением за пролёт.",
     a3t: "Красный: отправить людей", a3: "Жёлтый плюс любой независимый признак: чистый снимок Landsat или Sentinel-2 со свежим голым грунтом, сильный дождь, сообщение с места или яркость радара, которая остаётся выше. Одного флага радара мало: флаг размером как в Айни встречается примерно в 1 из 80 тестов, где селя не было.",
     actNote: "Водохранилища: если площадь воды изменилась больше чем на 10% между пролётами, перед сообщением найдите чистый снимок Landsat или Sentinel-2 в пределах четырёх дней. На Рогуне так выяснилось, что осенние провалы — эффект радара. Ограничения: метод показывает изменение уже после события и пропускает узкие потоки, как в Рушане.",
     actLink: "Полный порядок работы со схемой (EN/RU) →",
     boardTitle: "Правило на наших собственных данных",
-    boardText: "Каждый квадрат — одна пара пролётов радара над кругом 2.5 км вокруг места. Число — площадь с флагом в гектарах, дата — второй пролёт. Квадраты с красной рамкой охватывают известный сель.",
+    boardText: "Каждый квадрат — одна пара пролётов радара над кругом 2,5 км вокруг места. Число — площадь с флагом в гектарах, дата — второй пролёт. Квадраты с красной рамкой охватывают известный сель.",
     bl1: "зелёный", bl2: "жёлтый сигнал", bl3: "пара через 24 дня, не используется", bl4: "в этой паре был сель",
     spotHint: "Нажмите в любом месте внутри радарного окна, чтобы запустить там наш тест.",
     blTitle: "Слепой тест: второй сель, под который мы ничего не подстраивали",
@@ -123,6 +137,8 @@
   function t(k) { return UI[state.lang][k]; }
   function fmtDate(d) { return d.slice(0, 4) + "-" + d.slice(4, 6) + "-" + d.slice(6, 8); }
   function fmtPair(p) { var a = p.split("_"); return fmtDate(a[0]) + " → " + fmtDate(a[1]); }
+  function statText(s) { var v = s.stat; if (v == null) return ""; return typeof v === "string" ? v : (v[state.lang] || v.en || ""); }
+  function fmtNum(v) { var s = String(v); return state.lang === "ru" ? s.replace(".", ",") : s; }
 
   function applyStatic() {
     document.documentElement.lang = state.lang;
@@ -161,7 +177,7 @@
       body.appendChild(el("span", "verdict", s.verdict ? s.verdict[state.lang] : ""));
       body.appendChild(el("h3", null, s.title[state.lang]));
       body.appendChild(el("span", "scard-kind", s.kind ? s.kind[state.lang] : ""));
-      body.appendChild(el("span", "scard-stat", s.stat || ""));
+      body.appendChild(el("span", "scard-stat", statText(s)));
       body.appendChild(el("span", "scard-label", s.statLabel ? s.statLabel[state.lang] : ""));
       b.appendChild(body);
       b.setAttribute("aria-label", s.title[state.lang] + ". " + t("explore"));
@@ -177,7 +193,7 @@
     $("story-kind").textContent = s.kind ? s.kind[state.lang] : "";
     var d = document.querySelector(".detail"); d.className = "detail tone-" + (s.tone || "stable");
     $("detail-verdict").textContent = s.verdict ? s.verdict[state.lang] : "";
-    $("detail-stat").textContent = s.stat || "";
+    $("detail-stat").textContent = statText(s);
     $("detail-stat-label").textContent = s.statLabel ? s.statLabel[state.lang] : "";
     var f = $("findings"); f.innerHTML = "";
     s.findings[state.lang].forEach(function (b) {
@@ -237,7 +253,7 @@
     var isEvent = !L.label && !!state.story.eventPair && (L.time === "pairs" ? keys[state.idx] === state.story.eventPair : !L.time);
     $("time-value").textContent = label + (isEvent ? "  · " + t("event") : "");
     var lg = L.legend;
-    $("legend").innerHTML = "<strong>" + UI[state.lang].L[state.layer] + "</strong><div class=\"bar\" style=\"background:" + lg[0] + "\"></div><div class=\"ends\"><span>" + lg[1] + " " + (lg[3] ? t("legendDb") : "") + "</span><span>" + lg[2] + " " + (lg[3] ? t("legendDb") : "") + "</span></div>";
+    $("legend").innerHTML = "<strong>" + UI[state.lang].L[state.layer] + "</strong><div class=\"bar\" style=\"background:" + lg[0] + "\"></div><div class=\"ends\"><span>" + fmtNum(lg[1]) + " " + (lg[3] ? t("legendDb") : "") + "</span><span>" + fmtNum(lg[2]) + " " + (lg[3] ? t("legendDb") : "") + "</span></div>";
     updateChart();
   }
 
@@ -265,7 +281,7 @@
       options: { responsive: true, animation: false, maintainAspectRatio: false,
         plugins: { legend: { labels: { color: ink, boxWidth: 12 } } },
         scales: { x: { ticks: { color: ink, maxRotation: 60, minRotation: 40, font: { size: 9 } }, grid: { color: line } },
-                  y: { ticks: { color: ink }, grid: { color: line }, suggestedMin: pairsMode ? 0 : undefined, suggestedMax: pairsMode ? 1 : undefined } } }
+                  y: { ticks: { color: ink, callback: function (v) { return fmtNum(v); } }, grid: { color: line }, suggestedMin: pairsMode ? 0 : undefined, suggestedMax: pairsMode ? 1 : undefined } } }
     };
     if (chart) chart.destroy();
     if (window.Chart) chart = new Chart($("chart"), cfg);
@@ -282,9 +298,9 @@
     chart2 = new Chart($("chart2"), { type: "bar",
       data: { labels: pt.pairs.map(fmtPair), datasets: [{ data: pt.near_ha, backgroundColor: pt.pairs.map(function (p) { return p === state.story.eventPair ? acc : ink; }) }] },
       options: { responsive: true, maintainAspectRatio: false, animation: false, plugins: { legend: { display: false } },
-        scales: { x: { ticks: { color: ink, maxRotation: 60, minRotation: 40, font: { size: 9 } }, grid: { display: false } }, y: { ticks: { color: ink }, grid: { color: line }, title: { display: true, text: "ha", color: ink } } } } });
+        scales: { x: { ticks: { color: ink, maxRotation: 60, minRotation: 40, font: { size: 9 } }, grid: { display: false } }, y: { ticks: { color: ink, callback: function (v) { return fmtNum(v); } }, grid: { color: line }, title: { display: true, text: state.lang === "ru" ? "га" : "ha", color: ink } } } } });
     note.textContent = state.lang === "ru"
-      ? "Проверка без подгонки: площадь сильной потери когерентности (на 0.3 ниже медианы всех остальных пар) в радиусе " + pt.radius_km + " км от сёл, по каждой паре снимков. Цветом выделена пара через событие."
+      ? "Проверка без подгонки: площадь сильной потери когерентности (на 0,3 ниже медианы всех остальных пар) в радиусе " + fmtNum(pt.radius_km) + " км от сёл, по каждой паре снимков. Цветом выделена пара через событие."
       : "Unbiased check: area of strong coherence loss (0.3 below the median of all other pairs) within " + pt.radius_km + " km of the villages, for every image pair. The pair across the event is highlighted.";
   }
   function loadStory(s) {

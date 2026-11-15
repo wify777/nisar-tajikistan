@@ -16,7 +16,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap">
 <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
-<link rel="stylesheet" href="style.css?v=14">
+<link rel="stylesheet" href="style.css?v=15">
 </head>
 <body>
 <header class="top">
@@ -48,8 +48,8 @@
       <p class="lede" data-i18n="introText">NISAR, the NASA-ISRO radar satellite, images Tajikistan about every 12 days, day or night, in any weather. We compare its images over time to show where the surface changed and explain what the change most likely means.</p>
       <ul class="facts">
         <li><strong>12</strong><span data-i18n="f1">days between passes</span></li>
-        <li><strong>24 cm</strong><span data-i18n="f2">L-band wavelength, sees through cloud</span></li>
-        <li><strong>20 m</strong><span data-i18n="f3">pixels, every number reproducible</span></li>
+        <li><strong data-i18n="f2v">24 cm</strong><span data-i18n="f2">L-band wavelength: sees through clouds</span></li>
+        <li><strong data-i18n="f3v">20 m</strong><span data-i18n="f3">pixels, every number reproducible</span></li>
       </ul>
       <div class="cta">
         <a class="btn primary" href="#stories" data-i18n="ctaStories">See the five stories</a>
@@ -136,11 +136,24 @@
       <p data-i18n="methodText">No black box: four steps, all in our open code.</p>
     </div>
     <ol class="steps">
-      <li><span class="step-n">1</span><h3 data-i18n="m1t">Read only what we need</h3><p data-i18n="m1">NISAR files are 1.4 to 7 GB. We read small windows around each place straight from NASA's archive, every date on the same orbit.</p></li>
+      <li><span class="step-n">1</span><h3 data-i18n="m1t">Read only what we need</h3><p data-i18n="m1">NISAR files are 1.4 to 7 GB. We read small windows around each place straight from NASA's archive, every date on the same orbit. The same window can be cut out of any NISAR frame, so a new place in any country can be added with the same scripts.</p></li>
       <li><span class="step-n">2</span><h3 data-i18n="m2t">Compare every pair of dates</h3><p data-i18n="m2">Brightness shows roughness and water; coherence shows whether the ground stayed the same between two passes 12 days apart.</p></li>
       <li><span class="step-n">3</span><h3 data-i18n="m3t">Test against all other dates</h3><p data-i18n="m3">A change only counts if it stands out against the median of all other pairs, so we do not fool ourselves with one lucky image.</p></li>
-      <li><span class="step-n">4</span><h3 data-i18n="m4t">Check with the ground truth</h3><p data-i18n="m4">We compare with news and Red Cross reports, optical Sentinel-2 images and terrain, and we say how sure we are.</p></li>
+      <li><span class="step-n">4</span><h3 data-i18n="m4t">Check with reality</h3><p data-i18n="m4">We compare with news and Red Cross reports and with optical Sentinel-2 images, and we say how sure we are.</p></li>
     </ol>
+    <div class="cards method-more">
+      <div class="card">
+        <h3 data-i18n="polTitle">Polarizations: HH and HV</h3>
+        <ul class="card-list">
+          <li data-i18n="pol1">HH is mostly the direct echo from the surface. Rough ground and rock look bright; calm water looks dark.</li>
+          <li data-i18n="pol2">At Ayni, HH brightness rose by 1.4 dB after the mudflow of 11 July and stayed higher afterwards.</li>
+          <li data-i18n="pol3">HV appears when the signal bounces several times inside vegetation and loose material.</li>
+          <li data-i18n="pol4">At Ayni, HV rose only on the first image after the event and was back to its earlier level by 14 August, so we rely on HH and coherence.</li>
+          <li data-i18n="pol5">We used HH and HV from the GCOV product, and HH from GUNW.</li>
+          <li data-i18n="pol6">VV and full polarization are not in the data over our sites.</li>
+        </ul>
+      </div>
+    </div>
   </section>
 
   <section class="blind" id="blind">
@@ -218,8 +231,8 @@
 
 <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-<script src="app.js?v=14"></script>
-<script src="board.js?v=2"></script>
-<script src="spot.js?v=1"></script>
+<script src="app.js?v=15"></script>
+<script src="board.js?v=3"></script>
+<script src="spot.js?v=2"></script>
 </body>
 </html>

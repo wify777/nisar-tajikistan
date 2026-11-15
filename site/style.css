@@ -211,6 +211,13 @@ section { margin-top: 64px; }
 .sw-dark { background: linear-gradient(90deg, #000, #333); } .sw-bright { background: linear-gradient(90deg, #999, #fff); border: 1px solid var(--line); }
 .sw-pol { background: linear-gradient(90deg, #c2410c, #1d5fbf); } .sw-coh { background: linear-gradient(90deg, #000004, #b73779, #fcfdbf); }
 
+/* method notes: the two extra blocks reuse the reading-guide cards */
+.method-more { margin-top: 14px; }
+.method-more .card h3 { margin-top: 0; }
+.method-more .card-list { margin: 6px 0 0; padding-left: 18px; font-size: 14px; color: var(--muted); }
+.method-more .card-list li { margin: 4px 0; }
+.method-more .card-list li::marker { color: var(--accent); }
+
 /* limits + credits */
 .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
 .limits ul { margin: 0; padding-left: 20px; }

@@ -24,7 +24,7 @@
         var el = document.createElement("span");
         el.className = "bcell b-" + c.status + (c.event ? " b-event" : "");
         el.setAttribute("role", "listitem");
-        var txt = d(c.from, L) + " → " + d(c.to, L) + ": " + Math.round(c.ha) + " " + L.ha + ", " + c.ratio.toFixed(1) + L.x +
+        var txt = d(c.from, L) + " → " + d(c.to, L) + ": " + Math.round(c.ha) + " " + L.ha + ", " + (lang === "ru" ? c.ratio.toFixed(1).replace(".", ",") : c.ratio.toFixed(1)) + L.x +
           " · " + L[c.status] + (c.event ? " · " + L.event : "");
         el.title = txt; el.setAttribute("aria-label", txt);
         el.textContent = c.status === "nodata" ? "–" : Math.round(c.ha);

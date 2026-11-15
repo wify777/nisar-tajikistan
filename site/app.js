@@ -248,7 +248,6 @@
   // in the photo. The frame is the same square the numbers come from: a hairline plus four
   // corner ticks. Sizes are taken from data/<place>/meta.json, never typed by hand.
   var WIN_TICK = 0.06;   // tick length, as a part of the side
-  var WIN_PX = 400;      // every display raster in data/*/layers is 400 x 400 pixels
   function kmBetween(a, b) {
     var dLat = (b[1] - a[1]) * Math.PI / 180, dLon = (b[0] - a[0]) * Math.PI / 180;
     return 6371.0088 * Math.hypot(dLat, dLon * Math.cos((a[1] + b[1]) / 2 * Math.PI / 180));
@@ -283,31 +282,6 @@
     map.addLayer({ id: "win-tick", type: "line", source: "win-t", paint: { "line-color": "#ffffff", "line-width": 2.6, "line-opacity": .95 } });
   }
 
-  // The area of the change zone is already in meta.zone_ha. A chip on the mask ties the number to
-  // the shape: the centre is the centre of mass of the same PNG the map draws, not the window centre.
-  var zoneTag = null;
-  function placeZoneLabel() {
-    if (zoneTag) { zoneTag.remove(); zoneTag = null; }
-    var ha = state.meta && state.meta.zone_ha;
-    if (!ha || ha < 5) return;            // below this the zone is not what the story is about
-    var img = new Image(), id = state.story.id, cn = state.meta.corners;
-    img.onload = function () {
-      var cv = document.createElement("canvas"); cv.width = img.width; cv.height = img.height;
-      var g = cv.getContext("2d"); g.drawImage(img, 0, 0);
-      var d = g.getImageData(0, 0, img.width, img.height).data, sx = 0, sy = 0, n = 0;
-      for (var i = 0; i < d.length; i += 4) {
-        if (d[i + 3] > 0) { var p = i / 4; sx += p % img.width; sy += (p - (p % img.width)) / img.width; n++; }
-      }
-      if (!n || !state.story || state.story.id !== id) return;
-      var u = sx / n / (img.width - 1), v = sy / n / (img.height - 1);
-      var lon = (1 - u) * (1 - v) * cn[0][0] + u * (1 - v) * cn[1][0] + u * v * cn[2][0] + (1 - u) * v * cn[3][0];
-      var lat = (1 - u) * (1 - v) * cn[0][1] + u * (1 - v) * cn[1][1] + u * v * cn[2][1] + (1 - u) * v * cn[3][1];
-      var tag = el("div", "zone-tag", Math.round(ha) + " ha");
-      zoneTag = new maplibregl.Marker({ element: tag, anchor: "center", opacityWhenCovered: "0.4" }).setLngLat([lon, lat]).addTo(map);
-    };
-    img.src = "data/" + id + "/layers/zone.png?v=" + ASSET_V;
-  }
-
   var mapReady = false, pendingMap = false, lastImg = "";
   function updateRaster() {
     updatePanel();
@@ -330,14 +304,12 @@
         // the same mask, drawn as a 2-pixel ring (scripts/zone_edge.py): an edge instead of loose patches
         map.addSource("zone-edge", { type: "image", url: "data/" + state.story.id + "/layers/zone-edge.png?v=" + ASSET_V, coordinates: c });
         map.addLayer({ id: "zone-edge", type: "raster", source: "zone-edge", paint: { "raster-opacity": 1, "raster-fade-duration": 0 } });
-        placeZoneLabel();
       }
     }
     map.setPaintProperty("radar", "raster-opacity", state.opacity);
     map.setLayoutProperty("radar", "visibility", cmpOn ? "none" : "visible");
     if (map.getLayer("zone")) map.setLayoutProperty("zone", "visibility", zoneVisible() ? "visible" : "none");
     if (map.getLayer("zone-edge")) map.setLayoutProperty("zone-edge", "visibility", zoneVisible() ? "visible" : "none");
-    if (zoneTag) zoneTag.getElement().style.display = zoneVisible() ? "" : "none";
     frameWindow(c);
   }
   // the legend box is rebuilt from several places (layer change, water views), so the window
@@ -411,6 +383,29 @@
       ? "Проверка без подгонки: площадь сильной потери когерентности (на 0,3 ниже медианы всех остальных пар) в радиусе " + fmtNum(pt.radius_km) + " км от сёл, по каждой паре снимков. Цветом выделена пара через событие."
       : "Unbiased check: area of strong coherence loss (0.3 below the median of all other pairs) within " + pt.radius_km + " km of the villages, for every image pair. The pair across the event is highlighted.";
   }
+  // The zoom in stories.json is a regional scale: at that distance a village is a few pixels, and a
+  // place read as an illustration instead of a place. The camera now fits the radar window itself
+  // into the part of the map that the rail and the panel do not cover, so the window fills the view
+  // and houses, fields and channels are visible. Nothing is magnified past what the imagery holds.
+  function windowBounds() {
+    var c = state.meta && state.meta.corners;
+    if (!c || c.length !== 4) return null;
+    var lons = c.map(function (p) { return p[0]; }), lats = c.map(function (p) { return p[1]; });
+    return [[Math.min.apply(null, lons), Math.min.apply(null, lats)], [Math.max.apply(null, lons), Math.max.apply(null, lats)]];
+  }
+  function flyToPlace(s, ms) {
+    if (!s) return;
+    var wide = window.innerWidth > 1100, rail = document.querySelector(".rail"), panel = document.querySelector(".panel");
+    var pad = {
+      left: wide && rail ? Math.round(rail.getBoundingClientRect().right + 14) : 20,
+      right: wide && panel ? Math.round(window.innerWidth - panel.getBoundingClientRect().left + 14) : 20,
+      top: 100, bottom: 158
+    };
+    var b = windowBounds(), o = { padding: pad, pitch: view3d ? PITCH : 0, bearing: view3d ? BEARING : 0, duration: ms, essential: true, maxZoom: 15.4 };
+    if (b) map.fitBounds(b, o);
+    else map.flyTo({ center: s.center, zoom: zoomFor(s), pitch: o.pitch, bearing: o.bearing, duration: ms, essential: true });
+  }
+
   function loadStory(s) {
     state.story = s;
     var j = function (f) { return fetch("data/" + s.id + "/" + f, { cache: "no-cache" }).then(function (r) { return r.json(); }); };
@@ -423,8 +418,8 @@
         renderTabs(); renderCards(); renderStoryText();
         if (mapReady) {
           placePlaces();
-          map.flyTo({ center: s.center, zoom: zoomFor(s), pitch: view3d ? PITCH : 0, bearing: view3d ? BEARING : 0, duration: REDUCED ? 0 : 1600, essential: true });
-          if (map.getLayer("zone")) { map.removeLayer("zone"); map.removeSource("zone"); }
+          map.flyTo({ center: s.center, zoom: zoomFor(s), pitch: view3d ? PITCH : 0, bearing: view3d ? BEARING : 0, duration: REDUCED ? 0 : 1600, essential: true });          if (map.getLayer("zone")) { map.removeLayer("zone"); map.removeSource("zone"); }
+          if (map.getLayer("zone-edge")) { map.removeLayer("zone-edge"); map.removeSource("zone-edge"); }
           if (map.getLayer("radar")) { map.removeLayer("radar"); map.removeSource("radar"); }
           if (map.getLayer("cmp")) { map.removeLayer("cmp"); map.removeSource("cmp"); }
         }
@@ -695,14 +690,9 @@
         tiles: ["https://tiles.maps.eox.at/wmts/1.0.0/s2cloudless-2023_3857/default/g/{z}/{y}/{x}.jpg"],
         attribution: "Sentinel-2 cloudless 2023 by EOX IT Services GmbH (contains modified Copernicus Sentinel data 2023)" },
         dem: { type: "raster-dem", tiles: [DEM], encoding: "terrarium", tileSize: 256, maxzoom: 14, attribution: "Terrain: Mapzen / AWS Terrain Tiles" },
-        hs: { type: "raster-dem", tiles: [DEM], encoding: "terrarium", tileSize: 256, maxzoom: 14 },
-        // Sentinel-2 is 10 m per pixel and turns to mush past zoom 6, so from there the base photo is
-        // Esri World Imagery: sub-metre to a few metres, which is what a place needs when you fly in
-        hi: { type: "raster", tileSize: 256, maxzoom: 17, tiles: ["https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"],
-          attribution: "Detail imagery: Esri, Maxar, Earthstar Geographics" } },
+        hs: { type: "raster-dem", tiles: [DEM], encoding: "terrarium", tileSize: 256, maxzoom: 14 } },
       layers: [{ id: "bg", type: "background", paint: { "background-color": "#2a2f35" } },
-        { id: "s2", type: "raster", source: "s2", maxzoom: 6 },
-        { id: "hi", type: "raster", source: "hi", minzoom: 5, paint: { "raster-opacity": ["interpolate", ["linear"], ["zoom"], 5, 0, 6, 1], "raster-saturation": 0.12, "raster-contrast": 0.12, "raster-brightness-max": 1, "raster-fade-duration": 200 } },
+        { id: "s2", type: "raster", source: "s2", paint: { "raster-saturation": 0.12, "raster-contrast": 0.1 } },
         { id: "hills", type: "hillshade", source: "hs", paint: { "hillshade-exaggeration": ["interpolate", ["linear"], ["zoom"], 7, 0.18, 11, 0.04], "hillshade-shadow-color": "#1b2430", "hillshade-highlight-color": "rgba(255,255,255,0.08)", "hillshade-accent-color": "#1b2430" } }],
       terrain: { source: "dem", exaggeration: 1.35 },
       sky: { "sky-color": "#4f7fb8", "horizon-color": "#c3d3e4", "fog-color": "#c7d3df", "sky-horizon-blend": 0.5, "horizon-fog-blend": 0.6, "fog-ground-blend": 0.12, "atmosphere-blend": 0.8 } },

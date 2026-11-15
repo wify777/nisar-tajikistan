@@ -15,7 +15,7 @@
       L: { hh: "HH brightness", hv: "HV brightness", dhh: "HH change since first image", coh: "Coherence between two passes", cohchange: "Coherence loss across the event" },
       soon: "coming soon", zone: "change zone", ref: "reference area", event: "event",
       chartHH: "Median HH brightness (dB): change zone vs reference area", chartCoh: "Median coherence per image pair: change zone vs reference area",
-      legendDb: "dB", legendLow: "low", legendHigh: "high", sources: "Sources" },
+      legendDb: "dB", legendLow: "low", legendHigh: "high", sources: "Sources", winLabel: "Radar window", winPx: "1 pixel", winM: "m" },
     ru: { brand: "NISAR Таджикистан", brandSub: "Радарный взгляд на подвижную землю",
       introTitle: "Видеть, как меняется земля, сквозь облака и темноту",
       introText: "Радарный спутник NISAR (NASA и ISRO) снимает Таджикистан примерно раз в 12 дней, днём и ночью, в любую погоду. Мы сравниваем снимки во времени, показываем, где изменилась поверхность, и объясняем, что это, скорее всего, значит.",
@@ -29,7 +29,7 @@
       L: { hh: "Яркость HH", hv: "Яркость HV", dhh: "Изменение HH с первого снимка", coh: "Когерентность между двумя пролётами", cohchange: "Потеря когерентности через событие" },
       soon: "скоро", zone: "зона изменений", ref: "контрольная зона", event: "событие",
       chartHH: "Медиана яркости HH (дБ): зона изменений и контрольная зона", chartCoh: "Медиана когерентности по парам снимков: зона и контроль",
-      legendDb: "дБ", legendLow: "низкая", legendHigh: "высокая", sources: "Источники" }
+      legendDb: "дБ", legendLow: "низкая", legendHigh: "высокая", sources: "Источники", winLabel: "Окно радара", winPx: "1 пиксель", winM: "м" }
   };
   var LAYERS = {
     hh: { time: "dates", file: function (k) { return "hh_" + k; }, legend: ["linear-gradient(90deg,#000,#fff)", "-25", "0", "dB"] },
@@ -146,7 +146,7 @@
   };
   UI.ru.LD = UI.en.LD;
   UI.en.mapLoad = "Loading 3D terrain…"; UI.ru.mapLoad = "Загружаем 3D-рельеф…";
-  var state = { lang: "en", data: null, story: null, meta: null, series: null, layer: "cohchange", idx: 0, opacity: 0.85, zone: true };
+  var state = { lang: "en", data: null, story: null, meta: null, series: null, layer: "cohchange", idx: 0, opacity: 0.72, zone: true };
   var map, chart, ASSET_V = "8";
   var $ = function (id) { return document.getElementById(id); };
   function t(k) { return UI[state.lang][k]; }
@@ -242,7 +242,47 @@
 
   function imgUrl() { var L = LAYERS[state.layer], keys = timeKeys(); return "data/" + state.story.id + "/layers/" + L.file(keys[state.idx], state.story) + ".png?v=" + ASSET_V; }
 
-  var mapReady = false, pendingMap = false;
+  // ---------- the radar window, drawn as an instrument footprint ----------
+  // Every place is read from one 8, 18 or 26 km square of a NISAR frame. Until now nothing on
+  // the map said where that square starts and stops, so the edge of the raster read as a seam
+  // in the photo. The frame is the same square the numbers come from: a hairline plus four
+  // corner ticks. Sizes are taken from data/<place>/meta.json, never typed by hand.
+  var WIN_TICK = 0.06;   // tick length, as a part of the side
+  function kmBetween(a, b) {
+    var dLat = (b[1] - a[1]) * Math.PI / 180, dLon = (b[0] - a[0]) * Math.PI / 180;
+    return 6371.0088 * Math.hypot(dLat, dLon * Math.cos((a[1] + b[1]) / 2 * Math.PI / 180));
+  }
+  function windowSpec(meta) {
+    var c = meta && meta.corners;
+    if (!c || c.length !== 4) return null;
+    var w = kmBetween(c[0], c[1]), h = kmBetween(c[0], c[3]);
+    return { size: Math.round(w) + " × " + Math.round(h) + " km", px: Math.round(meta.pixel_m) };
+  }
+  function windowRing(c) {
+    return { type: "Feature", properties: {}, geometry: { type: "LineString", coordinates: c.concat([c[0]]) } };
+  }
+  function windowTicks(c) {
+    var f = WIN_TICK, out = [];
+    [[0, 1, 3], [1, 0, 2], [2, 1, 3], [3, 0, 2]].forEach(function (q) {
+      var p = c[q[0]];
+      [c[q[1]], c[q[2]]].forEach(function (o) {
+        out.push({ type: "Feature", properties: {}, geometry: { type: "LineString", coordinates: [p, [p[0] + (o[0] - p[0]) * f, p[1] + (o[1] - p[1]) * f]] } });
+      });
+    });
+    return { type: "FeatureCollection", features: out };
+  }
+  function frameWindow(c) {
+    if (!map || !c || c.length !== 4) return;
+    if (map.getSource("win")) { map.getSource("win").setData(windowRing(c)); map.getSource("win-t").setData(windowTicks(c)); return; }
+    // above the radar layer, below nothing else: the frame must stay visible over the data
+    map.addSource("win", { type: "geojson", data: windowRing(c) });
+    map.addLayer({ id: "win-line", type: "line", source: "win", paint: { "line-color": "#02040a", "line-width": 3.2, "line-opacity": .45 } });
+    map.addLayer({ id: "win-rule", type: "line", source: "win", paint: { "line-color": "#eaf2ff", "line-width": 1.35, "line-opacity": .8 } });
+    map.addSource("win-t", { type: "geojson", data: windowTicks(c) });
+    map.addLayer({ id: "win-tick", type: "line", source: "win-t", paint: { "line-color": "#ffffff", "line-width": 2.6, "line-opacity": .95 } });
+  }
+
+  var mapReady = false, pendingMap = false, lastImg = "";
   function updateRaster() {
     updatePanel();
     if (!mapReady) { pendingMap = true; return; }
@@ -250,19 +290,40 @@
   }
   function updateMapLayers() {
     var Lc = LAYERS[state.layer], src = map.getSource("radar"), url = imgUrl(), c = (Lc.corners && Lc.corners(state.story)) || state.meta.corners;
-    if (src) src.updateImage({ url: url, coordinates: c });
+    // one story switch can call this twice in the same tick; a second updateImage while the first
+    // is still loading throws an AbortError into the console, so identical requests are skipped
+    var imgKey = url + "|" + c.join(";");
+    if (src) { if (imgKey !== lastImg) { lastImg = imgKey; src.updateImage({ url: url, coordinates: c }); } }
     else {
+      lastImg = imgKey;
       map.addSource("radar", { type: "image", url: url, coordinates: c });
       map.addLayer({ id: "radar", type: "raster", source: "radar", paint: { "raster-opacity": state.opacity, "raster-fade-duration": 0 } });
       if (state.meta.zone_pixels > 0) {
         map.addSource("zone", { type: "image", url: "data/" + state.story.id + "/layers/zone.png?v=" + ASSET_V, coordinates: c });
         map.addLayer({ id: "zone", type: "raster", source: "zone", paint: { "raster-opacity": 0.9, "raster-fade-duration": 0 } });
+        // the same mask, drawn as a 2-pixel ring (scripts/zone_edge.py): an edge instead of loose patches
+        map.addSource("zone-edge", { type: "image", url: "data/" + state.story.id + "/layers/zone-edge.png?v=" + ASSET_V, coordinates: c });
+        map.addLayer({ id: "zone-edge", type: "raster", source: "zone-edge", paint: { "raster-opacity": 1, "raster-fade-duration": 0 } });
       }
     }
     map.setPaintProperty("radar", "raster-opacity", state.opacity);
     map.setLayoutProperty("radar", "visibility", cmpOn ? "none" : "visible");
     if (map.getLayer("zone")) map.setLayoutProperty("zone", "visibility", zoneVisible() ? "visible" : "none");
+    if (map.getLayer("zone-edge")) map.setLayoutProperty("zone-edge", "visibility", zoneVisible() ? "visible" : "none");
+    frameWindow(c);
   }
+  // the legend box is rebuilt from several places (layer change, water views), so the window
+  // line is re-attached rather than written once
+  function appendWindowSpec() {
+    var box = $("legend"); if (!box) return;
+    var old = box.querySelector(".legend-spec"); if (old) old.remove();
+    var spec = windowSpec(state.meta); if (!spec) return;
+    var sp = el("div", "legend-spec");
+    sp.appendChild(el("span", "ls-k", t("winLabel")));
+    sp.appendChild(el("span", "ls-v", spec.size + " · " + t("winPx") + " = " + spec.px + " " + t("winM")));
+    box.appendChild(sp);
+  }
+
   function updatePanel() {
     var L = LAYERS[state.layer], keys = timeKeys(), sl = $("time-slider");
     sl.disabled = !L.time; sl.max = Math.max(0, keys.length - 1); sl.value = state.idx;
@@ -273,8 +334,8 @@
     $("time-value").textContent = label + (isEvent ? "  · " + t("event") : "");
     var lg = L.legend;
     $("legend").innerHTML = "<strong>" + UI[state.lang].L[state.layer] + "</strong><div class=\"bar\" style=\"background:" + lg[0] + "\"></div><div class=\"ends\"><span>" + fmtNum(lg[1]) + " " + (lg[3] ? t("legendDb") : "") + "</span><span>" + fmtNum(lg[2]) + " " + (lg[3] ? t("legendDb") : "") + "</span></div>";
-    updateChart();
-  }
+    appendWindowSpec();
+    updateChart();  }
 
   function updateChart() {
     var L = LAYERS[state.layer], s = state.series, ev = state.story.eventPair;
@@ -322,6 +383,29 @@
       ? "Проверка без подгонки: площадь сильной потери когерентности (на 0,3 ниже медианы всех остальных пар) в радиусе " + fmtNum(pt.radius_km) + " км от сёл, по каждой паре снимков. Цветом выделена пара через событие."
       : "Unbiased check: area of strong coherence loss (0.3 below the median of all other pairs) within " + pt.radius_km + " km of the villages, for every image pair. The pair across the event is highlighted.";
   }
+  // The zoom in stories.json is a regional scale: at that distance a village is a few pixels, and a
+  // place read as an illustration instead of a place. The camera now fits the radar window itself
+  // into the part of the map that the rail and the panel do not cover, so the window fills the view
+  // and houses, fields and channels are visible. Nothing is magnified past what the imagery holds.
+  function windowBounds() {
+    var c = state.meta && state.meta.corners;
+    if (!c || c.length !== 4) return null;
+    var lons = c.map(function (p) { return p[0]; }), lats = c.map(function (p) { return p[1]; });
+    return [[Math.min.apply(null, lons), Math.min.apply(null, lats)], [Math.max.apply(null, lons), Math.max.apply(null, lats)]];
+  }
+  function flyToPlace(s, ms) {
+    if (!s) return;
+    var wide = window.innerWidth > 1100, rail = document.querySelector(".rail"), panel = document.querySelector(".panel");
+    var pad = {
+      left: wide && rail ? Math.round(rail.getBoundingClientRect().right + 14) : 20,
+      right: wide && panel ? Math.round(window.innerWidth - panel.getBoundingClientRect().left + 14) : 20,
+      top: 100, bottom: 158
+    };
+    var b = windowBounds(), o = { padding: pad, pitch: view3d ? PITCH : 0, bearing: view3d ? BEARING : 0, duration: ms, essential: true, maxZoom: 15.4 };
+    if (b) map.fitBounds(b, o);
+    else map.flyTo({ center: s.center, zoom: zoomFor(s), pitch: o.pitch, bearing: o.bearing, duration: ms, essential: true });
+  }
+
   function loadStory(s) {
     state.story = s;
     var j = function (f) { return fetch("data/" + s.id + "/" + f, { cache: "no-cache" }).then(function (r) { return r.json(); }); };
@@ -334,8 +418,8 @@
         renderTabs(); renderCards(); renderStoryText();
         if (mapReady) {
           placePlaces();
-          map.flyTo({ center: s.center, zoom: zoomFor(s), pitch: view3d ? PITCH : 0, bearing: view3d ? BEARING : 0, duration: REDUCED ? 0 : 1600, essential: true });
-          if (map.getLayer("zone")) { map.removeLayer("zone"); map.removeSource("zone"); }
+          map.flyTo({ center: s.center, zoom: zoomFor(s), pitch: view3d ? PITCH : 0, bearing: view3d ? BEARING : 0, duration: REDUCED ? 0 : 1600, essential: true });          if (map.getLayer("zone")) { map.removeLayer("zone"); map.removeSource("zone"); }
+          if (map.getLayer("zone-edge")) { map.removeLayer("zone-edge"); map.removeSource("zone-edge"); }
           if (map.getLayer("radar")) { map.removeLayer("radar"); map.removeSource("radar"); }
           if (map.getLayer("cmp")) { map.removeLayer("cmp"); map.removeSource("cmp"); }
         }
@@ -354,7 +438,7 @@
       // put the label on the far side of the nearest neighbour, so close villages (Dargh, Kazdon) do not overlap
       var flip = pl.some(function (q, k) { return k !== i && Math.abs(q[2] - p[2]) < 0.01 && q[1] > p[1] && q[1] - p[1] < 0.03; });
       var e = el("div", "place" + (flip ? " flip" : ""), p[0]);
-      placeMarkers.push(new maplibregl.Marker({ element: e, anchor: flip ? "right" : "left", offset: [flip ? 4 : -4, 0] }).setLngLat([p[1], p[2]]).addTo(map));
+      placeMarkers.push(new maplibregl.Marker({ element: e, anchor: flip ? "right" : "left", offset: [flip ? 4 : -4, 0], opacityWhenCovered: "0.4" }).setLngLat([p[1], p[2]]).addTo(map));
     });
   }
 
@@ -580,6 +664,7 @@
       markChips();
     }
     var mw = document.querySelector(".map-wrap"); if (mw) mw.style.setProperty("--dock-h", d.offsetHeight + "px");
+    appendWindowSpec();
   }
 
   var DEM = "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png";
@@ -606,9 +691,11 @@
         attribution: "Sentinel-2 cloudless 2023 by EOX IT Services GmbH (contains modified Copernicus Sentinel data 2023)" },
         dem: { type: "raster-dem", tiles: [DEM], encoding: "terrarium", tileSize: 256, maxzoom: 14, attribution: "Terrain: Mapzen / AWS Terrain Tiles" },
         hs: { type: "raster-dem", tiles: [DEM], encoding: "terrarium", tileSize: 256, maxzoom: 14 } },
-        layers: [{ id: "s2", type: "raster", source: "s2" },
-          { id: "hills", type: "hillshade", source: "hs", paint: { "hillshade-exaggeration": 0.28, "hillshade-shadow-color": "#05070a", "hillshade-highlight-color": "rgba(255,255,255,0.12)", "hillshade-accent-color": "#05070a" } }],
-        terrain: { source: "dem", exaggeration: 1.35 } },
+      layers: [{ id: "bg", type: "background", paint: { "background-color": "#2a2f35" } },
+        { id: "s2", type: "raster", source: "s2", paint: { "raster-saturation": 0.12, "raster-contrast": 0.1 } },
+        { id: "hills", type: "hillshade", source: "hs", paint: { "hillshade-exaggeration": ["interpolate", ["linear"], ["zoom"], 7, 0.18, 11, 0.04], "hillshade-shadow-color": "#1b2430", "hillshade-highlight-color": "rgba(255,255,255,0.08)", "hillshade-accent-color": "#1b2430" } }],
+      terrain: { source: "dem", exaggeration: 1.35 },
+      sky: { "sky-color": "#4f7fb8", "horizon-color": "#c3d3e4", "fog-color": "#c7d3df", "sky-horizon-blend": 0.5, "horizon-fog-blend": 0.6, "fog-ground-blend": 0.12, "atmosphere-blend": 0.8 } },
       // open already over the first story, a little higher and flatter: the tiles on screen are the ones the final view needs
       center: first ? first.center : [70.8, 38.6], zoom: first ? zoomFor(first) - 1.1 : 6.1, pitch: first ? 30 : 0, bearing: 0,
       maxPitch: 75, attributionControl: { compact: true }, fadeDuration: 150
@@ -633,7 +720,7 @@
       }
       state.data.stories.forEach(function (s) {
         var p = el("button", "pin"); p.type = "button"; p.title = s.title[state.lang]; p.setAttribute("aria-label", s.title[state.lang]);
-        p.style.background = "var(--t-" + (s.tone || "stable") + ")";
+        p.style.setProperty("--tone", "var(--t-" + (s.tone || "stable") + ")");
         p.addEventListener("click", function () { if (s.ready) loadStory(s); });
         new maplibregl.Marker({ element: p }).setLngLat(s.center).addTo(map);
       });

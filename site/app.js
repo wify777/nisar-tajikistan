@@ -730,7 +730,7 @@
       }
       state.data.stories.forEach(function (s) {
         var p = el("button", "pin"); p.type = "button"; p.title = s.title[state.lang]; p.setAttribute("aria-label", s.title[state.lang]);
-        p.style.background = "var(--t-" + (s.tone || "stable") + ")";
+        p.style.setProperty("--tone", "var(--t-" + (s.tone || "stable") + ")");
         p.addEventListener("click", function () { if (s.ready) loadStory(s); });
         new maplibregl.Marker({ element: p }).setLngLat(s.center).addTo(map);
       });

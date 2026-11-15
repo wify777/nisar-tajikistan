@@ -22,7 +22,7 @@
 html, body { margin: 0; height: 100%; overflow: hidden; background: var(--bg); color: var(--ink); font: 400 16px/1.5 var(--f); -webkit-font-smoothing: antialiased; }
 #map { position: fixed; inset: 0; }
 .shade { position: fixed; inset: 0; pointer-events: none; transition: background 1.2s ease; }
-.maplibregl-ctrl-attrib { background: rgba(4, 6, 12, .6) !important; font-size: 10px; } .maplibregl-ctrl-attrib a { color: var(--soft) !important; }
+.maplibregl-ctrl-attrib { background: rgba(4, 6, 12, .6) !important; font-size: 10px; text-shadow: 0 1px 2px rgba(0, 0, 0, .9); } .maplibregl-ctrl-attrib a { color: var(--soft) !important; }
 .maplibregl-ctrl-attrib-button { filter: invert(1); } .maplibregl-ctrl-logo { display: none !important; }
 
 /* top bar */
@@ -32,7 +32,7 @@ html, body { margin: 0; height: 100%; overflow: hidden; background: var(--bg); c
 .dots { margin-left: auto; display: flex; gap: 8px; pointer-events: auto; }
 .dots button { width: 28px; height: 6px; padding: 0; border: 0; border-radius: 3px; background: rgba(255, 255, 255, .22); cursor: pointer; transition: background .3s, width .3s; }
 .dots button.on { width: 46px; background: var(--cyan); }
-.count { font: 500 13px var(--mono); color: var(--soft); }
+.count { font: 500 13px var(--mono); color: #e7edf7; text-shadow: 0 1px 3px rgba(0, 0, 0, .85); }
 
 /* slides */
 .slide { position: fixed; inset: 0; z-index: 5; padding: 92px var(--pad) 96px; display: flex; pointer-events: none; opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
@@ -263,7 +263,9 @@ body.shownotes .notes { display: block; }
 (function () {
   "use strict";
   // ----- edit these three lines before submitting -----
-  var TEAM = { name: "[TEAM NAME]", members: "[MEMBER NAMES]",
+  // Team name and member names are the team's to give. Until they arrive the deck carries the
+  // project name and no invented member line, instead of showing "[TEAM NAME]" to the judges.
+  var TEAM = { name: "NISAR Tajikistan", members: "",
                ai: "AI assistance used: Claude (Anthropic) helped write code and texts; every number comes from our open scripts and NISAR data." };
 
   var D = "../data/", W = innerWidth, NARROW = W < 900;
@@ -292,8 +294,9 @@ body.shownotes .notes { display: block; }
   if (NARROW) Object.keys(SHADE).forEach(function (k) { SHADE[k] = "linear-gradient(0deg, rgba(4,6,12,.94), rgba(4,6,12,.5) 55%, rgba(4,6,12,.1))"; });
 
   var slides = [].slice.call(document.querySelectorAll(".slide")), cur = -1;
-  document.getElementById("team1").innerHTML = TEAM.name + "<span>" + TEAM.members + "</span>";
-  document.getElementById("team7").innerHTML = TEAM.name + "<span>" + TEAM.members + "</span>";
+  var teamHtml = TEAM.name + (TEAM.members ? "<span>" + TEAM.members + "</span>" : "");
+  document.getElementById("team1").innerHTML = teamHtml;
+  document.getElementById("team7").innerHTML = teamHtml;
   document.getElementById("ai").textContent = TEAM.ai;
 
   var DEM = "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png";

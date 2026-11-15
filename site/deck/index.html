@@ -32,7 +32,7 @@ html, body { margin: 0; height: 100%; overflow: hidden; background: var(--bg); c
 .dots { margin-left: auto; display: flex; gap: 8px; pointer-events: auto; }
 .dots button { width: 28px; height: 6px; padding: 0; border: 0; border-radius: 3px; background: rgba(255, 255, 255, .22); cursor: pointer; transition: background .3s, width .3s; }
 .dots button.on { width: 46px; background: var(--cyan); }
-.count { font: 500 13px var(--mono); color: var(--soft); }
+.count { font: 500 13px var(--mono); color: var(--soft); white-space: nowrap; }
 
 /* slides */
 .slide { position: fixed; inset: 0; z-index: 5; padding: 92px var(--pad) 96px; display: flex; pointer-events: none; opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
@@ -119,6 +119,41 @@ h2 { margin: 0 0 18px; font: 700 clamp(28px, 3.4vw, 54px)/1.06 var(--f); letter-
   background: rgba(4, 6, 12, .9); border: 1px solid var(--line-2); font-size: 15px; color: var(--soft); display: none; }
 body.shownotes .notes { display: block; }
 
+
+.chal { align-self: flex-start; display: inline-block; margin: 0 0 22px; padding: 7px 14px; border-radius: 999px; background: rgba(34, 211, 238, .12); border: 1px solid rgba(34, 211, 238, .5); font: 500 15px var(--f); color: var(--soft); }
+.chal b { color: var(--ink); }
+.teambox { align-self: flex-start; display: inline-block; padding: 14px 18px; border-radius: 16px; background: rgba(6, 12, 28, .55); border: 1px solid var(--line); }
+.teambox .tl { margin: 0 0 4px; font: 500 12px var(--mono); color: var(--cyan); text-transform: uppercase; letter-spacing: .08em; }
+.events { padding: 18px 24px; margin-bottom: 16px; }
+.events .ev { display: grid; grid-template-columns: 120px 120px 1fr; gap: 12px; align-items: baseline; padding: 9px 0; border-bottom: 1px solid var(--line); }
+.events .ev:last-of-type { border-bottom: 0; }
+.events b { font: 700 20px var(--f); } .events span { font: 500 14px var(--mono); color: var(--muted); } .events em { font-style: normal; font: 600 18px var(--f); color: var(--amber); }
+.events .srcs { margin: 8px 0 0; font-size: 12.5px; color: var(--muted); }
+.vs2 .row { flex-direction: row; text-align: left; gap: 16px; padding: 14px 18px; }
+.vs2 .row svg { width: 92px; flex: none; } .vs2 .row h3 { margin: 0 0 2px; font-size: 18px; }
+.blind { padding: 14px 18px; border-left: 4px solid var(--cyan); }
+.blind .t { margin: 0 0 4px; font: 700 12.5px var(--mono); color: var(--cyan); text-transform: uppercase; letter-spacing: .05em; }
+.blind p { margin: 0; font-size: 15px; color: var(--soft); } .blind b { color: var(--ink); }
+.right .chart { max-height: 210px; }
+.right .glass .giant { font-size: clamp(56px, 6.4vw, 112px); }
+.prod { width: 100%; display: grid; grid-template-columns: 1.25fr 1fr; gap: 36px; align-items: center; }
+.shot { perspective: 1600px; }
+.shot img { width: 100%; border-radius: 16px; border: 1px solid var(--line-2); box-shadow: 0 40px 100px rgba(0, 0, 0, .6), 0 0 0 8px rgba(255, 255, 255, .04);
+  transform: rotateY(9deg) rotateX(3deg); transform-origin: left center; transition: transform 1s ease; }
+.slide.on .shot img { transform: rotateY(6deg) rotateX(2deg); }
+.try { padding: 24px 28px; } .feat { list-style: none; margin: 0 0 18px; padding: 0; display: grid; gap: 8px; }
+.feat li { font-size: 15.5px; color: var(--soft); padding-left: 18px; position: relative; } .feat li::before { content: ""; position: absolute; left: 0; top: 9px; width: 7px; height: 7px; border-radius: 50%; background: var(--cyan); }
+.feat b { color: var(--ink); }
+.qrrow { display: grid; grid-template-columns: 112px 1fr; gap: 18px; align-items: center; padding-top: 16px; border-top: 1px solid var(--line); }
+.qrrow img { width: 112px; height: 112px; border-radius: 12px; background: #fff; }
+.qrrow .url { font-size: clamp(14px, 1.15vw, 18px); } .qrrow .repo { font-size: 12.5px; margin-bottom: 8px; } .qrrow .team { font-size: 15px; } .qrrow .ai { margin-top: 6px; font-size: 12px; }
+@media (max-width: 900px) {
+  .prod { grid-template-columns: minmax(0, 1fr); gap: 14px; } .shot, .try { min-width: 0; } .shot img { transform: none !important; }
+  .qrrow { grid-template-columns: 84px minmax(0, 1fr); } .qrrow img { width: 84px; height: 84px; } .url, .qrrow .url { white-space: normal; overflow-wrap: anywhere; }
+  .events .ev { grid-template-columns: 1fr 1fr; } .events em { grid-column: 1 / -1; }
+  .vs2 .row svg { width: 64px; } .blind { display: none; }
+}
+
 @media (max-width: 900px) {
   .slide { padding: 74px 16px 84px; overflow-y: auto; pointer-events: none; flex-direction: column; }
   .right, .left { width: 100%; margin: 0; justify-content: flex-end; } .left { margin-top: auto; }
@@ -141,47 +176,45 @@ body.shownotes .notes { display: block; }
 </header>
 
 <!-- 1 -->
-<section class="slide" data-cam="overview" data-mk="places" data-note="Tajikistan's mountains are often under cloud. NISAR radar sees through it, so we used its open data to check five places.">
+<section class="slide" data-cam="overview" data-mk="places" data-note="We are [TEAM NAME]. Challenge: Dancing with the SARs. Clouds hide Tajikistan's mountains; NISAR radar sees through them, so we checked five places with its open data.">
   <div class="left">
     <p class="kicker">NASA Space Apps Challenge 2026 · Dushanbe</p>
+    <p class="chal">Challenge: <b>Dancing with the SARs</b></p>
     <h1>Clouds hide Tajikistan's mountains.<br><span class="cy">Radar does not.</span></h1>
-    <p class="lede">NISAR Tajikistan: five places checked with NASA-ISRO L-band radar.</p>
-    <p class="team" id="team1"></p>
+    <p class="lede">NISAR Tajikistan: five places checked with NASA-ISRO L-band radar, including what it missed.</p>
+    <div class="teambox"><p class="tl">Team</p><p class="team" id="team1"></p></div>
   </div>
 </section>
 
 <!-- 2 -->
-<section class="slide" data-cam="pamir" data-note="Optical satellites miss the ground under cloud and at night. NISAR's 24 cm L-band radar passes through cloud, day and night.">
-  <div class="left" style="width:min(900px,100%)">
-    <h2>Cameras stop at clouds.<br>Radar goes through.</h2>
+<section class="slide" data-cam="pamir" data-note="In July 2026 storms sent mudflows into three valleys: dozens of homes damaged. Clouds hide such events from optical satellites; NISAR's 24 cm radar sees through cloud, day and night.">
+  <div class="left" style="width:min(980px,100%)">
+    <h2>Summer storms send mudflows into villages.<br><span class="am">Clouds hide them from cameras.</span></h2>
+    <div class="glass events">
+      <div class="ev"><b>Ayni</b><span>11 Jul 2026</span><em>67 homes damaged, 3 destroyed</em></div>
+      <div class="ev"><b>Rushan</b><span>20 Jul 2026</span><em>40 homes damaged, 10 destroyed</em></div>
+      <div class="ev"><b>Panjakent</b><span>11 Jul 2026</span><em>5 houses destroyed, 4 damaged</em></div>
+      <p class="srcs">Sources: IFRC DREF MDRTJ038, Asia-Plus, Avesta (linked on the site)</p>
+    </div>
     <div class="vs2">
-      <div class="glass opt">
-        <svg viewBox="0 0 300 330" aria-hidden="true"><rect x="118" y="10" width="64" height="40" rx="8" fill="#cbd5e1"/><rect x="60" y="22" width="52" height="16" fill="#64748b"/><rect x="188" y="22" width="52" height="16" fill="#64748b"/>
-          <g fill="#55657d"><circle cx="105" cy="170" r="42"/><circle cx="160" cy="152" r="54"/><circle cx="215" cy="175" r="40"/><rect x="70" y="170" width="180" height="44" rx="22"/></g>
-          <line x1="150" y1="60" x2="150" y2="118" stroke="#fbbf24" stroke-width="6" stroke-dasharray="12 9"/><path d="M128 238 L172 282 M172 238 L128 282" stroke="#fbbf24" stroke-width="10" stroke-linecap="round"/>
-          <path d="M0 330 L90 262 L140 296 L210 240 L300 318 L300 330 Z" fill="#334155"/></svg>
-        <h3>Optical camera</h3><p>Blocked by cloud and night</p>
-      </div>
-      <div class="glass rad">
-        <svg viewBox="0 0 300 330" aria-hidden="true"><rect x="118" y="10" width="64" height="40" rx="8" fill="#cbd5e1"/><rect x="60" y="22" width="52" height="16" fill="#64748b"/><rect x="188" y="22" width="52" height="16" fill="#64748b"/>
-          <g fill="#55657d"><circle cx="105" cy="170" r="42"/><circle cx="160" cy="152" r="54"/><circle cx="215" cy="175" r="40"/><rect x="70" y="170" width="180" height="44" rx="22"/></g>
-          <path d="M150 60 Q128 110 150 150 T150 250" fill="none" stroke="#22d3ee" stroke-width="7"/><path d="M124 236 L150 262 L176 236" fill="none" stroke="#22d3ee" stroke-width="7" stroke-linecap="round"/>
-          <path d="M0 330 L90 262 L140 296 L210 240 L300 318 L300 330 Z" fill="#334155"/></svg>
-        <h3>L-band radar · 24 cm</h3><p>Day, night, any weather</p>
-      </div>
+      <div class="glass opt row"><svg viewBox="0 0 300 330" aria-hidden="true"><rect x="118" y="10" width="64" height="40" rx="8" fill="#cbd5e1"/><rect x="60" y="22" width="52" height="16" fill="#64748b"/><rect x="188" y="22" width="52" height="16" fill="#64748b"/><g fill="#55657d"><circle cx="105" cy="170" r="42"/><circle cx="160" cy="152" r="54"/><circle cx="215" cy="175" r="40"/><rect x="70" y="170" width="180" height="44" rx="22"/></g><line x1="150" y1="60" x2="150" y2="118" stroke="#fbbf24" stroke-width="6" stroke-dasharray="12 9"/><path d="M128 238 L172 282 M172 238 L128 282" stroke="#fbbf24" stroke-width="10" stroke-linecap="round"/><path d="M0 330 L90 262 L140 296 L210 240 L300 318 L300 330 Z" fill="#334155"/></svg>
+        <div><h3>Optical camera</h3><p>Blocked by cloud and night</p></div></div>
+      <div class="glass rad row"><svg viewBox="0 0 300 330" aria-hidden="true"><rect x="118" y="10" width="64" height="40" rx="8" fill="#cbd5e1"/><rect x="60" y="22" width="52" height="16" fill="#64748b"/><rect x="188" y="22" width="52" height="16" fill="#64748b"/><g fill="#55657d"><circle cx="105" cy="170" r="42"/><circle cx="160" cy="152" r="54"/><circle cx="215" cy="175" r="40"/><rect x="70" y="170" width="180" height="44" rx="22"/></g><path d="M150 60 Q128 110 150 150 T150 250" fill="none" stroke="#22d3ee" stroke-width="7"/><path d="M124 236 L150 262 L176 236" fill="none" stroke="#22d3ee" stroke-width="7" stroke-linecap="round"/><path d="M0 330 L90 262 L140 296 L210 240 L300 318 L300 330 Z" fill="#334155"/></svg>
+        <div><h3>NISAR L-band radar · 24 cm</h3><p>Day, night, any weather</p></div></div>
     </div>
   </div>
 </section>
 
 <!-- 3 -->
-<section class="slide" data-cam="overview2" data-mk="places" data-note="We read only small windows of NISAR files from ASF, compare every pair of passes, and test each change against all other dates.">
-  <div class="left">
-    <h2>Open radar data → a change map, in three steps.</h2>
+<section class="slide" data-cam="overview2" data-mk="places" data-note="We read small windows of NASA-ISRO NISAR files from the ASF archive, compare every pair of passes, and flag a change only if it stands out against all other dates.">
+  <div class="left" style="width:min(720px,100%)">
+    <h2>How it works: open radar data to a yellow alarm.</h2>
     <div class="glass">
       <ol class="steps">
-        <li><b>1</b><span>NISAR data</span><small>ASF archive, read in small windows</small></li>
-        <li><b>2</b><span>Coherence + brightness</span><small>every pair of passes, 12 days apart</small></li>
-        <li><b>3</b><span>Change map</span><small>tested against all other dates</small></li>
+        <li><b>1</b><span>NISAR data, NASA-ISRO</span><small>ASF archive · GCOV brightness + GUNW coherence, 20 m</small></li>
+        <li><b>2</b><span>Compare every pair of passes</span><small>did the ground still match itself 12 days later?</small></li>
+        <li><b>3</b><span>Test against all other dates</span><small>yellow alarm: ≥ 50 ha and 2× the area average</small></li>
+        <li><b>4</b><span>Cross-check</span><small>ESA Sentinel-2 and NASA HLS optical images, news, Red Cross</small></li>
       </ol>
       <p class="legend"><span><i style="background:var(--cyan)"></i>change seen</span><span><i style="background:var(--amber)"></i>no change seen</span></p>
     </div>
@@ -189,7 +222,7 @@ body.shownotes .notes { display: block; }
 </section>
 
 <!-- 4 -->
-<section class="slide" data-cam="ayni" data-mk="ayni" data-layers="ayni" data-note="Coherence fell from 0.89 to 0.44 only across the event and recovered after; the reference area did not fall. Change is concentrated at the villages.">
+<section class="slide" data-cam="ayni" data-mk="ayni" data-layers="ayni" data-note="At Ayni coherence fell from 0.89 to 0.44 only across the event and recovered. A blind test on a second mudflow, with the rule written first, found it on one of three orbits.">
   <div class="right">
     <h2>Ayni mudflow, 11 July 2026:<br>radar saw it.</h2>
     <div class="glass">
@@ -197,7 +230,9 @@ body.shownotes .notes { display: block; }
       <p class="sub">vs <b>0–26 ha</b> in the other 7 image pairs</p>
       <p class="fact">88% of the drop sits inside a 2.5 km circle around the villages, only 31% of the window.</p>
     </div>
-    <div class="glass" style="padding:16px 18px"><svg class="chart" id="chart" viewBox="0 0 620 300" role="img" aria-label="Coherence of the change zone and of the reference area for every image pair"></svg></div>
+    <div class="glass" style="padding:12px 16px"><svg class="chart" id="chart" viewBox="0 0 620 300" role="img" aria-label="Coherence of the change zone and of the reference area for every image pair"></svg></div>
+    <div class="glass blind"><p class="t">Blind test · Panjakent, same storm</p>
+      <p>Rule written <b>before</b> looking at the data. Detected on <b>1 of 3 orbits</b> (111 ha); the other two see those slopes from behind.</p></div>
   </div>
   <p class="tag">3D view · <b class="am">yellow</b> = change zone found by radar, pair 9 → 21 July</p>
 </section>
@@ -223,7 +258,7 @@ body.shownotes .notes { display: block; }
 </section>
 
 <!-- 6 -->
-<section class="slide" data-cam="sarez" data-mk="sarez" data-layers="rushan" data-note="Trust slide: Sarez showed no change, Rushan was missed, and Ayni has only one pre-event pair. We show all of it.">
+<section class="slide" data-cam="sarez" data-mk="sarez" data-layers="rushan" data-note="Trust slide: Sarez showed no change, Rushan was missed and we measured why, and every village gets a map of what the radar can and cannot see.">
   <div class="bottom">
     <h2>We also report what we did NOT see.</h2>
     <div class="three">
@@ -231,26 +266,30 @@ body.shownotes .notes { display: block; }
         <p>Coherence <b>0.69–0.82</b> on the dam vs <b>0.62–0.72</b> around it. Not a safety rating.</p><button class="go" data-fly="sarez">Fly to the dam ↗</button></div>
       <div class="glass"><p class="t">Not detected</p><h3>Rushan mudflow · 20 July</h3>
         <p><b>≤ 0.8 ha</b> on two orbits. Narrow channel (30–40 m) through orchards, where coherence is low on every date.</p><button class="go" data-fly="rushan">Fly to Rushan ↗</button></div>
-      <div class="glass grey"><p class="t">Limit</p><h3>One “before” pair at Ayni</h3>
-        <p>Only one image pair exists before the event, so the pre-event baseline rests on a single pair.</p></div>
+      <div class="glass grey"><p class="t">Where radar is blind</p><h3>Mapped for every village</h3>
+        <p>From one orbit only <b>37–73%</b> of each 2.5 km circle can be watched. Only one “before” pair exists at Ayni.</p></div>
     </div>
     <p class="strength">Every negative result is on the live site, with its data. Knowing where radar is blind is part of the answer.</p>
   </div>
 </section>
 
 <!-- 7 -->
-<section class="slide" data-cam="end" data-mk="places" data-note="Scan the code to try the live map. Data and code are open; AI helped with code and text, every number is reproducible.">
-  <div class="left" style="width:min(820px,100%)">
-    <h2>Open NISAR data can watch Tajikistan through cloud, and say where it is blind.</h2>
-    <div class="glass end">
-      <img src="qr.png" alt="QR code to the live site">
-      <div>
-        <p class="url"><a href="https://wify777.github.io/nisar-tajikistan/">wify777.github.io/nisar-tajikistan</a></p>
-        <p class="repo">Code: <a href="https://github.com/wify777/nisar-tajikistan">github.com/wify777/nisar-tajikistan</a></p>
-        <p class="open">Open data, open code (MIT).</p>
-        <p class="team" id="team7"></p>
-        <p class="ai" id="ai"></p>
-      </div>
+<section class="slide" data-cam="end" data-note="Open the site: pick a place, compare before and after, tap any spot to run the alarm test. Next: every new NISAR pass, more villages, Tajik and Russian for local responders.">
+  <div class="prod">
+    <div class="shot"><img src="site_ayni.jpg" alt="The NISAR Tajikistan web app: a 3D map of the Ayni valley with the radar change zone, five places, and four ways to view a change"></div>
+    <div class="glass try">
+      <p class="kicker" style="margin-bottom:10px">Try it · free, no sign-up, works on a phone</p>
+      <h2 style="font-size:clamp(24px,2.3vw,36px)">A map a rescue service can open after every NISAR pass.</h2>
+      <ul class="feat">
+        <li><b>4 views</b> of each change: what changed, before / after, swipe, timeline</li>
+        <li><b>Tap any spot</b>: the alarm test runs there in the browser</li>
+        <li><b>Alarm board</b>: green log · yellow check same day · red send someone</li>
+        <li><b>Next</b>: every new pass, more villages, Tajik and Russian</li>
+      </ul>
+      <div class="qrrow"><img src="qr.png" alt="QR code to the live site">
+        <div><p class="url"><a href="https://wify777.github.io/nisar-tajikistan/">wify777.github.io/nisar-tajikistan</a></p>
+          <p class="repo">Open code (MIT): <a href="https://github.com/wify777/nisar-tajikistan">github.com/wify777/nisar-tajikistan</a></p>
+          <p class="team" id="team7"></p><p class="ai" id="ai"></p></div></div>
     </div>
   </div>
 </section>
@@ -284,16 +323,16 @@ body.shownotes .notes { display: block; }
   };
   var SHADE = { overview: "linear-gradient(90deg, rgba(4,6,12,.92), rgba(4,6,12,.55) 40%, rgba(4,6,12,0) 65%)",
     overview2: "linear-gradient(90deg, rgba(4,6,12,.9), rgba(4,6,12,.5) 45%, rgba(4,6,12,0) 70%)",
-    pamir: "linear-gradient(90deg, rgba(4,6,12,.85), rgba(4,6,12,.55))",
+    pamir: "linear-gradient(90deg, rgba(4,6,12,.9), rgba(4,6,12,.6) 60%, rgba(4,6,12,.3))",
     ayni: "linear-gradient(270deg, rgba(4,6,12,.88), rgba(4,6,12,.4) 45%, rgba(4,6,12,0) 65%)",
     rogun: "linear-gradient(0deg, rgba(4,6,12,.92), rgba(4,6,12,.4) 45%, rgba(4,6,12,0) 65%)",
     sarez: "linear-gradient(0deg, rgba(4,6,12,.92), rgba(4,6,12,.4) 50%, rgba(4,6,12,0) 70%)",
-    end: "linear-gradient(90deg, rgba(4,6,12,.95), rgba(4,6,12,.7) 55%, rgba(4,6,12,.35))" };
+    end: "linear-gradient(90deg, rgba(4,6,12,.9), rgba(4,6,12,.82))" };
   if (NARROW) Object.keys(SHADE).forEach(function (k) { SHADE[k] = "linear-gradient(0deg, rgba(4,6,12,.94), rgba(4,6,12,.5) 55%, rgba(4,6,12,.1))"; });
 
   var slides = [].slice.call(document.querySelectorAll(".slide")), cur = -1;
   document.getElementById("team1").innerHTML = TEAM.name + "<span>" + TEAM.members + "</span>";
-  document.getElementById("team7").innerHTML = TEAM.name + "<span>" + TEAM.members + "</span>";
+  document.getElementById("team7").innerHTML = "Team " + TEAM.name + "<span>" + TEAM.members + "</span>";
   document.getElementById("ai").textContent = TEAM.ai;
 
   var DEM = "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png";

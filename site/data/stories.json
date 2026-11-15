@@ -88,6 +88,17 @@
       ]
      },
      {
+      "check": true,
+      "h": "Why does the first pair of the summer fire? (tested, not solved)",
+      "p": "Six of the nine background yellow alarms and all four tests above 126 ha come from the first pair of the summer (27 June to 9 July on track 012A, 20 June to 2 July at Rushan). We tested three local explanations on the 760 ha flagged in those circles, against the unflagged land of the same circles, with Sentinel-2 images from one orbit and NISAR brightness. Reservoir filling: 0.5% of the flagged land became water, against 1.0% of the rest, so no. Wheat harvest or hay cutting: 6% of the flagged land lost greenness, against 8% of the rest, so no. Bare soil drying out (no vegetation, radar brightness down by more than 1 dB): 9% against 4.5%, twice as common but far too little to explain the alarms. The cause is still unknown, so a warning service should treat alarms in the first pair of a season with extra care.",
+      "src": [
+       [
+        "First-pair test (our code)",
+        "https://github.com/wify777/nisar-tajikistan/blob/main/scripts/first_pair_alarms.py"
+       ]
+      ]
+     },
+     {
       "h": "How sure are we",
       "p": "Moderate to high for 'the surface above the villages changed between 9 and 21 July'. We cannot separate erosion from deposition precisely, and on optical images the change is faint, although it lines up with the radar zone. NISAR data used here are provisional.",
       "conf": true
@@ -158,6 +169,17 @@
        [
         "False alarm test (our code)",
         "https://github.com/wify777/nisar-tajikistan/blob/main/scripts/false_alarm_rate.py"
+       ]
+      ]
+     },
+     {
+      "check": true,
+      "h": "Почему срабатывает первая пара лета? (проверено, не решено)",
+      "p": "Шесть из девяти фоновых жёлтых сигналов и все четыре теста выше 126 га приходятся на первую пару лета (27 июня – 9 июля на орбите 012A, 20 июня – 2 июля в Рушане). Мы проверили три местных объяснения на 760 га с флагом в этих кругах, сравнивая с землёй без флага в тех же кругах, по снимкам Sentinel-2 с одной орбиты и яркости NISAR. Заполнение водохранилища: водой стало 0.5% земли с флагом против 1.0% остальной, значит нет. Уборка пшеницы или покос: зелень потеряли 6% земли с флагом против 8% остальной, значит нет. Высыхание голой почвы (растительности нет, яркость радара упала больше чем на 1 дБ): 9% против 4.5%, вдвое чаще, но слишком мало, чтобы объяснить сигналы. Причина пока неизвестна, поэтому службе предупреждения стоит относиться к сигналам в первой паре сезона с особой осторожностью.",
+      "src": [
+       [
+        "First-pair test (our code)",
+        "https://github.com/wify777/nisar-tajikistan/blob/main/scripts/first_pair_alarms.py"
        ]
       ]
      },
